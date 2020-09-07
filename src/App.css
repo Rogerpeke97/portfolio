@@ -1,38 +1,670 @@
+
 .App {
-  text-align: center;
+    text-align: center;
+    display: grid;
+    z-index: 1;
+    position: relative;
+    top: 0;
+    overflow-x: hidden;
+    max-height: 100vh;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.navwrapper {
+    display: grid;
+    grid-template-columns: 25% 50% 25%;
+    position: fixed;
+    top: 0;
+    min-width: 100%;
+    color: white;
+    height: 4rem;
+    z-index: 2;
+    background-color: rgb(13, 15, 32);
+    justify-content: center;
+    text-align: center;
+    box-shadow: 0 0 19px 0 grey;
+}
+.buttonwrapper{
+    display: grid;
+    grid-template-columns: 50% 50%;
+    justify-items: center;
+}
+.buttonwrapper>button{
+    font-family: 'Open Sans', sans-serif;
+    background-color: #6e7a90;
+    width: 50%;
+    border: 0;
+    padding: 0;
+    color: white;
+    border-radius: 12px;
+    cursor: pointer;
+    text-shadow: 2px 2px 2px black;
+    box-shadow: 0 0 43px -4px rgba(0,0,0,0.75);
+    transition: all .5s ease-out;
+}
+.buttonwrapper>button:hover{
+    background-color: darkmagenta;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+#canvas {
+    display: grid;
+    min-height: 100vh;
+    min-width: 100vw;
+    overflow: hidden;
+    max-height: 2160px;
+    max-width: 3840px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+/* CONTAINER ON TOP OF CANVAS*/
+
+.contain {
+    display: grid;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    max-height: 2160px;
+    max-width: 3840px;
+    left: 0;
+    top: -100%;
+    transition: all .5s ease-out;
+}
+.grid1_name_img > img {
+    display: grid;
+    position: fixed;
+    left: 7.5%;
+    top: 7.5%;
+    max-height: 85%;
+    min-height: 85%;
+    max-width: 85%;
+    min-width: 85%;
+    box-shadow: 0 0 43px -4px rgba(0,0,0,0.75);
+}
+.grid1_name_img {
+    pointer-events: none;
+    /* ALLOWS THE ONMOUSEMOVE EVENT TO PASS THROUGH AND REGISTER THE CANVAS*/
+    position: fixed;
+    max-height: 60%;
+    min-height: 60%;
+    transform: rotate3d(1, -2, 0, 35deg);
+    animation: popUp 2s normal forwards ease-in-out;
+    max-width: 50%;
+    min-width: 50%;
+    display: grid;
+    left: 0;
+    top: 10%;
+    z-index: 0;
+    transition: all .1s ease-out;
+}
+.grid1_intro {
+    display: grid;
+    pointer-events: none;
+    font-family: 'Open Sans', sans-serif;
+    position: fixed;
+    animation: popUp 2s normal forwards ease-in-out;
+    color: white;
+    top: 20%;
+    min-width: 50%;
+    max-width: 50%;
+    left: 40%;
+    max-height: 70%;
+    min-height: 70%;
+    transform: rotate3d(1, -2, 0, 35deg);
+    z-index: 3;
+    text-shadow: 2px 2px 2px black;
+    transition: all .1s ease-out;
+}
+.grid1_intro > h4 {
+    display: grid;
+    margin: 0;
+}
+.grid1_intro > button {
+    width: 50%;
+    pointer-events: all;
+    position: relative;
+    left: 25%;
+    font-family: 'Open Sans', sans-serif;
+    color: white;
+    border: 0;
+    cursor: pointer;
+    display: grid;
+    font-size: 1.3rem;
+    text-shadow: 2px 2px 2px black;
+    border-radius: 8px;
+    align-items: center;
+    background-color: orangered;
+    box-shadow: 0 0 43px -4px rgba(0,0,0,0.75);
+    transition: background-color 0.5s ease-out;
+}
+.grid1_intro > button:hover {
+    background-color: rgb(255, 146, 5);
 }
 
-.App-link {
-  color: #61dafb;
+
+.scrolldown{
+    display: grid;
+    position: fixed;
+    color: white;
+    justify-items: center;
+    align-items: center;
+    left: 90%;
+    width: 7rem;
+    height: 7rem;
+    font-size: 0.8rem;
+    opacity: 0.8;
+    top: 10%;
+    animation: popUpScroll 1s normal forwards ease-out;
+    background-color: grey;
+    border : 5px solid #fff;
+    border-radius : 50%;
+    box-shadow : 0 0 25px red , 0 0 25px whitesmoke;
+    transition: all .3s ease-out;
+}
+.scrolldown>h3{
+    margin: 0;
+    cursor: default;
+    font-size: 0.8rem;
+    text-shadow: -1px 0px 5px rgb(255, 255, 255);
+    width: 50%;
 }
 
-@keyframes App-logo-spin {
+.transparentOverlay {
+    display: grid;
+    pointer-events: none;
+    transform: rotate3d(1, -2, 0, 35deg);
+    animation: popUp 2s normal forwards ease-in-out;
+    position: fixed;
+    min-width: 50%;
+    max-width: 50%;
+    max-height: 60%;
+    min-height: 60%;
+    left: 0;
+    transition: all .1s ease-out;
+    top: 10%;
+    z-index: -1;
+    background-color: grey;
+    opacity: 0.5;
+    box-shadow: 0 0 34px 18px grey;
+}
+.transparentOverlay2 {
+    display: grid;
+    transition: all .1s ease-out;
+    position: fixed;
+    pointer-events: none;
+    transform: rotate3d(1, -2, 0, 35deg);
+    animation: popUp 2s normal forwards ease-in-out;
+    min-width: 50%;
+    max-width: 50%;
+    max-height: 70%;
+    min-height: 70%;
+    left: 40%;
+    z-index: 1;
+    top: 20%;
+    background-color: grey;
+    opacity: 0.5;
+    box-shadow: 0 0 34px 18px grey;
+}
+
+.links {
+    display: grid;
+    max-height: 250px;
+    min-height: 100px;
+    grid-template-columns: 16.6666666667% 16.6666666667% 16.6666666667% 16.6666666667% 16.6666666667% 16.6666666667%;
+}
+
+.img_container {
+    display: grid;
+    max-height: 70%;
+    max-width: 70%;
+}
+
+.img_container > img {
+    display: grid;
+    max-height: 100%;
+    max-width: 100%;
+}
+
+/* ANIMATION FOR THE GRID 1 */
+@keyframes popUp {
   from {
-    transform: rotate(0deg);
+    opacity: 0;
+    transform: scale(0, 0);
+  }
+  50% {
+      opacity: 1;
+      transform: scale(1.1, 1.1);
   }
   to {
-    transform: rotate(360deg);
+      transform: scale(1, 1);
+      transform: rotate3d(1, -5, 0, 35deg);
   }
+}
+
+/*POPUP FOR SCROLLDOWN*/
+@keyframes popUpScroll {
+    from {
+      transform: scale(0, 0);
+    }
+    to {
+        transform: scale(1, 1);
+    }
+  }
+
+/* REMOVING DIVS FROM THE SCENE */
+
+@keyframes nextDiv {
+  from {
+      opacity: 0.6;
+      transform: scale(1, 1);
+      transform: rotate3d(1, -5, 0, 35deg);
+  }
+  25% {
+      opacity: 0.6;
+      transform: scale(1.1, 1.1);
+  }
+  50%{
+    opacity: 1;
+    left: 0%;
+    transform: scale(1, 1);
+  }
+  to {
+      left: -150%;
+  }
+}
+
+
+/* GRID 2 */
+
+.grid2{
+    display: none;
+    position: fixed;
+    background-color: rgb(54, 30, 1);
+    box-shadow: 0px 0px 25px 1px darkred;
+    left: 15%;
+    top: 4rem;
+    pointer-events: none;
+    opacity: 0.95;
+    min-width: 70%;
+    max-width: 70%;
+    min-height: 95%;
+    max-height: 95%;
+    transition: all .2s ease-out;
+    grid-template-rows: 33.33% 33.33% 33.33%;
+}
+
+.grid2_project{
+    display: grid;
+    grid-template-columns: 40% 60%;
+    color: white;
+    font-size: .8rem;
+    text-align: justify;
+    border-bottom: 2px solid white;
+    transition: all .2s ease-out;
+}
+
+.grid2_project:hover{
+    background-color: rgb(80, 45, 2);;
+}
+
+.textAndGit{
+    display: grid;
+    grid-template-rows: 70% 30%;
+    align-items: center;
+    margin: 2%;
+}
+
+.textAndGit>h4{
+    margin: 0;
+    cursor: default;
+}
+
+.project_img>img{
+    display: grid;
+    min-width: 130px;
+    min-height: 260px;
+    max-width: 100%;
+    max-height: 100%;
+    box-shadow : 4px 0 5px grey;
+}
+
+
+.project_wrapper_links>a{
+    display: grid;
+    justify-items: center;
+    text-decoration: none;
+    color: white;
+    align-items: center;
+    pointer-events: auto;
+    font-size: 2rem;
+    cursor: pointer;
+    transition: all .5s ease-out;
+}
+.project_wrapper_links>a:hover{
+    color: darkmagenta;
+}
+.project_wrapper_links>a>i{
+    text-shadow : 0 0 3px whitesmoke;
+}
+
+.project_wrapper_links>button{
+    border: 0;
+    border-radius: 10px;
+    background-color: transparent;
+    padding: 0;
+    height: 50%;
+    width: 50%;
+}
+.project_wrapper_links>button>a{
+    display: grid;
+    text-decoration: none;
+    align-items: center;
+    border: 0;
+    border-radius: 10px;
+    box-shadow : 0 0 5px whitesmoke;
+    padding: 0;
+    background-color: white;
+    pointer-events: auto;
+    color: black;
+    font-family: 'Open Sans', sans-serif;
+    height: 100%;
+    width: 100%;
+    transition: all .5s ease-out;
+    cursor: pointer;
+}
+.project_wrapper_links>button>a:hover{
+    background-color: darkmagenta;
+    color: white;
+}
+
+
+.project_wrapper_links{
+    display: grid;
+    grid-template-columns: 50% 50%;
+    min-height: 100%;
+    justify-items: center;
+    align-items: center;
+}
+
+
+@keyframes popGrid2 {
+    from {
+      transform: scale(0, 0);
+      opacity: 0;
+    }
+    50% {
+        transform: scale(1.1, 1.1);
+        opacity: 0.5;
+    }
+    to {
+        transform: scale(1, 1);
+        opacity: 0.95;
+    }
+  }
+  @keyframes popTic {
+    from {
+      transform: scale(0, 0);
+      opacity: 0;
+    }
+    50% {
+        transform: scale(1.1, 1.1);
+        opacity: 0.5;
+    }
+    to {
+        transform: scale(1, 1);
+        opacity: 1;
+    }
+  }
+  
+@keyframes popGrid2reverse {
+    from{
+        transform: scale(1, 1);
+        opacity: 0.95;
+    }
+    50% {
+        transform: scale(1.1, 1.1);
+        opacity: 0.5;
+    }
+    to {
+        transform: scale(0, 0);
+        opacity: 0;
+      }
+  }
+
+  @keyframes heartlikeAnim {
+    from {
+      transform: scale(1, 1);
+    }
+    25% {
+        transform: scale(1.1, 1.1);
+    }
+    50% {
+        transform: scale(0.8, 0.8);
+    }
+    75% {
+        transform: scale(1.1, 1.1);
+    }
+    to {
+        transform: scale(1, 1);
+    }
+  }
+
+/* TIC TAC TOE */
+
+.TicTacToe{
+    display: none;
+    position: fixed;
+    top: 10%;
+    animation: popTic 1s normal forwards ease-out;
+    pointer-events: all;
+    left: 10%;
+    min-height: 80%;
+    max-height: 80%;
+    min-width: 80%;
+    max-width: 80%;
+    z-index: 2;
+    grid-template-rows: 2% 23% 75%;
+    font-size: calc(10px + 2vmin);
+    background-color: #282c34;
+    box-shadow: 0 0 43px -4px rgba(0,0,0,0.75);
+    color: white;
+}
+.TicTacToe>i{
+    display: grid;
+    width: 3%;
+    max-height: 25px;
+    left: 97%;
+    position: relative;
+    color: gray;
+    transition: all .5s ease-out;
+    cursor: pointer;
+}
+.TicTacToe>i:hover{
+    color: white;
+}
+.TicTacToe2{
+    display: grid;
+    position: relative;
+    align-items: center;
+    left: 37.5%;
+    max-width: 25%;
+    min-width: 25%;
+    max-height: 300px;
+}
+.TicTacToe2>.logodiv{
+    display: grid;
+    max-height: 100%;
+}
+.scores{
+    display: grid;
+    grid-template-rows: 10% 20% 70%;
+  }
+  .title{
+    display: grid;
+  }
+  .title>h3{
+      cursor: default;
+    margin: 0;
+  }
+  
+  .container{
+    display: grid;
+    width: 100%;
+    grid-template-columns: 25% 50% 25%;
+    justify-items: center;
+    align-items: center;
+  }
+  
+  .columncontainer{
+      display: grid;
+      position: relative;
+      grid-template-rows: 33.3333333333% 33.3333333333% 33.3333333333%;
+      box-shadow: 0px 10px 37px 0px rgba(0,0,0,0.75);
+      height: 300px;
+      width: 300px;
+  }
+  .tictactoe{
+    display: grid;
+    margin: 0;
+    grid-template-columns: 33.3333333333% 33.3333333333% 33.3333333333%;
+  }
+  .column{
+    background-color: #9fa9bd;
+    display: grid;
+    margin: 3%;
+    color: white;
+    text-shadow: 2px 2px 2px rgba(150, 150, 150, 1);
+    align-items: center;
+    transition: background-color .5s ease-out;
+    cursor: pointer;
+  }
+  
+  .column:hover{
+    background-color: #7f8797;
+  }
+  .container>button{
+      display: grid;
+      align-items: center;
+      border: 0;
+      border-radius: 12px;
+      width: 80%;
+      right: 10%;
+      height: 60px;
+      color: white;
+      font-family: 'Open Sans', sans-serif;
+      background-color: #6e7a90;
+      transition: all .5s ease-out;
+      text-shadow: 2px 2px 2px black;
+      box-shadow: 0 0 43px -4px rgba(0,0,0,0.75);
+      padding: 0;
+      cursor: pointer;
+    }
+  .container>button:hover{
+      background-color: darkmagenta;
+  }
+  
+/* MAKING IT MOBILE FRIENDLY */
+@media screen and (max-width: 1600px){
+    .navwrapper{
+        font-size: 0.9rem;
+    }
+    .buttonwrapper>button{
+        font-size: 0.7rem;
+    }
+    .grid1_intro{
+        max-height: 50%;
+        min-height: 50%;
+        min-width: 70%;
+        max-width: 70%;
+        font-size: 0.7rem;
+        top: 45%;
+        left: 30%;
+    }
+    .grid1_intro>button{
+        font-size: 0.9rem;
+    }
+    .grid1_name_img{
+        max-height: 50%;
+        min-height: 50%;
+        min-width: 70%;
+        max-width: 70%;
+    }
+    .transparentOverlay{
+        max-height: 50%;
+        min-height: 50%;
+        min-width: 70%;
+        max-width: 70%;
+    }
+    .transparentOverlay2{
+        max-height: 50%;
+        min-height: 50%;
+        min-width: 70%;
+        max-width: 70%;
+        top: 45%;
+        left: 30%;
+    }
+}
+@media screen and (max-width: 900px){
+    .grid1_intro{
+        max-height: 40%;
+        min-height: 40%;
+        min-width: 80%;
+        max-width: 80%;
+        top: 55%;
+        left: 20%;
+    }
+    .grid1_name_img{
+        max-height: 40%;
+        min-height: 40%;
+        min-width: 80%;
+        max-width: 80%;
+    }
+    .transparentOverlay{
+        max-height: 40%;
+        min-height: 40%;
+        min-width: 80%;
+        max-width: 80%;
+    }
+    .transparentOverlay2{
+        max-height: 40%;
+        min-height: 40%;
+        min-width: 80%;
+        max-width: 80%;
+        top: 55%;
+        left: 20%;
+    }
+}
+@media screen and (max-width: 600px){
+    .navwrapper{
+        font-size: 0.7rem;
+    }
+    .buttonwrapper>button{
+        font-size: 0.5rem;
+    }
+    .grid1_intro{
+        max-height: 40%;
+        min-height: 40%;
+        min-width: 95%;
+        max-width: 95%;
+        top: 55%;
+        left: 5%;
+    }
+    .grid1_name_img{
+        max-height: 40%;
+        min-height: 40%;
+        min-width: 95%;
+        max-width: 95%;
+    }
+    .transparentOverlay{
+        max-height: 40%;
+        min-height: 40%;
+        min-width: 95%;
+        max-width: 95%;
+    }
+    .transparentOverlay2{
+        max-height: 40%;
+        min-height: 40%;
+        min-width: 95%;
+        max-width: 95%;
+        top: 55%;
+        left: 5%;
+    }
 }
