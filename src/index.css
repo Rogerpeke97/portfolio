@@ -67,12 +67,10 @@ code {
 @keyframes loadingDone{
   from {
     opacity: 1;
-    transform: scale(1, 1);
     -webkit-transform: scale(1, 1);
   }
   to {
     opacity: 0;
-    transform: scale(1.2, 1.2);
     -webkit-transform: scale(1.2, 1.2);
   }
 }
