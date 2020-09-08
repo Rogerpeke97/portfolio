@@ -641,7 +641,7 @@
         height: 5rem;
     }
     .scrolldown>h3{
-        font-size: .6rem;
+        font-size: .5rem;
     }
     .grid1_intro{
         max-height: 40%;
@@ -677,19 +677,10 @@
         max-width: 100%;
         left: 0%;
     }
-    .grid2_project{
-        font-size: .3rem;
-    }
-    .project_wrapper_links>button{
-        font-size: .4rem;
-    }
-    .project_wrapper_links>a>i{
-        font-size: .6rem;
-    }
 }
-@media screen and (max-width: 600px){
+@media screen and (max-device-width: 600px){
     .scrolldown{
-        left: 77%;
+        left: 80%;
         width: 3rem;
         height: 3rem;
     }
