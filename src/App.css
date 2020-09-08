@@ -334,8 +334,8 @@
 
 .project_img>img{
     display: grid;
-    min-width: 130px;
-    min-height: 260px;
+    min-width: 100%;
+    min-height: 100%;
     max-width: 100%;
     max-height: 100%;
     box-shadow : 4px 0 5px grey;
