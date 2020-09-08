@@ -690,32 +690,32 @@
         width: 70px;
     }
     .grid1_intro{
-        max-height: 40%;
-        min-height: 40%;
+        max-height: 30%;
+        min-height: 30%;
         min-width: 95%;
         max-width: 95%;
         top: 55%;
         left: 5%;
-        font-size: 0.4rem;
+        font-size: 0.3rem;
     }
     .grid1_intro>button{
         font-size: 0.5rem;
     }
     .grid1_name_img{
-        max-height: 40%;
-        min-height: 40%;
+        max-height: 30%;
+        min-height: 30%;
         min-width: 95%;
         max-width: 95%;
     }
     .transparentOverlay{
-        max-height: 40%;
-        min-height: 40%;
+        max-height: 30%;
+        min-height: 30%;
         min-width: 95%;
         max-width: 95%;
     }
     .transparentOverlay2{
-        max-height: 40%;
-        min-height: 40%;
+        max-height: 30%;
+        min-height: 30%;
         min-width: 95%;
         max-width: 95%;
         top: 55%;
@@ -729,13 +729,13 @@
         min-height: 92%;
     }
     .grid2_project{
-        font-size: .4rem;
+        font-size: .3rem;
     }
     .project_wrapper_links>button{
-        font-size: .5rem;
+        font-size: .4rem;
     }
     .project_wrapper_links>a>i{
-        font-size: .7rem;
+        font-size: .6rem;
     }
 
     .TicTacToe{
