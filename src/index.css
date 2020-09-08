@@ -42,6 +42,7 @@ code {
   cursor: default;
   display: grid;
   animation: loading 1s normal forwards 5 ease-in-out;
+  -webkit-animation: loading 1s normal forwards 5 ease-in-out;
   text-align: center;
   margin: 0;
   color: white;
@@ -67,10 +68,10 @@ code {
 @keyframes loadingDone{
   from {
     opacity: 1;
-    -webkit-transform: scale(1, 1);
+    transform: scale(1, 1);
   }
   to {
     opacity: 0;
-    -webkit-transform: scale(1.2, 1.2);
+    transform: scale(1, 1);
   }
 }
