@@ -691,6 +691,7 @@
     }
     .buttonwrapper>button{
         font-size: 0.5rem;
+        width: 70px;
     }
     .navwrapper>button{
         font-size: 0.5rem;
