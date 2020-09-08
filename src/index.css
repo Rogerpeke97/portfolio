@@ -29,6 +29,7 @@ code {
   /*animation: loading 1s normal forwards ease-in-out;*/
   z-index: 2;
   transition: all .5s ease-out;
+  -webkit-transition: all .5s ease-out;
 }
 
 .LOADINGCONTAINER{
@@ -40,27 +41,30 @@ code {
 
 .LOADINGCONTAINER>span{
   cursor: default;
-  display: grid;
+  display: block;
   animation: loading 1s normal forwards 5 ease-in-out;
   -webkit-animation: loading 1s normal forwards 5 ease-in-out;
   text-align: center;
   margin: 0;
   color: white;
-  transition: all .1s ease-out;
+  text-shadow: -1px 0px 9px rgb(255, 255, 255);
+
+  transition: all 1s ease-out;
+  -webkit-transition: all 1s ease-out;
 }
 
 @keyframes loading{
   from {
     transform: scale(1, 1);
-    text-shadow: -1px 0px 9px rgb(255, 255, 255);
+    -webkit-transform: scale(1, 1);
   }
   50% {
       transform: scale(1.1, 1.1);
-      text-shadow: -1px 0px 13px rgb(255, 255, 255);
+      -webkit-transform: scale(1.1, 1.1);
   }
   to {
       transform: scale(1, 1);
-      text-shadow: -1px 0px 9px rgb(255, 255, 255);
+      -webkit-transform: scale(1, 1);
   }
 }
 
