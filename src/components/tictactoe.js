@@ -22,9 +22,7 @@ class Grid extends React.Component{
                 let htag = document.createElement('h3')
                 let winner = document.getElementById('won')
                 if (winner.childElementCount >= 1) {
-                    console.log(winner.childElementCount)
                 } else {
-                    console.log(winner.childElementCount)
                     htag.innerHTML = argument
                     return winner.appendChild(htag);
                 }
@@ -106,176 +104,144 @@ class Grid extends React.Component{
                 switch (true) {
                     case check_1: // if (x === 'value1')
                         if (node_length[8].textContent === "") {
-                            console.log("is this working?")
                             document.getElementsByClassName("column")
                             [8].appendChild(document.createTextNode("O"));
                             arry.push(8)
-                            console.log(arry)
                             return (true, check_winner(arry, "Player O won!"))
                         } else {
                             return false
                         }
                     case check_2: // if (x === 'value2')
                         if (node_length[6].textContent === "") {
-                            console.log("is this working?")
                             document.getElementsByClassName("column")
                             [6].appendChild(document.createTextNode("O"));
                             arry.push(6)
-                            console.log(arry)
                             return (true, check_winner(arry, "Player O won!"))
                         } else {
                             return false
                         }
                     case check_3: // if (x === 'value1')
                         if (node_length[2].textContent === "") {
-                            console.log("is this working?")
                             document.getElementsByClassName("column")
                             [2].appendChild(document.createTextNode("O"));
                             arry.push(2)
-                            console.log(arry)
                             return (true, check_winner(arry, "Player O won!"))
                         } else {
                             return false
                         }
                     case check_4: // if (x === 'value2
                         if (node_length[5].textContent === "") {
-                            console.log("is this working?")
                             document.getElementsByClassName("column")
                             [5].appendChild(document.createTextNode("O"));
                             arry.push(5)
-                            console.log(arry)
                             return (true, check_winner(arry, "Player O won!"))
                         } else {
                             return false
                         }
                     case check_5: // if (x === 'value1')
                         if (node_length[8].textContent === "") {
-                            console.log("is this working?")
                             document.getElementsByClassName("column")
                             [8].appendChild(document.createTextNode("O"));
                             arry.push(8)
-                            console.log(arry)
                             return (true, check_winner(arry, "Player O won!"))
                         } else {
                             return false
                         }
                     case check_6: // if (x === 'value2
                         if (node_length[6].textContent === "") {
-                            console.log("is this working?")
                             document.getElementsByClassName("column")
                             [6].appendChild(document.createTextNode("O"));
                             arry.push(6)
-                            console.log(arry)
                             return (true, check_winner(arry, "Player O won!"))
                         } else {
                             return false
                         }
                     case check_7: // if (x === 'value1')
                         if (node_length[7].textContent === "") {
-                            console.log("7")
                             document.getElementsByClassName("column")
                             [7].appendChild(document.createTextNode("O"));
                             arry.push(7)
-                            console.log(arry)
                             return (true, check_winner(arry, "Player O won!"))
                         } else {
                             return false
                         }
                     case check_8: // if (x === 'value2
                         if (node_length[8].textContent === "") {
-                            console.log("is this working?")
                             document.getElementsByClassName("column")
                             [8].appendChild(document.createTextNode("O"));
                             arry.push(8)
-                            console.log(arry)
                             return (true, check_winner(arry, "Player O won!"))
                         } else {
                             return false
                         }
                     case check_9: // if (x === 'value1')
                         if (node_length[0].textContent === "") {
-                            console.log("is this working?")
                             document.getElementsByClassName("column")
                             [0].appendChild(document.createTextNode("O"));
                             arry.push(0)
-                            console.log(arry)
                             return (true, check_winner(arry, "Player O won!"))
                         } else {
                             return false
                         }
                     case check_10: // if (x === 'value1')
                         if (node_length[7].textContent === "") {
-                            console.log("is this working?")
                             document.getElementsByClassName("column")
                             [7].appendChild(document.createTextNode("O"));
                             arry.push(7)
-                            console.log(arry)
                             return (true, check_winner(arry, "Player O won!"))
                         } else {
                             return false
                         }
                     case check_11: // if (x === 'value1')
                         if (node_length[0].textContent === "") {
-                            console.log("is this working?")
                             document.getElementsByClassName("column")
                             [0].appendChild(document.createTextNode("O"));
                             arry.push(0)
-                            console.log(arry)
                             return (true, check_winner(arry, "Player O won!"))
                         } else {
                             return false
                         }
                     case check_12: // if (x === 'value1')
                         if (node_length[3].textContent === "") {
-                            console.log("is this working?")
                             document.getElementsByClassName("column")
                             [3].appendChild(document.createTextNode("O"));
                             arry.push(3)
-                            console.log(arry)
                             return (true, check_winner(arry, "Player O won!"))
                         } else {
                             return false
                         }
                     case check_13: // if (x === 'value1')
                         if (node_length[6].textContent === "") {
-                            console.log("is this working?")
                             document.getElementsByClassName("column")
                             [6].appendChild(document.createTextNode("O"));
                             arry.push(6)
-                            console.log(arry)
                             return (true, check_winner(arry, "Player O won!"))
                         } else {
                             return false
                         }
                     case check_14: // if (x === 'value1')
                         if (node_length[0].textContent === "") {
-                            console.log("is this working?")
                             document.getElementsByClassName("column")
                             [0].appendChild(document.createTextNode("O"));
                             arry.push(0)
-                            console.log(arry)
                             return (true, check_winner(arry, "Player O won!"))
                         } else {
                             return false
                         }
                     case check_15: // if (x === 'value1')
                         if (node_length[1].textContent === "") {
-                            console.log("is this working?")
                             document.getElementsByClassName("column")
                             [1].appendChild(document.createTextNode("O"));
                             arry.push(1)
-                            console.log(arry)
                             return (true, check_winner(arry, "Player O won!"))
                         } else {
                             return false
                         }
                     case check_16: // if (x === 'value1')
                         if (node_length[2].textContent === "") {
-                            console.log("is this working?")
                             document.getElementsByClassName("column")
                             [2].appendChild(document.createTextNode("O"));
                             arry.push(2)
-                            console.log(arry)
                             return (true, check_winner(arry, "Player O won!"))
                         } else {
                             return false
@@ -283,44 +249,36 @@ class Grid extends React.Component{
 
                     case check_17: // if (x === 'value1')
                         if (node_length[4].textContent === "") {
-                            console.log("is this working?")
                             document.getElementsByClassName("column")
                             [4].appendChild(document.createTextNode("O"));
                             arry.push(4)
-                            console.log(arry)
                             return (true, check_winner(arry, "Player O won!"))
                         } else {
                             return false
                         }
                     case check_18: // if (x === 'value1')
                         if (node_length[4].textContent === "") {
-                            console.log("is this working?")
                             document.getElementsByClassName("column")
                             [4].appendChild(document.createTextNode("O"));
                             arry.push(4)
-                            console.log(arry)
                             return (true, check_winner(arry, "Player O won!"))
                         } else {
                             return false
                         }
                     case check_19: // if (x === 'value1')
                         if (node_length[1].textContent === "") {
-                            console.log("is this working?")
                             document.getElementsByClassName("column")
                             [1].appendChild(document.createTextNode("O"));
                             arry.push(1)
-                            console.log(arry)
                             return (true, check_winner(arry, "Player O won!"))
                         } else {
                             return false
                         }
                     case check_20: // if (x === 'value1')
                         if (node_length[4].textContent === "") {
-                            console.log("is this working?")
                             document.getElementsByClassName("column")
                             [4].appendChild(document.createTextNode("O"));
                             arry.push(4)
-                            console.log(arry)
                             return (true, check_winner(arry, "Player O won!"))
                         } else {
                             return false
@@ -328,22 +286,18 @@ class Grid extends React.Component{
                         }
                     case check_21: // if (x === 'value1')
                         if (node_length[7].textContent === "") {
-                            console.log("is this working?")
                             document.getElementsByClassName("column")
                             [7].appendChild(document.createTextNode("O"));
                             arry.push(7)
-                            console.log(arry)
                             return (true, check_winner(arry, "Player O won!"))
                         } else {
                             return false
                         }
                     case check_22: // if (x === 'value1')
                         if (node_length[3].textContent === "") {
-                            console.log("is this working?")
                             document.getElementsByClassName("column")
                             [3].appendChild(document.createTextNode("O"));
                             arry.push(3)
-                            console.log(arry)
 
                             return (true, check_winner(arry, "Player O won!"))
                         } else {
@@ -351,11 +305,9 @@ class Grid extends React.Component{
                         }
                     case check_23: // if (x === 'value1')
                         if (node_length[4].textContent === "") {
-                            console.log("is this working?")
                             document.getElementsByClassName("column")
                             [4].appendChild(document.createTextNode("O"));
                             arry.push(4)
-                            console.log(arry)
 
                             return (true, check_winner(arry, "Player O won!"))
                         } else {
@@ -363,11 +315,9 @@ class Grid extends React.Component{
                         }
                     case check_24: // if (x === 'value1')
                         if (node_length[5].textContent === "") {
-                            console.log("is this working?")
                             document.getElementsByClassName("column")
                             [5].appendChild(document.createTextNode("O"));
                             arry.push(5)
-                            console.log(arry)
 
                             return (true, check_winner(arry, "Player O won!"))
                         } else {
@@ -419,7 +369,10 @@ class Grid extends React.Component{
                         return player_won(playerwon);
                     case check_8: // if (x === 'value2
                         return player_won(playerwon);
+                        default:
+                            return false
                     }
+                    
             }
             let array_x = [];
             let array_y = [];
@@ -441,7 +394,6 @@ class Grid extends React.Component{
                                 count++
                             }
                         }
-                        console.log(count)
                         if(count === 9){
                             return (
                                 check_winner(array_y, "Player O won!"), check_winner(array_x, "Player X won!"),
@@ -467,7 +419,6 @@ class Grid extends React.Component{
                         array_y.push(k);
                     }
                 }
-                console.log(array_x);
                 check_winner(array_y, "Player O won!");
                 check_winner(array_x, "Player X won!");
             }
@@ -484,15 +435,11 @@ class Grid extends React.Component{
                     }
                 }
                 if(player_2_move(array_x, array_y) === true){
-                    console.log("FIRST")
-                    console.log(array_y + "this is the test after")
                     check_winner(array_y, "Player O won!");
                     check_winner(array_x, "Player X won!");
-                    console.log(array_y + "this is the test after")
                     this.play(event);
                 }
                 else{ 
-                    console.log("SECOND")
                     this.play(event)
             }
             }

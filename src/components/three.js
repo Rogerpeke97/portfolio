@@ -177,8 +177,6 @@ function ThreeJsScene() {
         let mouseUp = event.deltaY;
         let m = document.getElementById('grid1_intro')
         let canvas = document.getElementById('canvas')
-        console.log(m.style.display)
-        console.log(mouseUp)
         function grid1Fade() {
             let grid1_intro = document.getElementById('grid1_intro');
             let overlay2 = document.getElementById('overlay2');
@@ -236,19 +234,15 @@ function ThreeJsScene() {
 
             grid1_intro.onanimationend = () => {
                 grid1_intro.style.display = 'grid'
-                grid1_intro.style.left = '40%'
             }
             overlay2.onanimationend = () => {
                 overlay2.style.display = 'grid'
-                overlay2.style.left = '40%'
             }
             grid1_name_img.onanimationend = () => {
                 grid1_name_img.style.display = 'grid'
-                grid1_name_img.style.left = '0'
             }
             overlay.onanimationend = () => {
                 overlay.style.display = 'grid'
-                overlay.style.left = '0'
                 canvas.style.pointerEvents = 'auto' // to allow mousewheel event get triggered
             }
         }
