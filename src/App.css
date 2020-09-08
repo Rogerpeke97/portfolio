@@ -486,6 +486,7 @@
     display: grid;
     width: 3%;
     max-height: 25px;
+    min-height: 25px;
     left: 97%;
     position: relative;
     color: gray;
@@ -675,6 +676,15 @@
         min-width: 100%;
         max-width: 100%;
         left: 0%;
+    }
+    .grid2_project{
+        font-size: .3rem;
+    }
+    .project_wrapper_links>button{
+        font-size: .4rem;
+    }
+    .project_wrapper_links>a>i{
+        font-size: .6rem;
     }
 }
 @media screen and (max-width: 600px){
