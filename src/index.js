@@ -50,6 +50,7 @@ document
     .getElementById('LOADING')
     .addEventListener('animationend', () => {
         bodyChild.style.animation = 'loadingDone 1s normal forwards ease-in-out'
+        bodyChild.style.webkitAnimation = 'loadingDone 1s normal forwards ease-in-out'
         setTimeout(() => {
             bodyChild.style.display = 'none'
             document
