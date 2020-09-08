@@ -681,6 +681,7 @@
 @media screen and (max-device-width: 600px){
     .scrolldown{
         left: 80%;
+        top: 15%;
         width: 3rem;
         height: 3rem;
     }
