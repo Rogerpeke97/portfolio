@@ -672,14 +672,16 @@
     }
 
     .grid2{
-        min-width: 85%;
-        max-width: 85%;
-        left: 7.5%;
+        min-width: 100%;
+        max-width: 100%;
+        left: 0%;
     }
 }
 @media screen and (max-width: 600px){
     .scrolldown{
         left: 77%;
+        width: 3rem;
+        height: 3rem;
     }
     .navwrapper{
         font-size: 0.6rem;
@@ -720,13 +722,6 @@
         max-width: 95%;
         top: 55%;
         left: 5%;
-    }
-    .grid2{
-        min-width: 100%;
-        max-width: 100%;
-        left: 0%;
-        max-height: 92%;
-        min-height: 92%;
     }
     .grid2_project{
         font-size: .3rem;
