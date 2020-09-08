@@ -23,22 +23,21 @@
     text-align: center;
     box-shadow: 0 0 19px 0 grey;
 }
-.navwrapper>button{
-    font-family: 'Open Sans', sans-serif;
-    background-color: rgb(70, 3, 70);
-    width: 100px;
-    border: 0;
-    padding: 0;
-    color: white;
-    border-radius: 15px;
-    cursor: pointer;
-    text-shadow: 2px 2px 2px black;
-    box-shadow : 0 0 25px red , 0 0 25px darkmagenta;
+.navwrapper>i{
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+}
+.navwrapper>i>svg{
+    filter: drop-shadow(0 0 3px whitesmoke);
     transition: all .5s ease-out;
+    cursor: pointer;
 }
-.navwrapper>button:hover{
-    background-color: darkmagenta;
+.navwrapper>i>svg:hover{
+    color: rgb(53, 1, 53);
 }
+
 .buttonwrapper{
     display: grid;
     grid-template-columns: 50% 50%;
@@ -592,9 +591,6 @@
     .buttonwrapper>button{
         font-size: 0.7rem;
     }
-    .navwrapper>button{
-        font-size: 0.7rem;
-    }
     .grid1_intro{
         max-height: 50%;
         min-height: 50%;
@@ -692,9 +688,6 @@
     .buttonwrapper>button{
         font-size: 0.5rem;
         width: 70px;
-    }
-    .navwrapper>button{
-        font-size: 0.5rem;
     }
     .grid1_intro{
         max-height: 40%;

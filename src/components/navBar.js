@@ -59,7 +59,7 @@ function NaviGation(){
                 <button onClick={()=>{BackgroundScene()}}>Space!</button>
                 <button onClick={()=>{ShowDivs()}}>Menu!</button>
             </div>
-            <button onClick={()=>{HomeFunction()}}>Home</button>
+            <i class="fi-xnsuxl-house-solid" onClick={()=>{HomeFunction()}}></i>
         </div>
     )
 }
