@@ -203,16 +203,12 @@ function ContainerGrids() {
                         <img src="portfolio.gif" alt="project1"></img>
                     </div>
                     <div className="textAndGit">
-                        <h4>This is my first project, it converts csv files and displays them in a
-                            canvas using chartjs. It has a lot of backend functionalities that allowed me to
-                            learn a lot about backend and frontend requests, remote storage using
-                            googlecloud api, file storage using multer and downloading files from
-                            googlecloud and turning them from buffers into readable data to display on the
-                            frontend. Also, deploying the website using the heroku cli and creating a
-                            database for the login user data. Setting up the remote database, hashing the
-                            password when you log in or sign up and storing cookies for the specific user
-                            session. My css skills as can be seen by this portfolio improved a lot since but
-                            it was a good and fun project to build.
+                        <h4>This portfolio project was made using: <br/>
+                            Three.js for the 3d modeling and the background scene.<br/>
+                            Tween.js for the camera animation and color switching of the particles and React.<br/>
+                            I learned a lot about 3d models, textures, cube mapping and adding these to the background scene.<br/>
+                            Three.js is amazing for beautiful frontend websites and i'm looking forward to implement it
+                            in my next project.
                         </h4>
                         <div className="project_wrapper_links">
                             <button>
