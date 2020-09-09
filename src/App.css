@@ -632,9 +632,10 @@
     }
     .project_img>img{
         min-height: 100%;
+        max-height: 100%;
     }
 }
-@media screen and (max-width: 900px){
+@media (max-height: 1080px) and (max-width: 900px){
     .scrolldown{
         left: 80%;
         width: 5rem;
@@ -678,7 +679,7 @@
         left: 0%;
     }
 }
-@media screen and (max-device-width: 600px){
+@media (max-height: 800px) and (max-width: 600px){
     .scrolldown{
         left: 80%;
         top: 15%;
@@ -755,5 +756,9 @@
         height: 40px;
         width: 60%;
         font-size: .5rem;
+    }
+    .grid2{
+        min-height: 90%;
+        max-height: 90%;
     }
 }
