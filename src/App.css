@@ -679,7 +679,7 @@
         left: 0%;
     }
 }
-@media (max-height: 800px) and (max-width: 600px){
+@media (max-height: 950px) and (max-width: 600px){
     .scrolldown{
         left: 80%;
         top: 15%;
