@@ -166,7 +166,7 @@ function ContainerGrids() {
                 </div>
                 <div className="grid2_project" id="grid2_project2">
                     <div className="project_img">
-                        <img src="project1.gif" alt="project1"></img>
+                        <img src="tictactoe.gif" alt="project1"></img>
                     </div>
                     <div className="textAndGit">
                         <h4>This is my second project which i included as a react component in this
@@ -200,7 +200,7 @@ function ContainerGrids() {
                 </div>
                 <div className="grid2_project" id="grid2_project3">
                     <div className="project_img">
-                        <img src="project1.gif" alt="project1"></img>
+                        <img src="portfolio.gif" alt="project1"></img>
                     </div>
                     <div className="textAndGit">
                         <h4>This is my first project, it converts csv files and displays them in a
@@ -217,14 +217,14 @@ function ContainerGrids() {
                         <div className="project_wrapper_links">
                             <button>
                                 <a
-                                    href="https://csv-convrt.herokuapp.com"
+                                    href="https://rogerpeke97.github.io/portfolio/"
                                     rel="noopener noreferrer"
                                     target="_blank">
                                     Visit Site
                                 </a>
                             </button>
                             <a
-                                href="https://github.com/Rogerpeke97/Csv-converter-server-config"
+                                href="https://github.com/Rogerpeke97/portfolio"
                                 rel="noopener noreferrer"
                                 target="_blank">
                                 <i class="fi-xnsuxl-github"></i>
