@@ -300,7 +300,7 @@
     opacity: 0.95;
     min-width: 70%;
     max-width: 70%;
-    min-height: 95%;
+    min-height: 90vh;
     max-height: 95%;
     transition: all .2s ease-out;
     grid-template-rows: 33.33% 33.33% 33.33%;
@@ -310,7 +310,7 @@
     display: grid;
     grid-template-columns: 40% 60%;
     color: white;
-    font-size: .8rem;
+    font-size: 60%;
     text-align: justify;
     border-bottom: 2px solid white;
     transition: all .2s ease-out;
@@ -334,9 +334,9 @@
 .project_img>img{
     display: grid;
     min-width: 100%;
-    min-height: 100%;
     max-width: 100%;
-    max-height: 304.83px;
+    min-height: 100%;
+    max-height: 50px;
     box-shadow : 4px 0 5px grey;
 }
 
@@ -346,9 +346,9 @@
     justify-items: center;
     text-decoration: none;
     color: white;
+    font-size: 200%;
     align-items: center;
     pointer-events: auto;
-    font-size: 1.5rem;
     cursor: pointer;
     transition: all .5s ease-out;
 }
@@ -625,13 +625,6 @@
         top: 45%;
         left: 40%;
     }
-    .grid2_project{
-        font-size: 0.7rem;
-    }
-    .project_img>img{
-        min-height: 100%;
-        max-height: 100%;
-    }
     .textAndGit{
         grid-template-rows: 70% 30%;
         margin: 1%;
@@ -673,15 +666,6 @@
         max-width: 80%;
         top: 55%;
         left: 20%;
-    }
-    .grid2_project{
-        font-size: 0.6rem;
-    }
-    .project_wrapper_links>button{
-        font-size: .5rem;
-    }
-    .project_wrapper_links>a{
-        font-size: .8rem;
     }
 }
 @media screen and (max-width: 600px){
@@ -731,13 +715,6 @@
         top: 55%;
         left: 5%;
     }
-    .project_wrapper_links>button{
-        font-size: .4rem;
-    }
-    .project_wrapper_links>a>i{
-        font-size: .6rem;
-    }
-
     .TicTacToe{
         top: 25%;
         min-height: 50%;
@@ -768,10 +745,6 @@
         max-width: 100%;
         min-height: 88%;
         max-height: 88%;
-    }
-    .grid2_project{
-        font-size: 0.5rem;
- 
     }
     .grid2_project{
         grid-template-columns: none;
