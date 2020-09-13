@@ -310,7 +310,7 @@
     display: grid;
     grid-template-columns: 40% 60%;
     color: white;
-    font-size: 60%;
+    font-size: 55%;
     text-align: justify;
     border-bottom: 2px solid white;
     transition: all .2s ease-out;
@@ -337,6 +337,7 @@
     max-width: 100%;
     min-height: 100%;
     max-height: 50px;
+    min-height: 100%;
     box-shadow : 4px 0 5px grey;
 }
 
@@ -364,6 +365,7 @@
     border-radius: 10px;
     background-color: transparent;
     padding: 0;
+    font-size: 120%;
     height: 50%;
     width: 50%;
 }
@@ -670,10 +672,7 @@
 }
 @media screen and (max-width: 600px){
     .scrolldown{
-        left: 80%;
-        top: 15%;
-        width: 3rem;
-        height: 3rem;
+       display: none;
     }
     .navwrapper{
         font-size: 0.6rem;

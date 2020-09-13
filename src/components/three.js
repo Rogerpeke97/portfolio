@@ -69,7 +69,7 @@ function ThreeJsScene() {
         let geometry = new THREE.SphereGeometry(1, 32, 32);
         const material = new THREE.MeshPhongMaterial({
             map: sunTexture,
-            size: 3, alphaTest: 0.1,
+            alphaTest: 0.1,
             bumpMap: sunBump, bumpScale: 0.005
         });
         let cube = new THREE.Mesh(geometry, material);
