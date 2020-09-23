@@ -54,7 +54,7 @@ function NaviGation(){
     }
     return(
         <div className="navwrapper">
-            <h4>Ignacio Martin Diaz</h4>
+            <h4><a href="/public/MyResume.docx" download>Resume</a></h4>
             <div className="buttonwrapper">
                 <button onClick={()=>{BackgroundScene()}}>Space!</button>
                 <button onClick={()=>{ShowDivs()}}>Menu!</button>

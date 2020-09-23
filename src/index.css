@@ -3,13 +3,14 @@
 .js-loading *:after {
   animation-play-state: paused !important;
 }
-body {
+html, body {
   margin: 0;
   font-family: 'Open Sans', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow: hidden;
-
+  height: 100%;
+  position: fixed;
 }
 
 code {

@@ -70,9 +70,8 @@ function ContainerGrids() {
                 popUp()
             }}
                 id="grid1_intro">
-                <h4>My name is Ignacio Diaz, i'm a CS student from Buenos Aires My main
-                    programming language is Javascript followed by Java which i mainly use for
-                    competitive programming challenges on codeforces.com. I am very passionate about
+                <h4>My name is Ignacio Diaz, i'm from Buenos Aires my main
+                    programming language is Javascript followed by Java. I am very passionate about
                     web development thing which has led me to learn a variety of Javascript
                     libraries and the React.js framework. Here are the frameworks, libraries and
                     technologies i learned and used in my projects:
@@ -204,23 +203,26 @@ function ContainerGrids() {
                     </div>
                     <div className="textAndGit">
                         <h4>This portfolio project was made using: <br/>
-                            Three.js for the 3d modeling and the background scene.<br/>
-                            Tween.js for the camera animation and color switching of the particles and React.<br/>
+                            Three.js for the 3d modeling and the background scene.
+                            Tween.js for the camera animation and color switching of the particles and React.
                             I learned a lot about 3d models, textures, cube mapping and adding these to the background scene.<br/>
                             Three.js is amazing for beautiful frontend websites and i'm looking forward to implement it
-                            in my next project.
+                            in my next project. Since you are already on this page i will link the new project i'm working on.
+                            It's a vector visualizer which i intend to turn into a full website where i will give my  own explanation
+                            to certain problems and add the visualization factor. It's going to be interactive and you will be able to 
+                            modify the scene using the control panel. Down below is the link!
                         </h4>
                         <div className="project_wrapper_links">
                             <button>
                                 <a
-                                    href="https://rogerpeke97.github.io/portfolio/"
+                                    href="https://rogerpeke97.github.io/EduwebReact/"
                                     rel="noopener noreferrer"
                                     target="_blank">
                                     Visit Site
                                 </a>
                             </button>
                             <a
-                                href="https://github.com/Rogerpeke97/portfolio"
+                                href="https://github.com/Rogerpeke97/EduwebReact"
                                 rel="noopener noreferrer"
                                 target="_blank">
                                 <i class="fi-xnsuxl-github"></i>
