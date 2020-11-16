@@ -43,13 +43,12 @@ code {
 .LOADINGCONTAINER>span{
   cursor: default;
   display: block;
-  animation: loading 1s normal forwards 5 ease-in-out;
-  -webkit-animation: loading 1s normal forwards 5 ease-in-out;
+  animation: loading 1s normal forwards 7 ease-in-out;
+  -webkit-animation: loading 1s normal forwards 7 ease-in-out;
   text-align: center;
   margin: 0;
   color: white;
   text-shadow: -1px 0px 9px rgb(255, 255, 255);
-
   transition: all 1s ease-out;
   -webkit-transition: all 1s ease-out;
 }

@@ -1,3 +1,86 @@
+/*UI EXPLANATION */
+
+@keyframes show{
+    0% {
+        opacity:0;
+      }
+      100% {
+        opacity:0.5;
+      }
+}
+@keyframes show2{
+    0% {
+        opacity:0;
+      }
+      100% {
+        opacity:1;
+      }
+}
+/* FILL BAR ANIMATION FOR THE NAVBAR*/
+@keyframes filling{
+    0% {
+        opacity: 0;
+        width: 50%;
+        left: -20%;
+    }
+    50%{
+        opacity: 1;
+    }
+      100% {
+        width: 50%;
+        left: 50%;
+        opacity: 0; 
+    } 
+}
+@keyframes oppositefilling{
+    0% {
+        width: 50%;
+        left: 90%;
+        opacity: 0; 
+    }
+    50%{
+        opacity: 1;
+    }
+      100% {
+        opacity: 0;
+        width: 50%;
+        left: -20%;
+    } 
+}
+/* FADE HOUSE ANIMATION */
+
+@keyframes fadeHouse{
+    0%{
+        filter:  drop-shadow(0 0 3px whitesmoke);
+        opacity: 1;
+    }
+    100%{
+        filter:  drop-shadow(0 0 0px whitesmoke);
+        opacity: 0.4;
+    }
+}
+@keyframes illuminateHouse{
+    0%{
+        filter:  drop-shadow(0 0 0px whitesmoke);
+        opacity: 0.4;
+    }
+    100%{
+        filter:  drop-shadow(0 0 3px whitesmoke);
+        opacity: 1;
+    }
+}
+
+
+
+
+
+/**/
+
+
+
+
+
+
 
 .App {
     text-align: center;
@@ -25,6 +108,10 @@
 .navwrapper > h4 {
     display: grid;
     align-items: center;
+
+}
+.fi-xnsuxl-house-solid{
+    font-size: 1.2rem;
 }
 
 .navwrapper > h4 > a {
@@ -32,47 +119,38 @@
     text-decoration: none;
     color: white;
     transition: all 0.2s ease-out;
+    filter: drop-shadow(0 0 3px whitesmoke);
+
 }
 .navwrapper > h4 > a:hover {
     color: #7f8797;
+    filter: drop-shadow(0 0 0px whitesmoke);
 }
 
-.navwrapper > i {
-    display: grid;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.2rem;
-}
-.navwrapper > i > svg {
-    filter: drop-shadow(0 0 3px whitesmoke);
-    transition: all 0.5s ease-out;
-    cursor: pointer;
-}
-.navwrapper > i > svg:hover {
-    color: rgb(53, 1, 53);
-}
 
 .buttonwrapper {
     display: grid;
-    grid-template-columns: 50% 50%;
+    height: 80%;
+    top: 10%;
     justify-items: center;
+    position: relative;
 }
 .buttonwrapper > button {
     font-family: 'Open Sans', sans-serif;
-    background-color: #6e7a90;
-    width: 70px;
+    width: 75px;
+    background-color: transparent;
     border: 0;
     padding: 0;
     color: white;
-    border-radius: 50px;
+    filter: drop-shadow(0 0 3px whitesmoke);
+    border-radius: 8px;
     cursor: pointer;
-    text-shadow: 2px 2px 2px black;
-    box-shadow: 0 0 25px red , 0 0 25px whitesmoke;
     transition: all 0.5s ease-out;
 }
 .buttonwrapper > button:hover {
-    background-color: darkmagenta;
+    color: rgb(196, 194, 194);
 }
+
 
 #canvas {
     display: grid;
@@ -303,7 +381,7 @@
 .grid2 {
     display: none;
     position: fixed;
-    background-color: rgb(54, 30, 1);
+    background-color: rgb(29, 27, 25);
     box-shadow: 0 0 25px 1px darkred;
     left: 15%;
     top: 4rem;
@@ -314,6 +392,22 @@
     height: 90vh;
     transition: all 0.2s ease-out;
 }
+
+/*GITHUB PORTFOLIO*/
+
+.portfolioTitle > a > i {
+    font-size: 200%;
+    filter: drop-shadow(0 0 3px whitesmoke);
+    transition: all 0.5s ease-out;
+}
+.portfolioTitle > a > i:hover {
+    color: darkmagenta;
+}
+
+
+
+
+
 #grid2::-webkit-scrollbar-track {
     box-shadow: inset 0 0 6px rgba(0,0,0,0.3);;
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
@@ -337,14 +431,15 @@
     display: grid;
     grid-template-columns: 40% 60%;
     color: white;
-    font-size: 65%;
+    font-size: 85%;
     text-align: justify;
     border-bottom: 2px solid white;
     transition: all 0.2s ease-out;
-    max-height: 100%;
+    max-height: 40vh;
+    min-height: 40vh;
 }
 .grid2_project:hover {
-    background-color: rgb(80, 45, 2);
+    background-color: rgb(43, 35, 26);
 }
 
 .textAndGit {
@@ -650,6 +745,15 @@
         grid-template-rows: 70% 30%;
         margin: 1%;
     }
+    .grid2_project{
+        font-size: 78%;
+    }
+    .grid2{
+        min-width: 75%;
+        max-width: 75%;
+        left: 12.5%;
+    }
+    
 }
 @media screen and (max-width: 900px) {
     .scrolldown {
@@ -688,8 +792,20 @@
         top: 55%;
         left: 20%;
     }
+    .grid2_project {
+        min-height: 45vh;
+        max-height: 45vh;
+    }
+    .grid2{
+        min-width: 90%;
+        max-width: 90%;
+        left: 5%;
+    }
 }
 @media screen and (max-width: 600px) {
+    .fi-xnsuxl-house-solid{
+        font-size: 0.7rem;
+    }
     .scrolldown {
         display: none;
     }
@@ -766,9 +882,10 @@
     }
     .grid2_project {
         grid-template-columns: none;
+        min-height: 55vh;
+        max-height: 55vh;
     }
     .textAndGit {
-        grid-template-rows: none;
         margin: 1%;
     }
 }

@@ -19,6 +19,7 @@ function ContainerGrids() {
         let grid1_name_img = document.getElementById('grid1_name_img');
         let overlay = document.getElementById('overlay');
         let scrolldown = document.getElementById('scrolldown');
+        let fillingBar = document.getElementById('fillingBar')
         scrolldown.style.animation = 'popUpScroll 1s reverse ease-out'
         grid1_intro.style.animation = 'nextDiv 2s normal forwards ease-out'
         overlay2.style.animation = 'nextDiv 2s normal forwards ease-out'
@@ -38,6 +39,7 @@ function ContainerGrids() {
         }
         overlay.onanimationend = () => {
             overlay.style.display = 'none'
+            fillingBar.style.animation = "filling 2s ease-out"
         }
         let grid2 = document.getElementById('grid2');
         setTimeout(() => {
@@ -51,6 +53,7 @@ function ContainerGrids() {
         }, 1800)
     }
     function popUp() {
+   
         let grid1_intro = document.getElementById('grid1_intro');
         let overlay2 = document.getElementById('overlay2');
         let grid1_name_img = document.getElementById('grid1_name_img');
@@ -62,8 +65,14 @@ function ContainerGrids() {
         overlay.style.animation = 'none'
         scrolldown.style.animation = 'heartlikeAnim 2.5s forwards infinite ease-out'
     }
+
+
+
+
+
     return (
         <div className="contain" id="contain">
+       
             <div
                 className="grid1_intro"
                 onAnimationEnd={() => {
@@ -129,6 +138,21 @@ function ContainerGrids() {
             <div className="transparentOverlay" id="overlay"></div>
             <div className="transparentOverlay2" id="overlay2"></div>
             <div className="grid2" id="grid2">
+                <div className="portfolioTitle" style={{color: "white", alignItems: "center", display: "grid", borderBottom: "2px solid white", padding: "2%"}}>
+                    <h2 style={{margin: "2%"}}>Projects</h2>
+                    <h4 style={{textAlign: "left", margin: "0%"}}>Portfolio website: </h4>
+                    <h5 style={{textAlign: "left", margin: "0%"}}>This portfolio project was made using: <br/>
+                            Three.js for the 3d modeling and the background scene.<br/>
+                            Tween.js for the camera animation and color switching of the particles and React.<br/>
+                            The code for this portfolio can be found on my Github account, linked here, along with my LinkedIn: 
+                            </h5>
+                            <a
+                                href="https://github.com/Rogerpeke97"
+                                rel="noopener noreferrer"
+                                target="_blank" style={{justifyContent:"center", display: "grid", textDecoration: "none", color: "white", cursor: "default", margin: "2%"}}>
+                                <i class="fi-xnsuxl-github" style={{cursor:"pointer"}}></i>
+                            </a>
+                </div>
                 <div className="grid2_project" id="grid2_project1">
                     <div className="project_img">
                         <img src="project1.gif" alt="project1"></img>
@@ -169,11 +193,8 @@ function ContainerGrids() {
                     </div>
                     <div className="textAndGit">
                         <h4>This is my second project which i included as a react component in this
-                            portfolio website. This project wasn't that difficult, however, what made it
-                            difficult was trying to come up with my own attempt of recreating an "AI", since
-                            i didn't want to use the well known min-max algorithm. I wanted to challenge
-                            myself and i was satisfied once i finished, although, once you figure the
-                            pattern, you can't lose afterwards unless you are distracted i think. This
+                            portfolio website. This project wasn't difficult, however, what made it
+                            difficult was not using the min-max algorithm. This
                             project mainly helped me to understand react more and implement classes. Later
                             on i found out about Hooks and made them a staple when it comes to writing components.
                         </h4>
@@ -202,15 +223,9 @@ function ContainerGrids() {
                         <img src="portfolio.gif" alt="project1"></img>
                     </div>
                     <div className="textAndGit">
-                        <h4>This portfolio project was made using: <br/>
-                            Three.js for the 3d modeling and the background scene.
-                            Tween.js for the camera animation and color switching of the particles and React.
-                            I learned a lot about 3d models, textures, cube mapping and adding these to the background scene.<br/>
-                            Three.js is amazing for beautiful frontend websites and i'm looking forward to implement it
-                            in my next project. Since you are already on this page i will link the new project i'm working on.
-                            It's a vector visualizer which i intend to turn into a full website where i will give my  own explanation
-                            to certain problems and add the visualization factor. It's going to be interactive and you will be able to 
-                            modify the scene using the control panel. Down below is the link!
+                        <h4>
+                            This project is a vector visualizer in which you can add your own input and it will calculate the resultant between the 2 vectors. It's interactive and you can
+                            modify the scene using the control panel. The link to the site is down below!
                         </h4>
                         <div className="project_wrapper_links">
                             <button>

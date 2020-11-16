@@ -183,6 +183,7 @@ function ThreeJsScene() {
             let grid1_name_img = document.getElementById('grid1_name_img');
             let overlay = document.getElementById('overlay');
             let scrolldown = document.getElementById('scrolldown');
+            let fillingBar = document.getElementById('fillingBar');
             scrolldown.style.animation = 'popUpScroll 1s reverse ease-out'
             grid1_intro.style.animation = 'nextDiv 2s normal forwards ease-out'
             overlay2.style.animation = 'nextDiv 2s normal forwards ease-out'
@@ -202,6 +203,7 @@ function ThreeJsScene() {
             }
             overlay.onanimationend = () => {
                 overlay.style.display = 'none'
+                fillingBar.style.animation = "filling 2s ease-out"
             }
         }
         if (mouseUp > 0 && (m.style.display === '' || m.style.display === 'grid')) {
@@ -220,6 +222,7 @@ function ThreeJsScene() {
         }
         function grid1Display() {
             let grid1_intro = document.getElementById('grid1_intro');
+            let fillingBar = document.getElementById('fillingBar');
             grid1_intro.style.display = 'grid'
             let overlay2 = document.getElementById('overlay2');
             overlay2.style.display = 'grid'
@@ -231,7 +234,8 @@ function ThreeJsScene() {
             overlay2.style.animation = 'nextDiv 2s reverse ease-out'
             grid1_name_img.style.animation = 'nextDiv 2s reverse ease-out'
             overlay.style.animation = 'nextDiv 2s reverse ease-out'
-
+            fillingBar.style.animation = "";
+            fillingBar.style.animation = "oppositefilling 1.5s ease-out"
             grid1_intro.onanimationend = () => {
                 grid1_intro.style.display = 'grid'
             }
