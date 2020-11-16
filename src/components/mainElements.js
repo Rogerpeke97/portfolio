@@ -144,7 +144,7 @@ function ContainerGrids() {
                     <h5 style={{textAlign: "left", margin: "0%"}}>This portfolio project was made using: <br/>
                             Three.js for the 3d modeling and the background scene.<br/>
                             Tween.js for the camera animation and color switching of the particles and React.<br/>
-                            The code for this portfolio can be found on my Github account, linked here, along with my LinkedIn: 
+                            The code for this portfolio can be found on my Github account, linked here: 
                             </h5>
                             <a
                                 href="https://github.com/Rogerpeke97"

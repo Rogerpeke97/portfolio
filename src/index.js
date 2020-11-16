@@ -56,5 +56,5 @@ document
                 .getElementById('root')
                 .classList
                 .remove('js-loading')
-        }, 2000)
+        }, 1000)
     })
