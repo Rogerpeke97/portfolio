@@ -54,7 +54,7 @@ function NaviGation(){
         else{
             contain.style.opacity = '0';
             contain.style.visibility = 'hidden';
-            setButtonText("Show menu")
+            setButtonText("Show homescreen")
         }
     }
     function fillingBar(){
@@ -93,7 +93,7 @@ function NaviGation(){
     return(
         <div className="navwrapper">
             <h4 style={{justifyContent: "center"}}>
-                <a href="MyResume.docx" download> <i className="fi-swsuxl-download-wide"></i> Resume</a>
+                <a href="LatestResume.pdf" download> <i className="fi-swsuxl-download-wide"></i> Resume</a>
             </h4>
             <div className="websitemap" style={{
                 justifyContent:"center", alignItems: "center", display: "grid", gridTemplateColumns: "5% 20% 10%"

@@ -144,7 +144,7 @@ function ContainerGrids() {
                     <h5 style={{textAlign: "left", margin: "0%"}}>This portfolio project was made using: <br/>
                             Three.js for the 3d modeling and the background scene.<br/>
                             Tween.js for the camera animation and color switching of the particles and React.<br/>
-                            The code for this portfolio can be found on my Github account, linked here: 
+                            The code for this portfolio can be found on my Github account linked here: 
                             </h5>
                             <a
                                 href="https://github.com/Rogerpeke97"
@@ -165,9 +165,8 @@ function ContainerGrids() {
                             from buffers into readable data to display on the frontend. Also, deploying the
                             website using the heroku cli, creating a database for the login user data,
                             setting up the remote database, hashing the password when you sign up and
-                            storing cookies for the specific user session. My css skills as can be seen by
-                            this portfolio improved a lot since but it was a good and a fun project to
-                            build.
+                            storing cookies for the specific user session. You can sign up, create a user and
+                            login.
                         </h4>
                         <div className="project_wrapper_links">
                             <button>
