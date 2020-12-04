@@ -37,6 +37,10 @@ function ContainerGrids() {
             grid2.current.onanimationend = () => {
                 grid2.current.style.display = 'none'
                 console.log(gridShowing)
+                firstMenu0.current.style.display = "grid"
+                firstMenu1.current.style.display = "grid"
+                firstMenu2.current.style.display = "grid"
+                firstMenu3.current.style.display = "grid"
                 firstMenu0.current.style.animation = "popUp 2s normal forwards ease-out"
                 firstMenu1.current.style.animation = "popUp 2s normal forwards ease-out"
                 firstMenu2.current.style.animation = "popUp 2s normal forwards ease-out"
@@ -59,6 +63,10 @@ function ContainerGrids() {
         houseIcon.current.style.opacity = "0.4"
         fillBar.current.style.animation = "filling 2s ease-out"
         firstMenu0.current.onanimationend = ()=>{
+            firstMenu0.current.style.display = "none"
+            firstMenu1.current.style.display = "none"
+            firstMenu2.current.style.display = "none"
+            firstMenu3.current.style.display = "none"
             grid2.current.style.transform = 'scale(0, 0)';
             grid2.current.style.display = 'grid';
             grid2.current.style.animation = 'popGrid2 2s normal forwards ease-out';
@@ -178,6 +186,9 @@ function ContainerGrids() {
             <div
                 className="grid1_intro"
                 ref={firstMenu0}
+                onAnimationEnd={()=>{
+                    firstMenu0.current.style.animation = 'none'
+                }}
                 id="grid1_intro">
                 <h4>My name is Ignacio Diaz, i'm from Buenos Aires my main programming language
                     is Javascript followed by Java. I am very passionate about web development thing
@@ -227,11 +238,17 @@ function ContainerGrids() {
                 </div>
                 <button ref={buttonProjects} onClick={()=>{if(gridShowing === 0){grid2Transition()}}} style={{pointerEvents: 'all'}}>Projects</button>
             </div>
-            <div className="grid1_name_img" id="grid1_name_img" ref={firstMenu1}>
+            <div className="grid1_name_img" id="grid1_name_img" ref={firstMenu1} onAnimationEnd={()=>{
+                    firstMenu1.current.style.animation = 'none'
+                }}>
                 <img src="./profile.jpg" alt="Profile pic"></img>
             </div>
-            <div className="transparentOverlay" id="overlay" ref={firstMenu2}></div>
-            <div className="transparentOverlay2" id="overlay2" ref={firstMenu3}></div>
+            <div className="transparentOverlay" id="overlay" ref={firstMenu2} onAnimationEnd={()=>{
+                    firstMenu2.current.style.animation = 'none'
+                }}></div>
+            <div className="transparentOverlay2" id="overlay2" ref={firstMenu3} onAnimationEnd={()=>{
+                    firstMenu3.current.style.animation = 'none'
+                }}></div>
             <div className="grid2" id="grid2" ref={grid2}>
                 <div
                     className="portfolioTitle"

@@ -450,8 +450,6 @@
     text-align: justify;
     border-bottom: 2px solid white;
     transition: all 0.2s ease-out;
-    max-height: 40vh;
-    min-height: 40vh;
 }
 .grid2_project:hover {
     background-color: rgb(43, 35, 26);
@@ -531,7 +529,7 @@
     grid-template-columns: 50% 50%;
     min-height: 100%;
     justify-items: center;
-    align-items: center;
+    align-items: end;
 }
 @keyframes popGrid2 {
     from {
