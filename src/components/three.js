@@ -173,101 +173,10 @@ function ThreeJsScene() {
         grid1_intro.style.transform = 'rotate3d(' + targetx + ',' + targety + ', 0, 35deg)'
         grid1_name_img.style.transform = 'rotate3d(' + targetx + ',' + targety + ', 0, 35deg)'
     }
-    function WheelDownUp(event) {
-        let mouseUp = event.deltaY;
-        let m = document.getElementById('grid1_intro')
-        let canvas = document.getElementById('canvas')
-        function grid1Fade() {
-            let grid1_intro = document.getElementById('grid1_intro');
-            let overlay2 = document.getElementById('overlay2');
-            let grid1_name_img = document.getElementById('grid1_name_img');
-            let overlay = document.getElementById('overlay');
-            let scrolldown = document.getElementById('scrolldown');
-            let fillingBar = document.getElementById('fillingBar');
-            scrolldown.style.animation = 'popUpScroll 1s reverse ease-out'
-            grid1_intro.style.animation = 'nextDiv 2s normal forwards ease-out'
-            overlay2.style.animation = 'nextDiv 2s normal forwards ease-out'
-            grid1_name_img.style.animation = 'nextDiv 2s normal forwards ease-out'
-            overlay.style.animation = 'nextDiv 2s normal forwards ease-out'
-            scrolldown.onanimationend = () => {
-                scrolldown.style.display = 'none'
-            }
-            grid1_intro.onanimationend = () => {
-                grid1_intro.style.display = 'none'
-            }
-            overlay2.onanimationend = () => {
-                overlay2.style.display = 'none'
-            }
-            grid1_name_img.onanimationend = () => {
-                grid1_name_img.style.display = 'none'
-            }
-            overlay.onanimationend = () => {
-                overlay.style.display = 'none'
-                fillingBar.style.animation = "filling 2s ease-out"
-            }
-        }
-        if (mouseUp > 0 && (m.style.display === '' || m.style.display === 'grid')) {
-            canvas.style.pointerEvents = 'none'
-            grid1Fade()
-            let grid2 = document.getElementById('grid2');
-            setTimeout(() => {
-                grid2.style.transform = 'scale(0, 0)'
-                grid2.style.display = 'grid'
-                grid2.style.animation = 'popGrid2 2s normal forwards ease-out'
-                grid2.onanimationend = () => {
-                    grid2.style.display = 'grid'
-                    canvas.style.pointerEvents = 'auto'
-                }
-            }, 1800)
-        }
-        function grid1Display() {
-            let grid1_intro = document.getElementById('grid1_intro');
-            let fillingBar = document.getElementById('fillingBar');
-            grid1_intro.style.display = 'grid'
-            let overlay2 = document.getElementById('overlay2');
-            overlay2.style.display = 'grid'
-            let grid1_name_img = document.getElementById('grid1_name_img');
-            grid1_name_img.style.display = 'grid'
-            let overlay = document.getElementById('overlay');
-            overlay.style.display = 'grid'
-            grid1_intro.style.animation = 'nextDiv 2s reverse ease-out'
-            overlay2.style.animation = 'nextDiv 2s reverse ease-out'
-            grid1_name_img.style.animation = 'nextDiv 2s reverse ease-out'
-            overlay.style.animation = 'nextDiv 2s reverse ease-out'
-            fillingBar.style.animation = "";
-            fillingBar.style.animation = "oppositefilling 1.5s ease-out"
-            grid1_intro.onanimationend = () => {
-                grid1_intro.style.display = 'grid'
-            }
-            overlay2.onanimationend = () => {
-                overlay2.style.display = 'grid'
-            }
-            grid1_name_img.onanimationend = () => {
-                grid1_name_img.style.display = 'grid'
-            }
-            overlay.onanimationend = () => {
-                overlay.style.display = 'grid'
-                canvas.style.pointerEvents = 'auto' // to allow mousewheel event get triggered
-            }
-        }
-        if (mouseUp < 0 && m.style.display === 'none') {
-            canvas.style.pointerEvents = 'none'
-            let grid2 = document.getElementById('grid2');
-            grid2.style.animation = 'none'
-            grid2.style.animation = null;
-            grid2.style.animation = 'popGrid2reverse 1s normal forwards ease-out'
-            grid2.onanimationend = () => {
-                grid2.style.display = 'none'
-            }
-            setTimeout(grid1Display(), 1000);
-        }
-    }
+
     return (
         <div
             id="canvas"
-            onWheel={(event) => {
-            WheelDownUp(event);
-        }}
             onMouseMove={(event) => {
             MouseMoveE(event)
         }}></div>

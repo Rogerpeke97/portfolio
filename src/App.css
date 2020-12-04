@@ -226,7 +226,6 @@
 }
 .grid1_intro > button {
     width: 50%;
-    pointer-events: all;
     position: relative;
     left: 25%;
     font-family: 'Open Sans', sans-serif;
@@ -373,6 +372,22 @@
     }
     to {
         left: -150%;
+        
+    }
+}
+@keyframes popDiv {
+    from {
+        transform: scale(0, 0);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.1, 1.1);
+        opacity: 0.5;
+    }
+    to {
+        transform: scale(1, 1);
+        transform: rotate3d(1, -5, 0, 35deg);
+        opacity: 0.6;
     }
 }
 
@@ -558,23 +573,6 @@
     to {
         transform: scale(0, 0);
         opacity: 0;
-    }
-}
-@keyframes heartlikeAnim {
-    from {
-        transform: scale(1, 1);
-    }
-    25% {
-        transform: scale(1.1, 1.1);
-    }
-    50% {
-        transform: scale(0.8, 0.8);
-    }
-    75% {
-        transform: scale(1.1, 1.1);
-    }
-    to {
-        transform: scale(1, 1);
     }
 }
 
