@@ -324,6 +324,12 @@ function ContainerGrids() {
                         communicates with the Spring Boot REST API using JSON and in return receives
                         user data from the PostgreSQL database.
                     </h5>
+                    <div style={{
+                        display: "grid", justifyContent:"center", alignItems: "center",
+                        margin: "5%"
+                        }}>
+                    <img style={{minWidth: "270px", maxWidth: "100%"}} src="frontendapi.gif" alt="latestproject"></img>
+                    </div>
                     <a
                         href="https://github.com/Rogerpeke97/APISpring"
                         rel="noopener noreferrer"
