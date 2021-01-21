@@ -176,23 +176,23 @@
     transition: all 0.5s ease-out;
 }
 .grid1_name_img > img {
-    display: grid;
-    position: fixed;
-    left: 7.5%;
-    top: 7.5%;
+    position: absolute;
     max-height: 85%;
     min-height: 85%;
-    max-width: 85%;
-    min-width: 85%;
+    max-width: 70%;
+    left: 15%;
+    top: 5%;
+    min-width: 70%;
     box-shadow: 0 0 43px -4px rgba(0,0,0,0.75);
 }
 .grid1_name_img {
     pointer-events: none;
     /* ALLOWS THE ONMOUSEMOVE EVENT TO PASS THROUGH AND REGISTER THE CANVAS*/
     position: fixed;
+    justify-content: center;
+    align-content: center;
     max-height: 60%;
     min-height: 60%;
-    transform: rotate3d(1, -2, 0, 35deg);
     animation: popUp 2s normal forwards ease-in-out;
     max-width: 50%;
     min-width: 50%;
@@ -215,7 +215,6 @@
     left: 40%;
     max-height: 70%;
     min-height: 70%;
-    transform: rotate3d(1, -2, 0, 35deg);
     z-index: 3;
     text-shadow: 2px 2px 2px black;
     transition: all 0.1s ease-out;
@@ -275,7 +274,6 @@
 .transparentOverlay {
     display: grid;
     pointer-events: none;
-    transform: rotate3d(1, -2, 0, 35deg);
     animation: popUp 2s normal forwards ease-in-out;
     position: fixed;
     min-width: 50%;
@@ -295,7 +293,6 @@
     transition: all 0.1s ease-out;
     position: fixed;
     pointer-events: none;
-    transform: rotate3d(1, -2, 0, 35deg);
     animation: popUp 2s normal forwards ease-in-out;
     min-width: 50%;
     max-width: 50%;
@@ -317,13 +314,14 @@
 }
 
 .img_container {
-    display: grid;
+    display: flex;
     max-height: 70%;
     max-width: 70%;
+    transform: scale(1, 1);
 }
 
 .img_container > img {
-    display: grid;
+    flex: 1;
     max-height: 100%;
     max-width: 100%;
 }
@@ -340,7 +338,6 @@
     }
     to {
         transform: scale(1, 1);
-        transform: rotate3d(1, -5, 0, 35deg);
     }
 }
 
@@ -359,7 +356,6 @@
     from {
         opacity: 0.6;
         transform: scale(1, 1);
-        transform: rotate3d(1, -5, 0, 35deg);
     }
     25% {
         opacity: 0.6;
@@ -386,7 +382,6 @@
     }
     to {
         transform: scale(1, 1);
-        transform: rotate3d(1, -5, 0, 35deg);
         opacity: 0.6;
     }
 }
@@ -457,7 +452,6 @@
 
 .textAndGit {
     display: grid;
-    grid-template-rows: 60% 40%;
     margin: 3%;
 }
 
@@ -737,7 +731,6 @@
         left: 40%;
     }
     .textAndGit {
-        grid-template-rows: 70% 30%;
         margin: 3%;
     }
     .grid2_project{
@@ -788,8 +781,8 @@
         left: 20%;
     }
     .grid2_project {
-        min-height: 45vh;
-        max-height: 45vh;
+        min-height: 55vh;
+        max-height: 55vh;
     }
     .grid2{
         min-width: 90%;

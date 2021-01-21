@@ -25,10 +25,11 @@ code {
   align-content: center;
   width: 100%;
   position: absolute;
+  color: white;
   background: black;
   top: 0;
   /*animation: loading 1s normal forwards ease-in-out;*/
-  z-index: 2;
+  z-index: 15;
   transition: all .5s ease-out;
   -webkit-transition: all .5s ease-out;
 }
@@ -51,6 +52,18 @@ code {
   text-shadow: -1px 0px 9px rgb(255, 255, 255);
   transition: all 1s ease-out;
   -webkit-transition: all 1s ease-out;
+}
+.LOADING>.messages{
+    cursor: default;
+    display: block;
+    animation: loading 1s normal forwards 7 ease-in-out;
+    -webkit-animation: loading 1s normal forwards 7 ease-in-out;
+    text-align: center;
+    margin: 0;
+    color: white;
+    text-shadow: -1px 0px 9px rgb(255, 255, 255);
+    transition: all 1s ease-out;
+    -webkit-transition: all 1s ease-out;
 }
 
 @keyframes loading{
