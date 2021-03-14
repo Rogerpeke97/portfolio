@@ -1,21 +1,19 @@
-.js-loading *,
-.js-loading *:before,
-.js-loading *:after {
-  animation-play-state: paused !important;
-}
-html, body {
+body {
   margin: 0;
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Ubuntu', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow: hidden;
-  height: 100%;
-  position: fixed;
+  overflow-x: hidden;
+  color: white;
 }
 
 code {
   font-family: 'Open Sans', sans-serif;
 }
+.App {
+  display: grid;
+}
+
 
 /* ANIMATION BEFORE LOADING */
 .LOADING{
