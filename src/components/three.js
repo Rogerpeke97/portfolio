@@ -8,14 +8,12 @@ const style = {
     portfolio_grid: {
         display: "grid",
         width: "90%",
+        gridTemplateRows: "10% 90%",
         height: "90vh",
         position: "relative",
         left: "5%",
         top: "5vh",
-        justifyContent: "center",
-        background: "red",
         zIndex: "1",
-        opacity: "0.5"
     },
     moving_div_1: {
         flex: "1",
@@ -64,9 +62,38 @@ const style = {
         cursor: "default",
         justifyContent: "center",
         alignItems: "center",
-        fontSize: "200%",
-        height: "500px",
-        width: "500px"
+        fontSize: "300%",
+        height: "100%",
+        width: "100%"
+    },
+    websites: {
+        display: "grid",
+        gridTemplateRows: "50% 50%"
+    },
+    grid: {
+        display: "flex",
+    },
+    box: {
+        margin: "2%",
+        width: "100%",
+        border: "3px solid rgba(44,12,175,1)",
+        boxShadow: "0px 0px 6px 0px white",
+        borderRadius: "6px",
+        flex: "1",
+        transition: "transform 0.5s ease-out"
+    },
+    grid_images: {
+        maxHeight: "100%",
+        maxWidth: "100%",
+    },
+    canvas_2d: {
+        position: "absolute",
+        height: "100%",
+        width: "100%",
+        background: "white",
+//        background: "linear-gradient(17deg, rgba(0,0,0,1) 32%, rgba(10,10,10,10) 56%, rgba(20,20,20,20) 70%)",
+//        backgroundSize: "400% 400%",
+        animation: "transition 45s infinite"
     }
 }
 
@@ -85,6 +112,7 @@ function ThreeJsScene() {
     let portfolio_grid = useRef(0);
     let underline_login = useRef(0);
     let login_font = useRef(0);
+    let canvas_2d = useRef(0);
     useEffect(() => {
         if (componentLoaded === false) {
             let scene = new THREE.Scene();
@@ -92,7 +120,7 @@ function ThreeJsScene() {
             let camera = new THREE.PerspectiveCamera(75, canvasContainer.current.clientWidth / canvasContainer.current.clientHeight, 0.1, 1000);
             let renderer = new THREE.WebGLRenderer();
             let height = canvasContainer.current.clientHeight;
-            let width =  document.documentElement.clientWidth;
+            let width =  window.innerWidth;
             camera
                 .position
                 .set(-2, 0, 10);
@@ -264,6 +292,43 @@ function ThreeJsScene() {
             };
             animate();
             requestAnimationFrame(animateTween);
+
+
+
+            //canvas_2d
+
+            class particle_generator{
+                constructor(x_pos, y_pos, radius_circle){
+                    this.x = x_pos;
+                    this.y = y_pos;
+                    this.r = radius_circle;
+                    this.arc = function(position_x, position_y, radius, start, end){
+                        canvas_2d_ctx.beginPath();
+                        canvas_2d_ctx.arc(position_x, position_y, radius, start, end);
+                        canvas_2d_ctx.closePath();
+                        canvas_2d_ctx.fill();
+                    }
+                }
+            }
+
+            const canvas_2d_ctx = canvas_2d.current.getContext("2d");
+            canvas_2d.current.width = window.innerWidth;
+            canvas_2d.current.height = window.innerHeight;
+            let particle = new particle_generator(2, 2, 10);
+
+            setInterval(()=>move_particles(),2000);
+
+            const move_particles = ()=>{
+                //canvas_2d_ctx.fillStyle = "rgba(10,10,10,0.8)";
+                //canvas_2d_ctx.fillRect(0, 0, canvas_2d.current.width, canvas_2d.current.height);
+                particle.x = particle.x - 0.1;
+                particle.y = particle.y - 0.1;
+                particle.arc(window.innerWidth / particle.x, window.innerHeight / particle.y, particle.r, 0, 2 * Math.PI);
+                console.log("working");
+            }
+
+
+
             //CHECK IF MODELS ARE LOADED
             manager.onProgress = () => {
                 let array = [
@@ -344,7 +409,7 @@ function ThreeJsScene() {
             }
 
             manager.onLoad = () => {
-                loading.current.style.animation = 'loadingDone 2s normal ease-out'
+                loading.current.style.animation = 'loadingDone 2s normal ease-out';
                 setTimeout(()=>{setComponentLoaded(true)}, 2000);
                 scroll_value = window.scrollY;
                 //SCROLL EVENT TO MOVE DIV COLOR AGREGAR WINDOW ON RESIZE Y CREAR OBJETO
@@ -419,19 +484,19 @@ function ThreeJsScene() {
             <div className= "THEFREAKINGPAGE" style={{display: "grid", maxWidth: "100%", minHeight: "100vh", maxHeight: "100vh", position: "relative",
              zIndex: "2"
              }}>
-                <div style={{display: "grid", maxHeight: "100vh", background: "linear-gradient(17deg, rgba(0,0,0,1) 32%, rgba(10,10,10,10) 56%, rgba(20,20,20,20) 70%)",
-                backgroundSize: "400% 400%", animation: "transition 45s infinite"}}>
+                <canvas ref={canvas_2d} style={style.canvas_2d}>
+
+                </canvas>
+                <div style={{display: "grid", maxHeight: "100vh"}}>
                     <div ref={portfolio_grid} style={style.portfolio_grid}>
                         <div style={style.my_work_title}>
                             <div
                                 onMouseEnter={()=>{
-                                    login_font.current.style.textShadow = "0 0 10px white, 0 0 50px white"
                                     login_font.current.style.color = "white";
                                     underline_login.current.style.transform = "scaleX(1)";
                                 }}
                                 onMouseLeave={()=>{
                                     login_font.current.style.color = "white";
-                                    login_font.current.style.textShadow = "0 0 0 transparent, 0 0 0 transparent";
                                     underline_login.current.style.transform = "scaleX(0)";   
                                 }}
                             >
@@ -441,10 +506,28 @@ function ThreeJsScene() {
                             </div>  
                         </div> 
                         <div style={style.websites}>
-                            <div style={{background: "red"}}></div>
-                            <div style={{background: "red"}}></div>
-                            <div style={{background: "red"}}></div>
-                            <div style={{background: "red"}}></div>
+                            <div style={style.grid}>
+                                <div style={style.box}
+                                    onMouseEnter={(e)=>{e.currentTarget.style.transform = "scale(1.05)"; e.currentTarget.style.filter= "grayscale(80%)"}}
+                                    onMouseLeave={(e)=>{e.currentTarget.style.transform = "scale(1)"; e.currentTarget.style.filter= "grayscale(0%)"}}
+                                >
+                                    <img src="javalogo.png" alt="java logo" style={style.grid_images}></img>
+                                </div>
+                                <div style={style.box}
+                                    onMouseEnter={(e)=>{e.currentTarget.style.transform = "scale(1.05)"}}
+                                    onMouseLeave={(e)=>{e.currentTarget.style.transform = "scale(1)"}}
+                                ></div>
+                            </div>
+                            <div style={style.grid}>
+                                <div style={style.box}
+                                    onMouseEnter={(e)=>{e.currentTarget.style.transform = "scale(1.05)"}}
+                                    onMouseLeave={(e)=>{e.currentTarget.style.transform = "scale(1)"}}
+                                ></div>
+                                <div style={style.box}
+                                    onMouseEnter={(e)=>{e.currentTarget.style.transform = "scale(1.05)"}}
+                                    onMouseLeave={(e)=>{e.currentTarget.style.transform = "scale(1)"}}
+                                ></div>
+                            </div>
                         </div>       
                     </div>
                     <div ref={moving_div_1} style={style.moving_div_1}></div>
