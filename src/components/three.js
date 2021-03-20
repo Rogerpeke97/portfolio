@@ -177,6 +177,15 @@ function ThreeJsScene() {
                     camera
                         .updateProjectionMatrix();
                     scroll_value = window.scrollY;
+                    //CANVAS_2d
+                    canvas_2d.current.width = window.innerWidth;
+                    canvas_2d.current.height = window.innerHeight;
+                    let particle_width = canvas_2d.current.width / 25;
+                    let particle_position = -particle_width;
+                    array_particles.forEach((part)=>{
+                        part.x = particle_position;
+                        particle_position = particle_position + particle_width;
+                    })
                 }
             });
 
@@ -304,6 +313,7 @@ function ThreeJsScene() {
                     this.r = radius_circle;
                     this.arc = function(position_x, position_y, radius, start, end){
                         canvas_2d_ctx.beginPath();
+                        canvas_2d_ctx.fillStyle = "rgba(255,255,255)";
                         canvas_2d_ctx.arc(position_x, position_y, radius, start, end);
                         canvas_2d_ctx.closePath();
                         canvas_2d_ctx.fill();
@@ -314,16 +324,33 @@ function ThreeJsScene() {
             const canvas_2d_ctx = canvas_2d.current.getContext("2d");
             canvas_2d.current.width = window.innerWidth;
             canvas_2d.current.height = window.innerHeight;
-            let particle = new particle_generator(2, 2, 10);
+            let array_particles = [];
+            let particle_width = canvas_2d.current.width / 25;
+            let particle_position = -particle_width;
 
-            setInterval(()=>move_particles(),2000);
+            for(let i = 0; i < 27; i++){
+                //let particle_height = window.innerHeight / 10;
+                let particle = new particle_generator(particle_position, Math.floor(Math.random() * window.innerHeight), 10);
+                particle_position = particle_position + particle_width;
+                array_particles.push(particle);
+            }
+
+            setInterval(()=>move_particles(),30);
+
+            console.log(portfolio_grid.current);
 
             const move_particles = ()=>{
-                //canvas_2d_ctx.fillStyle = "rgba(10,10,10,0.8)";
-                //canvas_2d_ctx.fillRect(0, 0, canvas_2d.current.width, canvas_2d.current.height);
-                particle.x = particle.x - 0.1;
-                particle.y = particle.y - 0.1;
-                particle.arc(window.innerWidth / particle.x, window.innerHeight / particle.y, particle.r, 0, 2 * Math.PI);
+                canvas_2d_ctx.fillStyle = "black";
+                canvas_2d_ctx.fillRect(0, 0, canvas_2d.current.width, canvas_2d.current.height);
+                array_particles.forEach((part)=>{
+                    if(part.y < 0){
+                        part.y = window.innerHeight;
+                    }
+                    part.y = part.y - 1;
+                    part.arc(part.x, part.y, part.r, 0, 2 * Math.PI)
+                })
+                //particle.x = particle.x - 0.001;
+                //particle.arc(window.innerWidth / particle.x, window.innerHeight / particle.y, particle.r, 0, 2 * Math.PI);
                 console.log("working");
             }
 
