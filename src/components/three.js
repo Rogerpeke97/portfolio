@@ -75,6 +75,7 @@ const style = {
     },
     box: {
         margin: "2%",
+        position: "relative",
         width: "100%",
         border: "3px solid rgba(44,12,175,1)",
         boxShadow: "0px 0px 6px 0px white",
@@ -83,8 +84,19 @@ const style = {
         transition: "transform 0.5s ease-out"
     },
     grid_images: {
+        position: "absolute",
         maxHeight: "100%",
         maxWidth: "100%",
+        zIndex: "1"
+    },
+    explanation_website : {
+        position: "absolute",
+        alignContent: "center",
+        textAlign: "center",
+        width: "100%",
+        height: "100%",
+        display: "grid",
+        z_index: "0"
     },
     canvas_2d: {
         position: "absolute",
@@ -307,13 +319,18 @@ function ThreeJsScene() {
             //canvas_2d
 
             class particle_generator{
-                constructor(x_pos, y_pos, radius_circle){
+                constructor(x_pos, y_pos, positive_amount, negative_amount, radius_circle){
                     this.x = x_pos;
                     this.y = y_pos;
+                    this.positive_amount_to_move = positive_amount;
+                    this.negative_amount_to_move = negative_amount;
                     this.r = radius_circle;
                     this.arc = function(position_x, position_y, radius, start, end){
                         canvas_2d_ctx.beginPath();
-                        canvas_2d_ctx.fillStyle = "rgba(255,255,255)";
+                        let grd = canvas_2d_ctx.createLinearGradient(position_x - this.r, position_y + this.r, position_x + this.r / 2, position_y - this.r);
+                        grd.addColorStop(0.30, "rgba(69,40,189,1)");
+                        grd.addColorStop(0.70, "rgba(43,22,55,1)");
+                        canvas_2d_ctx.fillStyle = grd;
                         canvas_2d_ctx.arc(position_x, position_y, radius, start, end);
                         canvas_2d_ctx.closePath();
                         canvas_2d_ctx.fill();
@@ -330,12 +347,16 @@ function ThreeJsScene() {
 
             for(let i = 0; i < 27; i++){
                 //let particle_height = window.innerHeight / 10;
-                let particle = new particle_generator(particle_position, Math.floor(Math.random() * window.innerHeight), 10);
+                let particle = new particle_generator(particle_position, Math.floor(Math.random() * window.innerHeight),
+                particle_position + particle_width, particle_position - particle_width, 10);
                 particle_position = particle_position + particle_width;
                 array_particles.push(particle);
             }
 
-            setInterval(()=>move_particles(),30);
+            setInterval(()=>{
+                move_particles();
+                update_x_position();
+            },5);
 
             console.log(portfolio_grid.current);
 
@@ -346,13 +367,33 @@ function ThreeJsScene() {
                     if(part.y < 0){
                         part.y = window.innerHeight;
                     }
-                    part.y = part.y - 1;
+                    part.y = part.y - 0.5;
                     part.arc(part.x, part.y, part.r, 0, 2 * Math.PI)
                 })
                 //particle.x = particle.x - 0.001;
                 //particle.arc(window.innerWidth / particle.x, window.innerHeight / particle.y, particle.r, 0, 2 * Math.PI);
-                console.log("working");
             }
+
+            const update_x_position = ()=>{
+                array_particles.forEach((part)=>{
+                    if(part.x + amount_to_move < part.positive_amount_to_move && part.x + amount_to_move > part.negative_amount_to_move){
+                        part.x = part.x + amount_to_move;                    
+                    }
+                });
+            }
+
+            let mouse_movement_amount = 0;
+            let mousex;
+            let x;
+            let amount_to_move;
+            document.addEventListener('mousemove', (e)=>{
+                mousex = (e.clientX   - ( canvas_2d.current.getBoundingClientRect().left / 2)) ;
+                let mousey = (e.clientY  - ( canvas_2d.current.getBoundingClientRect().top / 2)) ;
+                x = mousex - canvas_2d.current.getBoundingClientRect().width / 2 ;
+                amount_to_move = (x - mouse_movement_amount) / 100;
+                mouse_movement_amount = x;
+                //let y = canvasContainer.current.getBoundingClientRect().height / 2 - mousey ;
+            })
 
 
 
@@ -471,6 +512,11 @@ function ThreeJsScene() {
         grid1_name_img.style.transform = `perspective(700px) rotateY(${x / 100}deg) rotateX(${ y / 100}deg)`;
     }*/
 
+
+
+
+
+
     let mouseMove = (e)=>{
         let mousex = (e.clientX   - ( canvasContainer.current.getBoundingClientRect().left / 2)) ;
         let mousey = (e.clientY  - ( canvasContainer.current.getBoundingClientRect().top / 2)) ;
@@ -538,6 +584,7 @@ function ThreeJsScene() {
                                     onMouseEnter={(e)=>{e.currentTarget.style.transform = "scale(1.05)"; e.currentTarget.style.filter= "grayscale(80%)"}}
                                     onMouseLeave={(e)=>{e.currentTarget.style.transform = "scale(1)"; e.currentTarget.style.filter= "grayscale(0%)"}}
                                 >
+                                    <div style={style.explanation_website}>adadasdasda</div>
                                     <img src="javalogo.png" alt="java logo" style={style.grid_images}></img>
                                 </div>
                                 <div style={style.box}
