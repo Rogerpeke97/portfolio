@@ -9,10 +9,9 @@ const style = {
         display: "grid",
         width: "90%",
         gridTemplateRows: "10% 90%",
-        height: "90vh",
+        height: "1080px",
         position: "relative",
         left: "5%",
-        top: "5vh",
         zIndex: "1",
     },
     moving_div_1: {
@@ -20,26 +19,24 @@ const style = {
         height: "0", 
         zIndex: "0", 
         width:"25%", 
-        borderBottom: "100vh solid rgba(44,12,175,1)",
-        borderRight: "100vh solid transparent",  
+        borderBottom: "1080px solid rgba(44,12,175,1)",
+        borderRight: "1080px solid transparent",  
         position: "absolute", 
         left: "-100%", 
         top: "0vh",
-        opacity: "0.8"
+        opacity: "0.5"
     },
     moving_div_2: {
         flex: "1", 
         height: "0", 
         zIndex: "0", 
         width:"50%", 
-        borderBottom: "100vh solid whitesmoke",
-        borderRight: "100vh solid transparent",  
-        position: "absolute", 
+        borderBottom: "1080px solid whitesmoke",
+        borderRight: "1080px solid transparent",  
+        position: "relative", 
         left: "100%", 
-        top: "200vh", 
-        marginTop: "5rem", 
         transform: "scaleX(-1)",
-        opacity: "0.8"
+        opacity: "0.4"
     },
     transparent_overlay: {
         display: "grid",
@@ -53,8 +50,8 @@ const style = {
         transition: "all 0.1s ease-out",
         top: "5%",
         zIndex: "2",
-        backgroundColor: "grey",
-        opacity: "0.5",
+        backgroundColor: "black",
+        opacity: "0.4",
         boxShadow: "0 0 34px 18px grey"
     },
     my_work_title: {
@@ -77,26 +74,108 @@ const style = {
         margin: "2%",
         position: "relative",
         width: "100%",
-        border: "3px solid rgba(44,12,175,1)",
-        boxShadow: "0px 0px 6px 0px white",
+        border: "5px solid white",
         borderRadius: "6px",
         flex: "1",
-        transition: "transform 0.5s ease-out"
+        transition: "transform 0.5s ease-out",
+        boxShadow: " 0px 0px 50px -4px black"
+    },
+    box_explanation: {
+        margin: "2%",
+        position: "relative",
+        width: "100%",
+        flex: "1",
+        transition: "transform 0.5s ease-out",
+        display: "grid",
+        gridTemplateRows: "20% 60% 20%"
+    },
+    box_explanation_title: {
+        fontWeight: "bold",
+        fontSize: "300%",
+        textShadow: "2px 2px 2px black",
+        textDecoration: "underline"
+    },
+    box_explanation_description: {
+        fontWeight: "bold",
     },
     grid_images: {
         position: "absolute",
         maxHeight: "100%",
+        minHeight: "100%",
         maxWidth: "100%",
-        zIndex: "1"
+        zIndex: "0"
     },
     explanation_website : {
         position: "absolute",
-        alignContent: "center",
+        background: "linear-gradient(56deg, rgba(24,14,19,1) 28%, rgba(78,21,35,1) 59%)",
         textAlign: "center",
+        display: "grid",
+        gridTemplateRows: "10% 70% 20%",
         width: "100%",
         height: "100%",
+        z_index: "-1",
+        transition: "all 0.5s ease-out"
+    },
+    website_button : {
+        position: "absolute",
+        width: "50%",
+        height: "20%",
+        top: "80%",
+        left: "25%",
+        background: "rgba(44,12,175,1)",
+        borderRadius: "5px",
+        color: "white",
+        fontWeight: "bold",
+        textShadow: "2px 2px 2px black",
+        cursor: "pointer",
+        textAlign: "center",
+        transition: "all 0.5s ease-out",
         display: "grid",
-        z_index: "0"
+        alignItems: "center",
+        zIndex: "1"
+    },
+    website_button_backwards : {
+        position: "absolute",
+        width: "50%",
+        height: "20%",
+        top: "80%",
+        left: "25%",
+        background: "rgba(44,12,175,1)",
+        borderRadius: "5px",
+        color: "white",
+        fontWeight: "bold",
+        textShadow: "2px 2px 2px black",
+        cursor: "pointer",
+        textAlign: "center",
+        transition: "all 0.5s ease-out",
+        display: "grid",
+        alignItems: "center",
+        zIndex: "1",
+        transform: "rotateY(180deg)"
+    },
+    website_button_links: {
+        position: "relative",
+        width: "50%",
+        height: "60%",
+        top: "15%",
+        left: "25%",
+        background: "rgba(44,12,175,1)",
+        borderRadius: "5px",
+        color: "white",
+        fontWeight: "bold",
+        textShadow: "2px 2px 2px black",
+        cursor: "pointer",
+        textAlign: "center",
+        transition: "all 0.5s ease-out",
+        display: "grid",
+        alignItems: "center",
+        zIndex: "1" 
+    },
+    website_links: {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        textAlign: "center"
     },
     canvas_2d: {
         position: "absolute",
@@ -106,6 +185,22 @@ const style = {
 //        background: "linear-gradient(17deg, rgba(0,0,0,1) 32%, rgba(10,10,10,10) 56%, rgba(20,20,20,20) 70%)",
 //        backgroundSize: "400% 400%",
         animation: "transition 45s infinite"
+    },
+    technologies_holder: {
+        display: "flex",
+        maxWidth: "100%",
+        maxHeight: "100%",
+        alignItems: "center",
+        justifyContent: "center",
+        textAlign: "center"    
+    },
+    technologies_images: {
+        flex: "33.33%",
+        maxHeight: "100%",
+        width: "33.33%",
+        maxWidth: "300px",
+        zIndex: "0",
+        transform: "rotateY(180deg)"
     }
 }
 
@@ -125,6 +220,10 @@ function ThreeJsScene() {
     let underline_login = useRef(0);
     let login_font = useRef(0);
     let canvas_2d = useRef(0);
+    let website_1_image = useRef(0);
+    let explanation_website_1_image = useRef(0);
+    let website_2_image = useRef(0);
+    let explanation_website_2_image = useRef(0);
     useEffect(() => {
         if (componentLoaded === false) {
             let scene = new THREE.Scene();
@@ -196,8 +295,10 @@ function ThreeJsScene() {
                     let particle_position = -particle_width;
                     array_particles.forEach((part)=>{
                         part.x = particle_position;
+                        part.positive_amount_to_move = particle_position + particle_width;
+                        part.negative_amount_to_move = particle_position - particle_width;
                         particle_position = particle_position + particle_width;
-                    })
+                    });
                 }
             });
 
@@ -348,7 +449,7 @@ function ThreeJsScene() {
             for(let i = 0; i < 27; i++){
                 //let particle_height = window.innerHeight / 10;
                 let particle = new particle_generator(particle_position, Math.floor(Math.random() * window.innerHeight),
-                particle_position + particle_width, particle_position - particle_width, 10);
+                particle_position + particle_width, particle_position - particle_width, 8);
                 particle_position = particle_position + particle_width;
                 array_particles.push(particle);
             }
@@ -554,13 +655,13 @@ function ThreeJsScene() {
                 <div ref={transparent_overlay} style={style.transparent_overlay} onMouseMove={(e)=>mouseMove(e)}></div>
             </div>
 
-            <div className= "THEFREAKINGPAGE" style={{display: "grid", maxWidth: "100%", minHeight: "100vh", maxHeight: "100vh", position: "relative",
+            <div className= "THEFREAKINGPAGE" style={{display: "grid", maxWidth: "100%", minHeight: "1080px", maxHeight: "1080px", position: "relative",
              zIndex: "2"
              }}>
                 <canvas ref={canvas_2d} style={style.canvas_2d}>
 
                 </canvas>
-                <div style={{display: "grid", maxHeight: "100vh"}}>
+                <div style={{display: "grid", maxHeight: "1080px"}}>
                     <div ref={portfolio_grid} style={style.portfolio_grid}>
                         <div style={style.my_work_title}>
                             <div
@@ -573,41 +674,108 @@ function ThreeJsScene() {
                                     underline_login.current.style.transform = "scaleX(0)";   
                                 }}
                             >
-                                <div ref={login_font}>My work:</div>
+                                <div style={{border: "3px solid rgba(24,8,100,1)", borderRadius: "6px"}} ref={login_font}>My work:</div>
                                 <div style={{height: "2px", width: "100%", background:"white",
                                 transform: "scaleX(0)", transition: "all 0.3s ease-out"}} ref={underline_login}></div>
                             </div>  
                         </div> 
                         <div style={style.websites}>
                             <div style={style.grid}>
-                                <div style={style.box}
-                                    onMouseEnter={(e)=>{e.currentTarget.style.transform = "scale(1.05)"; e.currentTarget.style.filter= "grayscale(80%)"}}
-                                    onMouseLeave={(e)=>{e.currentTarget.style.transform = "scale(1)"; e.currentTarget.style.filter= "grayscale(0%)"}}
-                                >
-                                    <div style={style.explanation_website}>adadasdasda</div>
-                                    <img src="javalogo.png" alt="java logo" style={style.grid_images}></img>
+                                <div style={style.box}>
+                                    <div style={style.explanation_website} ref={explanation_website_1_image}>
+                                        <div style={{transform: "rotateY(180deg)", textDecoration: "underline"}}>{"<Technologies used: />"}</div>
+                                        <div style={style.technologies_holder}>
+                                            <img src="spring_boot.png" alt="Spring boot" style={style.technologies_images}></img>
+                                            <img src="Reactjslogo.png" alt="React" style={style.technologies_images}></img>
+                                            <img src="threejslogo.png" alt="Threejs" style={style.technologies_images}></img>
+                                        </div>
+                                        <div style={style.website_button_backwards} onClick={()=>{
+                                                website_1_image.current.style.transform = "rotateY(0deg)";
+                                                explanation_website_1_image.current.style.transform = "rotateY(0deg)";
+                                                website_1_image.current.style.zIndex = "2";
+                                                explanation_website_1_image.current.style.zIndex = "1";
+                                        }} onMouseEnter={(e)=>e.currentTarget.style.boxShadow = "inset 0px -80px 0px rgba(24,8,100,1)"}
+                                        onMouseLeave={(e)=>e.currentTarget.style.boxShadow = ""}>Click this button to flip-back!</div>                                    
+                                    </div>
+                                    <div style={{height: "100%", width: "100%", position: "relative", transition: "all 0.5s ease-out",
+                                    display: "grid", justifyItems: "center", background: "black"}} ref={website_1_image}>
+                                        <img src="xenta_front_page.jpg" alt="xenta game" style={style.grid_images}></img>
+                                        <div style={style.website_button} onClick={()=>{
+                                            website_1_image.current.style.transform = "rotateY(180deg)";
+                                            explanation_website_1_image.current.style.transform = "rotateY(180deg)";
+                                            website_1_image.current.style.zIndex = "1";
+                                            explanation_website_1_image.current.style.zIndex = "2";
+                                        }} onMouseEnter={(e)=>e.currentTarget.style.boxShadow = "inset 0px -80px 0px rgba(24,8,100,1)"}
+                                        onMouseLeave={(e)=>e.currentTarget.style.boxShadow = ""}>See details</div>
+                                    </div>
                                 </div>
-                                <div style={style.box}
-                                    onMouseEnter={(e)=>{e.currentTarget.style.transform = "scale(1.05)"}}
-                                    onMouseLeave={(e)=>{e.currentTarget.style.transform = "scale(1)"}}
-                                ></div>
+                                <div style={style.box_explanation}>
+                                    <div style={style.box_explanation_title}>Xenta's website:</div>
+                                    <div style={style.box_explanation_description}>
+                                        This website is basically an "infinite" game where you are given the sensation that you are actually moving forward
+                                        but in reality the character is just orbiting around the surface of the sphere. <br/>
+                                        You have a score, which is saved if your performance was better than your previous best score and
+                                        a set amount of lives that decrease as you hit the trees.<br/>
+                                    </div>
+                                    <div style={style.website_links}>
+                                        <a href="https://github.com/Rogerpeke97/FrontendAPI" rel="noopener noreferrer" target="_blank"
+                                        style={{display: "grid",textDecoration: "none",color: "white",cursor: "default",flex: "1", fontSize: "200%",
+                                        justifyContent: "center"}}>
+                                            <i style={{cursor: "pointer", transition: "all 0.5s ease-out"}
+                                            } onMouseEnter={(e)=>e.currentTarget.style.color = "rgba(44,12,175,1)"}
+                                            onMouseLeave={(e)=>e.currentTarget.style.color = "white"} class="fi-xnsuxl-github"></i>
+                                        </a>
+                                        <a href="https://xenta.netlify.app/" rel="noopener noreferrer" target="_blank"
+                                        style={{textDecoration: "none",color: "white",cursor: "default",flex: "1", fontSize: "100%",
+                                        height: "100%", width: "100%"}}>
+                                            <div style={style.website_button_links}
+                                            onMouseEnter={(e)=>e.currentTarget.style.boxShadow = "inset 0px -80px 0px rgba(24,8,100,1)"}
+                                            onMouseLeave={(e)=>e.currentTarget.style.boxShadow = ""}>Visit site</div>
+                                        </a>
+                                    </div>
+                                </div>                          
                             </div>
                             <div style={style.grid}>
-                                <div style={style.box}
-                                    onMouseEnter={(e)=>{e.currentTarget.style.transform = "scale(1.05)"}}
-                                    onMouseLeave={(e)=>{e.currentTarget.style.transform = "scale(1)"}}
-                                ></div>
-                                <div style={style.box}
-                                    onMouseEnter={(e)=>{e.currentTarget.style.transform = "scale(1.05)"}}
-                                    onMouseLeave={(e)=>{e.currentTarget.style.transform = "scale(1)"}}
-                                ></div>
+                                <div style={style.box}>
+                                    <div style={style.explanation_website} ref={explanation_website_2_image}>
+                                        <div style={style.website_button_backwards} onClick={()=>{
+                                                website_2_image.current.style.transform = "rotateY(0deg)";
+                                                explanation_website_2_image.current.style.transform = "rotateY(0deg)";
+                                                website_2_image.current.style.zIndex = "2";
+                                                explanation_website_2_image.current.style.zIndex = "1";
+                                        }} onMouseEnter={(e)=>e.currentTarget.style.boxShadow = "inset 0px -80px 0px rgba(24,8,100,1)"}
+                                        onMouseLeave={(e)=>e.currentTarget.style.boxShadow = ""}>Click this button to flip-back!</div>                                    
+                                    </div>
+                                    <div style={{height: "100%", width: "100%", position: "relative", transition: "all 0.5s ease-out",
+                                    display: "grid", justifyItems: "center", background: "black"}} ref={website_2_image}>
+                                        <img src="xenta_front_page.jpg" alt="xenta game" style={style.grid_images}></img>
+                                        <div style={style.website_button} onClick={()=>{
+                                            website_2_image.current.style.transform = "rotateY(180deg)";
+                                            explanation_website_2_image.current.style.transform = "rotateY(180deg)";
+                                            website_2_image.current.style.zIndex = "1";
+                                            explanation_website_2_image.current.style.zIndex = "2";
+                                        }} onMouseEnter={(e)=>e.currentTarget.style.boxShadow = "inset 0px -80px 0px rgba(24,8,100,1)"}
+                                        onMouseLeave={(e)=>e.currentTarget.style.boxShadow = ""}>See details</div>
+                                    </div>
+                                </div>
+                                <div style={style.box_explanation}>
+                                    <div>Xenta's website:</div>
+                                    <div>
+                                        This website is basically an "infinite" game where you are given the sensation that you are actually moving forward <br/>
+                                        but in reality the character is just orbiting around the surface of the sphere. You have a score, which is saved if your per
+                                        formance was better than your previous best score and a set amount of lives that decrease as you hit the trees.<br/>
+                                    </div>
+                                    <div style={style.website_links}>
+                                        
+                                    </div>
+                                </div>
                             </div>
                         </div>       
                     </div>
                     <div ref={moving_div_1} style={style.moving_div_1}></div>
                 </div>
             </div>
-            <div className= "page3" style={{height: "100vh", width: "100%", background: "linear-gradient(17deg, rgba(0,0,0,1) 32%, rgba(10,10,10,10) 56%, rgba(20,20,20,20) 70%)",
+            <div className= "page3" style={{height: "1080px", width: "100%", background: "linear-gradient(17deg, rgba(0,0,0,1) 32%, rgba(10,10,10,10) 56%, rgba(20,20,20,20) 70%)",
             backgroundSize: "400% 400%", animation: "transition 45s infinite"}}>
             <div ref={moving_div_2} style={style.moving_div_2}></div>
             </div>
