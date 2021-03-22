@@ -9,7 +9,7 @@ const style = {
         display: "grid",
         width: "90%",
         gridTemplateRows: "10% 90%",
-        height: "1080px",
+        height: "1620px",
         position: "relative",
         left: "5%",
         zIndex: "1",
@@ -19,8 +19,8 @@ const style = {
         height: "0", 
         zIndex: "0", 
         width:"25%", 
-        borderBottom: "1080px solid rgba(44,12,175,1)",
-        borderRight: "1080px solid transparent",  
+        borderBottom: "1620px solid rgba(44,12,175,1)",
+        borderRight: "1620px solid transparent",  
         position: "absolute", 
         left: "-100%", 
         top: "0vh",
@@ -65,7 +65,7 @@ const style = {
     },
     websites: {
         display: "grid",
-        gridTemplateRows: "50% 50%"
+        gridTemplateRows: "33.33% 33.33% 33.33%"
     },
     grid: {
         display: "flex",
@@ -224,6 +224,9 @@ function ThreeJsScene() {
     let explanation_website_1_image = useRef(0);
     let website_2_image = useRef(0);
     let explanation_website_2_image = useRef(0);
+    let website_3_image = useRef(0);
+    let explanation_website_3_image = useRef(0);
+    let page_3 = useRef(0);
     useEffect(() => {
         if (componentLoaded === false) {
             let scene = new THREE.Scene();
@@ -290,7 +293,7 @@ function ThreeJsScene() {
                     scroll_value = window.scrollY;
                     //CANVAS_2d
                     canvas_2d.current.width = window.innerWidth;
-                    canvas_2d.current.height = window.innerHeight;
+                    canvas_2d.current.height = portfolio_grid.current.clientHeight;
                     let particle_width = canvas_2d.current.width / 25;
                     let particle_position = -particle_width;
                     array_particles.forEach((part)=>{
@@ -441,14 +444,14 @@ function ThreeJsScene() {
 
             const canvas_2d_ctx = canvas_2d.current.getContext("2d");
             canvas_2d.current.width = window.innerWidth;
-            canvas_2d.current.height = window.innerHeight;
+            canvas_2d.current.height = portfolio_grid.current.clientHeight;
             let array_particles = [];
             let particle_width = canvas_2d.current.width / 25;
             let particle_position = -particle_width;
 
             for(let i = 0; i < 27; i++){
                 //let particle_height = window.innerHeight / 10;
-                let particle = new particle_generator(particle_position, Math.floor(Math.random() * window.innerHeight),
+                let particle = new particle_generator(particle_position, Math.floor(Math.random() * portfolio_grid.current.clientHeight),
                 particle_position + particle_width, particle_position - particle_width, 8);
                 particle_position = particle_position + particle_width;
                 array_particles.push(particle);
@@ -466,7 +469,7 @@ function ThreeJsScene() {
                 canvas_2d_ctx.fillRect(0, 0, canvas_2d.current.width, canvas_2d.current.height);
                 array_particles.forEach((part)=>{
                     if(part.y < 0){
-                        part.y = window.innerHeight;
+                        part.y = portfolio_grid.current.clientHeight;
                     }
                     part.y = part.y - 0.5;
                     part.arc(part.x, part.y, part.r, 0, 2 * Math.PI)
@@ -520,9 +523,9 @@ function ThreeJsScene() {
             //MOVE DIVS LEFT TO RIGHT
             let current_scroll_value;
             let scroll_value;
-            const move_divs = (div_to_be_moved, amount, window_position)=>{
-                    if(scroll_value < window.innerHeight){
-                        let window_total_to_get_div_to_100 = window.innerHeight * window_position - current_scroll_value;// i get the remaining scroll values to get to a 100% i use the rule of 3
+            const move_divs = (div_to_be_moved, amount)=>{
+                    if(scroll_value < window.innerHeight + portfolio_grid.current.clientHeight && scroll_value > window.innerHeight / 4){
+                        let window_total_to_get_div_to_100 = window.innerHeight + portfolio_grid.current.clientHeight - current_scroll_value;// i get the remaining scroll values to get to a 100% i use the rule of 3
                         let value_scrolled;
                         let get_percentage_to_move_div;
                         let parse_div_position;
@@ -549,9 +552,9 @@ function ThreeJsScene() {
             }
 
             //MOVE DIVS RIGHT TO LEFT
-            const move_divs_backwards = (div_to_be_moved, amount, window_position)=>{
-                    if(scroll_value < window.innerHeight * 2){
-                        let window_total_to_get_div_to_100 = window.innerHeight * window_position - current_scroll_value;// i get the remaining scroll values to get to a 100% i use the rule of 3
+            const move_divs_backwards = (div_to_be_moved, amount)=>{
+                    if(scroll_value < window.innerHeight + page_3.current.clientHeight + portfolio_grid.current.clientHeight && scroll_value > window.innerHeight + page_3.current.clientHeight){
+                        let window_total_to_get_div_to_100 = window.innerHeight + page_3.current.clientHeight + portfolio_grid.current.clientHeight - current_scroll_value;// i get the remaining scroll values to get to a 100% i use the rule of 3
                         let value_scrolled;
                         let get_percentage_to_move_div;
                         let parse_div_position;
@@ -585,8 +588,8 @@ function ThreeJsScene() {
                 window.addEventListener('scroll', function scrolling(){
                     current_scroll_value = window.scrollY;
                     window.requestAnimationFrame(()=>{
-                        move_divs(moving_div_1, -100, 2);
-                        move_divs_backwards(moving_div_2, 100, 3);
+                        move_divs(moving_div_1, -100);
+                        move_divs_backwards(moving_div_2, 100);
                         scroll_value = current_scroll_value;                 
                     });
                 });
@@ -655,13 +658,13 @@ function ThreeJsScene() {
                 <div ref={transparent_overlay} style={style.transparent_overlay} onMouseMove={(e)=>mouseMove(e)}></div>
             </div>
 
-            <div className= "THEFREAKINGPAGE" style={{display: "grid", maxWidth: "100%", minHeight: "1080px", maxHeight: "1080px", position: "relative",
+            <div className= "THEFREAKINGPAGE" style={{display: "grid", maxWidth: "100%", minHeight: "1620px", maxHeight: "1620px", position: "relative",
              zIndex: "2"
              }}>
                 <canvas ref={canvas_2d} style={style.canvas_2d}>
 
                 </canvas>
-                <div style={{display: "grid", maxHeight: "1080px"}}>
+                <div style={{display: "grid", maxHeight: "1620px"}}>
                     <div ref={portfolio_grid} style={style.portfolio_grid}>
                         <div style={style.my_work_title}>
                             <div
@@ -770,13 +773,48 @@ function ThreeJsScene() {
                                     </div>
                                 </div>
                             </div>
+                            <div style={style.grid}>
+                                <div style={style.box}>
+                                    <div style={style.explanation_website} ref={explanation_website_3_image}>
+                                        <div style={style.website_button_backwards} onClick={()=>{
+                                                website_3_image.current.style.transform = "rotateY(0deg)";
+                                                explanation_website_3_image.current.style.transform = "rotateY(0deg)";
+                                                website_3_image.current.style.zIndex = "2";
+                                                explanation_website_3_image.current.style.zIndex = "1";
+                                        }} onMouseEnter={(e)=>e.currentTarget.style.boxShadow = "inset 0px -80px 0px rgba(24,8,100,1)"}
+                                        onMouseLeave={(e)=>e.currentTarget.style.boxShadow = ""}>Click this button to flip-back!</div>                                    
+                                    </div>
+                                    <div style={{height: "100%", width: "100%", position: "relative", transition: "all 0.5s ease-out",
+                                    display: "grid", justifyItems: "center", background: "black"}} ref={website_3_image}>
+                                        <img src="xenta_front_page.jpg" alt="xenta game" style={style.grid_images}></img>
+                                        <div style={style.website_button} onClick={()=>{
+                                            website_3_image.current.style.transform = "rotateY(180deg)";
+                                            explanation_website_3_image.current.style.transform = "rotateY(180deg)";
+                                            website_3_image.current.style.zIndex = "1";
+                                            explanation_website_3_image.current.style.zIndex = "2";
+                                        }} onMouseEnter={(e)=>e.currentTarget.style.boxShadow = "inset 0px -80px 0px rgba(24,8,100,1)"}
+                                        onMouseLeave={(e)=>e.currentTarget.style.boxShadow = ""}>See details</div>
+                                    </div>
+                                </div>
+                                <div style={style.box_explanation}>
+                                    <div>Xenta's website:</div>
+                                    <div>
+                                        This website is basically an "infinite" game where you are given the sensation that you are actually moving forward <br/>
+                                        but in reality the character is just orbiting around the surface of the sphere. You have a score, which is saved if your per
+                                        formance was better than your previous best score and a set amount of lives that decrease as you hit the trees.<br/>
+                                    </div>
+                                    <div style={style.website_links}>
+                                        
+                                    </div>
+                                </div>
+                            </div>
                         </div>       
                     </div>
                     <div ref={moving_div_1} style={style.moving_div_1}></div>
                 </div>
             </div>
             <div className= "page3" style={{height: "1080px", width: "100%", background: "linear-gradient(17deg, rgba(0,0,0,1) 32%, rgba(10,10,10,10) 56%, rgba(20,20,20,20) 70%)",
-            backgroundSize: "400% 400%", animation: "transition 45s infinite"}}>
+            backgroundSize: "400% 400%", animation: "transition 45s infinite"}} ref={page_3}>
             <div ref={moving_div_2} style={style.moving_div_2}></div>
             </div>
             <div
