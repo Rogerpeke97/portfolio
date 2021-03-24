@@ -227,6 +227,7 @@ function ThreeJsScene() {
     let website_3_image = useRef(0);
     let explanation_website_3_image = useRef(0);
     let page_3 = useRef(0);
+    let nav_bar = useRef(0);
     useEffect(() => {
         if (componentLoaded === false) {
             let scene = new THREE.Scene();
@@ -524,54 +525,56 @@ function ThreeJsScene() {
             let current_scroll_value;
             let scroll_value;
             const move_divs = (div_to_be_moved, amount)=>{
-                    if(scroll_value < window.innerHeight + portfolio_grid.current.clientHeight && scroll_value > window.innerHeight / 4){
-                        let window_total_to_get_div_to_100 = window.innerHeight + portfolio_grid.current.clientHeight - current_scroll_value;// i get the remaining scroll values to get to a 100% i use the rule of 3
+                if(scroll_value < portfolio_grid.current.clientHeight && scroll_value > window.innerHeight / 3){
+                        let page_size = portfolio_grid.current.clientHeight;
                         let value_scrolled;
-                        let get_percentage_to_move_div;
+                        let percentage_to_move_div;
                         let parse_div_position;
                         let div_position = div_to_be_moved.current.style.left;
                         if(current_scroll_value > scroll_value && parseInt(div_position.slice(0, -1)) < 0){
                             value_scrolled = current_scroll_value - scroll_value;
-                            get_percentage_to_move_div = (value_scrolled * 100) / (window_total_to_get_div_to_100);
-                            parse_div_position = parseInt(div_position.slice(0, -1)) + get_percentage_to_move_div;
+                            percentage_to_move_div = (value_scrolled * 100) / page_size;
+                            parse_div_position = parseInt(div_position.slice(0, -1)) + percentage_to_move_div;
                             if(parse_div_position > 0){
                                 parse_div_position = 0;
                             }
-                            div_to_be_moved.current.style.left = parse_div_position.toFixed(2) + '%';
+                            div_to_be_moved.current.style.left = parse_div_position.toFixed(1) + '%';
                         }
-                        else if(current_scroll_value < scroll_value && parseInt(div_position.slice(0, -1)) > -100){
+                    else if(current_scroll_value < scroll_value && parseInt(div_position.slice(0, -1)) > amount){
                             value_scrolled = scroll_value - current_scroll_value;
-                            get_percentage_to_move_div = (value_scrolled * 100) / (window_total_to_get_div_to_100 / 1.25);
-                            parse_div_position = parseInt(div_position.slice(0, -1)) - get_percentage_to_move_div;
+                            percentage_to_move_div = (value_scrolled * 100) / page_size;
+                            parse_div_position = (parseInt(div_position.slice(0, -1)) - percentage_to_move_div) * 1.03;
                             if(parse_div_position < amount){
                                 parse_div_position = amount;
                             }
-                            div_to_be_moved.current.style.left = parse_div_position.toFixed(2) + '%';    
-                        }
+                            div_to_be_moved.current.style.left = parse_div_position.toFixed(1) + '%';
+                    }
                 }
             }
 
             //MOVE DIVS RIGHT TO LEFT
             const move_divs_backwards = (div_to_be_moved, amount)=>{
-                    if(scroll_value < window.innerHeight + page_3.current.clientHeight + portfolio_grid.current.clientHeight && scroll_value > window.innerHeight + page_3.current.clientHeight){
-                        let window_total_to_get_div_to_100 = window.innerHeight + page_3.current.clientHeight + portfolio_grid.current.clientHeight - current_scroll_value;// i get the remaining scroll values to get to a 100% i use the rule of 3
+                    if(scroll_value < window.innerHeight + page_3.current.clientHeight + portfolio_grid.current.clientHeight && scroll_value > window.innerHeight){
+                        let page_size = page_3.current.clientHeight;
                         let value_scrolled;
-                        let get_percentage_to_move_div;
+                        let percentage_to_move_div;
                         let parse_div_position;
                         let div_position = div_to_be_moved.current.style.left;
                         if(current_scroll_value > scroll_value && parseInt(div_position.slice(0, -1)) > 0){
                             value_scrolled = current_scroll_value - scroll_value;
-                            get_percentage_to_move_div = (value_scrolled * 100) / (window_total_to_get_div_to_100);
-                            parse_div_position = parseInt(div_position.slice(0, -1)) - get_percentage_to_move_div;
+                            percentage_to_move_div = (value_scrolled * 100) / page_size;
+                            //value_scrolled = (value_scrolled /100) * window_total_to_get_div_to_100; // AMOUNT OF TIMES YOU NEED TO SCROLL TO GET TO THE BOTTOM OF THE PAGE
+                            parse_div_position = parseInt(div_position.slice(0, -1)) - percentage_to_move_div;
                             if(parse_div_position < 0){
                                 parse_div_position = 0;
                             }
                             div_to_be_moved.current.style.left = parse_div_position.toFixed(2) + '%';
                         }
-                        else if(current_scroll_value < scroll_value && parseInt(div_position.slice(0, -1)) < 100){
+                        else if(current_scroll_value < scroll_value && parseInt(div_position.slice(0, -1)) < amount){
                             value_scrolled = scroll_value - current_scroll_value;
-                            get_percentage_to_move_div = (value_scrolled * 100) / (window_total_to_get_div_to_100 / 1.25);
-                            parse_div_position = parseInt(div_position.slice(0, -1)) + get_percentage_to_move_div;
+                            percentage_to_move_div = (value_scrolled * 100) / page_size;
+                            //value_scrolled = (value_scrolled /100) * window_total_to_get_div_to_100; // AMOUNT OF TIMES YOU NEED TO SCROLL TO GET TO THE BOTTOM OF THE PAGE
+                            parse_div_position = parseInt(div_position.slice(0, -1)) + percentage_to_move_div;
                             if(parse_div_position > amount){
                                 parse_div_position = amount;
                             }
@@ -587,7 +590,7 @@ function ThreeJsScene() {
                 //SCROLL EVENT TO MOVE DIV COLOR AGREGAR WINDOW ON RESIZE Y CREAR OBJETO
                 window.addEventListener('scroll', function scrolling(){
                     current_scroll_value = window.scrollY;
-                    window.requestAnimationFrame(()=>{
+                    requestAnimationFrame(()=>{
                         move_divs(moving_div_1, -100);
                         move_divs_backwards(moving_div_2, 100);
                         scroll_value = current_scroll_value;                 
@@ -631,7 +634,7 @@ function ThreeJsScene() {
 
     return (
         <div style={{maxWidth: "100%", height: "100%", position: "relative"}}>
-            <div style={{display: "flex", maxWidth: "100%", minWidth: "100%", height: "5rem", background: "black", position: "fixed",
+            <div ref={nav_bar} style={{display: "flex", maxWidth: "100%", minWidth: "100%", height: "5rem", background: "black", position: "fixed",
             color: "white", top: "0", zIndex: "3"
             }}>
                 <div style={{justifyContent: "center", alignContent: "center", display: "grid", flex: "1"}}>
