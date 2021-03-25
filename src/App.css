@@ -21,3 +21,7 @@
 		background-position: 0% 50%;
 	}
 }
+
+.xenta_image_to_gif:hover{
+	opacity: 0;
+}

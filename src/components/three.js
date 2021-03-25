@@ -78,7 +78,7 @@ const style = {
         borderRadius: "6px",
         flex: "1",
         transition: "transform 0.5s ease-out",
-        boxShadow: " 0px 0px 50px -4px black"
+        boxShadow: " 0px 0px 50px -4px black",
     },
     box_explanation: {
         margin: "2%",
@@ -195,12 +195,20 @@ const style = {
         textAlign: "center"    
     },
     technologies_images: {
-        flex: "33.33%",
+        flex: "25%",
         maxHeight: "100%",
-        width: "33.33%",
-        maxWidth: "300px",
+        width: "25%",
         zIndex: "0",
         transform: "rotateY(180deg)"
+    },
+    website_image_container: {
+        height: "100%", 
+        width: "100%",
+        position: "relative", 
+        transition: "all 0.5s ease-out",
+        display: "grid", 
+        justifyItems: "center", 
+        background: "black"
     }
 }
 
@@ -694,6 +702,7 @@ function ThreeJsScene() {
                                             <img src="spring_boot.png" alt="Spring boot" style={style.technologies_images}></img>
                                             <img src="Reactjslogo.png" alt="React" style={style.technologies_images}></img>
                                             <img src="threejslogo.png" alt="Threejs" style={style.technologies_images}></img>
+                                            <img src="postgresqllogo.png" alt="Spring boot" style={style.technologies_images}></img>
                                         </div>
                                         <div style={style.website_button_backwards} onClick={()=>{
                                                 website_1_image.current.style.transform = "rotateY(0deg)";
@@ -703,9 +712,18 @@ function ThreeJsScene() {
                                         }} onMouseEnter={(e)=>e.currentTarget.style.boxShadow = "inset 0px -80px 0px rgba(24,8,100,1)"}
                                         onMouseLeave={(e)=>e.currentTarget.style.boxShadow = ""}>Click this button to flip-back!</div>                                    
                                     </div>
-                                    <div style={{height: "100%", width: "100%", position: "relative", transition: "all 0.5s ease-out",
-                                    display: "grid", justifyItems: "center", background: "black"}} ref={website_1_image}>
-                                        <img src="xenta_front_page.jpg" alt="xenta game" style={style.grid_images}></img>
+                                    <div style={style.website_image_container} ref={website_1_image}>
+                                        <div style={{height: "100%", width: "100%", position: "absolute", transition: "all 0.5s ease-out",
+                                        display: "grid", justifyItems: "center", background: "black"}}>
+                                            <img src="xenta_gif.gif" alt="xenta game" style={style.grid_images}></img>
+                                        </div>
+                                        <div style={{height: "100%", width: "100%", position: "absolute", transition: "all 0.5s ease-out",
+                                        display: "grid", justifyItems: "center", background: "black", opacity: "1"}} 
+                                        onMouseEnter={(e)=>e.currentTarget.style.opacity = "0"}
+                                        onMouseLeave={(e)=>e.currentTarget.style.opacity = "1"}
+                                        >
+                                            <img src="xenta_front_page.jpg" alt="xenta game" style={style.grid_images}></img>
+                                        </div>
                                         <div style={style.website_button} onClick={()=>{
                                             website_1_image.current.style.transform = "rotateY(180deg)";
                                             explanation_website_1_image.current.style.transform = "rotateY(180deg)";
@@ -725,8 +743,17 @@ function ThreeJsScene() {
                                     </div>
                                     <div style={style.website_links}>
                                         <a href="https://github.com/Rogerpeke97/FrontendAPI" rel="noopener noreferrer" target="_blank"
-                                        style={{display: "grid",textDecoration: "none",color: "white",cursor: "default",flex: "1", fontSize: "200%",
-                                        justifyContent: "center"}}>
+                                        style={{display: "grid",textDecoration: "none",color: "white",cursor: "default",flex: "1", fontSize: "150%",
+                                        justifyContent: "center", justifyItems: "center"}}>
+                                            Frontend:
+                                            <i style={{cursor: "pointer", transition: "all 0.5s ease-out"}
+                                            } onMouseEnter={(e)=>e.currentTarget.style.color = "rgba(44,12,175,1)"}
+                                            onMouseLeave={(e)=>e.currentTarget.style.color = "white"} class="fi-xnsuxl-github"></i>
+                                        </a>
+                                        <a href="https://github.com/Rogerpeke97/APISpring" rel="noopener noreferrer" target="_blank"
+                                        style={{display: "grid",textDecoration: "none",color: "white",cursor: "default",flex: "1", fontSize: "150%",
+                                        justifyContent: "center", justifyItems: "center"}}>
+                                            Backend:
                                             <i style={{cursor: "pointer", transition: "all 0.5s ease-out"}
                                             } onMouseEnter={(e)=>e.currentTarget.style.color = "rgba(44,12,175,1)"}
                                             onMouseLeave={(e)=>e.currentTarget.style.color = "white"} class="fi-xnsuxl-github"></i>
@@ -752,9 +779,18 @@ function ThreeJsScene() {
                                         }} onMouseEnter={(e)=>e.currentTarget.style.boxShadow = "inset 0px -80px 0px rgba(24,8,100,1)"}
                                         onMouseLeave={(e)=>e.currentTarget.style.boxShadow = ""}>Click this button to flip-back!</div>                                    
                                     </div>
-                                    <div style={{height: "100%", width: "100%", position: "relative", transition: "all 0.5s ease-out",
-                                    display: "grid", justifyItems: "center", background: "black"}} ref={website_2_image}>
-                                        <img src="xenta_front_page.jpg" alt="xenta game" style={style.grid_images}></img>
+                                    <div style={style.website_image_container} ref={website_2_image}>
+                                        <div style={{height: "100%", width: "100%", position: "absolute", transition: "all 0.5s ease-out",
+                                        display: "grid", justifyItems: "center", background: "black"}}>
+                                                <img src="project1.gif" alt="xenta game" style={style.grid_images}></img>
+                                        </div>
+                                        <div style={{height: "100%", width: "100%", position: "absolute", transition: "all 0.5s ease-out",
+                                        display: "grid", justifyItems: "center", background: "black", opacity: "1"}} 
+                                        onMouseEnter={(e)=>e.currentTarget.style.opacity = "0"}
+                                        onMouseLeave={(e)=>e.currentTarget.style.opacity = "1"}
+                                        >
+                                            <img src="project1_front.png" alt="xenta game" style={style.grid_images}></img>
+                                        </div>
                                         <div style={style.website_button} onClick={()=>{
                                             website_2_image.current.style.transform = "rotateY(180deg)";
                                             explanation_website_2_image.current.style.transform = "rotateY(180deg)";
@@ -765,16 +801,33 @@ function ThreeJsScene() {
                                     </div>
                                 </div>
                                 <div style={style.box_explanation}>
-                                    <div>Xenta's website:</div>
-                                    <div>
-                                        This website is basically an "infinite" game where you are given the sensation that you are actually moving forward <br/>
-                                        but in reality the character is just orbiting around the surface of the sphere. You have a score, which is saved if your per
-                                        formance was better than your previous best score and a set amount of lives that decrease as you hit the trees.<br/>
+                                    <div style={style.box_explanation_title}>Csv-converter:</div>
+                                    <div style={style.box_explanation_description}>
+                                    This is my first project, it converts csv files and displays them in a canvas using chartjs. 
+                                    It has a lot of backend functionalities that allowed me to learn about backend and frontend requests,
+                                    remote storage using googlecloud's api, file storage using multer, downloading files from googlecloud and 
+                                    display them on the frontend. 
+                                    Also, deploying the website using the heroku cli, creating a database for the login user data, 
+                                    setting up the remote database, hashing the password when you sign up and storing cookies for the specific user session.
+                                    You can sign up, create a user and login.
                                     </div>
                                     <div style={style.website_links}>
-                                        
+                                        <a href="https://github.com/Rogerpeke97/Csv-converter-server-config" rel="noopener noreferrer" target="_blank"
+                                        style={{display: "grid",textDecoration: "none",color: "white",cursor: "default",flex: "1", fontSize: "200%",
+                                        justifyContent: "center", justifyItems: "center"}}>
+                                            <i style={{cursor: "pointer", transition: "all 0.5s ease-out"}
+                                            } onMouseEnter={(e)=>e.currentTarget.style.color = "rgba(44,12,175,1)"}
+                                            onMouseLeave={(e)=>e.currentTarget.style.color = "white"} class="fi-xnsuxl-github"></i>
+                                        </a>
+                                        <a href="https://csv-convrt.herokuapp.com/" rel="noopener noreferrer" target="_blank"
+                                        style={{textDecoration: "none",color: "white",cursor: "default",flex: "1", fontSize: "100%",
+                                        height: "100%", width: "100%"}}>
+                                            <div style={style.website_button_links}
+                                            onMouseEnter={(e)=>e.currentTarget.style.boxShadow = "inset 0px -80px 0px rgba(24,8,100,1)"}
+                                            onMouseLeave={(e)=>e.currentTarget.style.boxShadow = ""}>Visit site</div>
+                                        </a>
                                     </div>
-                                </div>
+                                </div>   
                             </div>
                             <div style={style.grid}>
                                 <div style={style.box}>
@@ -787,8 +840,7 @@ function ThreeJsScene() {
                                         }} onMouseEnter={(e)=>e.currentTarget.style.boxShadow = "inset 0px -80px 0px rgba(24,8,100,1)"}
                                         onMouseLeave={(e)=>e.currentTarget.style.boxShadow = ""}>Click this button to flip-back!</div>                                    
                                     </div>
-                                    <div style={{height: "100%", width: "100%", position: "relative", transition: "all 0.5s ease-out",
-                                    display: "grid", justifyItems: "center", background: "black"}} ref={website_3_image}>
+                                    <div style={style.website_image_container} ref={website_3_image}>
                                         <img src="xenta_front_page.jpg" alt="xenta game" style={style.grid_images}></img>
                                         <div style={style.website_button} onClick={()=>{
                                             website_3_image.current.style.transform = "rotateY(180deg)";
