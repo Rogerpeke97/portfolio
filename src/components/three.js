@@ -3,6 +3,9 @@ import * as THREE from "three";
 import {useEffect, useRef, useState} from "react";
 import { Lensflare, LensflareElement } from 'three/examples/jsm/objects/Lensflare.js';
 import TWEEN from '@tweenjs/tween.js'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {faGithub, faLinkedin} from '@fortawesome/free-brands-svg-icons'
+import { faWindowClose, faQuestionCircle, faMapMarked } from '@fortawesome/free-solid-svg-icons'
 
 const style = {
     portfolio_grid: {
@@ -209,7 +212,18 @@ const style = {
         display: "grid", 
         justifyItems: "center", 
         background: "black"
-    }
+    },
+    footer: {
+        backgroundColor: "rgba(24,8,100,1)",
+        color: 'white',
+        zIndex: "2",
+        display: 'flex',
+        fontSize: "80%",
+        justifyContent: "center",
+        height: '10rem',
+        position: "relative",
+        width: "100%",
+    },
 }
 
 
@@ -344,10 +358,11 @@ function ThreeJsScene() {
             const material = new THREE.MeshPhongMaterial({map: sunTexture, alphaTest: 0.1, bumpMap: sunBump, bumpScale: 0.005});
             let cube = new THREE.Mesh(geometry, material);
 
+
             //PARTICLES
             let particleCount = 2000
             let particleDistance = 53;
-            let particles = new THREE.Geometry();
+            let particles = new THREE.BufferGeometry();
             let texture = new THREE
                 .TextureLoader()
                 .load('flare.png');
@@ -356,31 +371,31 @@ function ThreeJsScene() {
                 blending: THREE.AdditiveBlending,
                 transparent: false
             });
+            var positions = []; // 3 vertices per point
+            
             for (let i = 0; i < particleCount; i++) {
+
                 let posX = (Math.random() - 0.5) * particleDistance;
                 let posY = (Math.random() - 0.5) * particleDistance;
                 let posZ = (Math.random() - 0.5) * particleDistance;
-                let particle = new THREE.Vector3(posX, posY, posZ);
-                particles
-                    .vertices
-                    .push(particle);
-            }
 
+                positions.push(posX, posY, posZ);
+            }
+            particles.setAttribute( 'position', new THREE.Float32BufferAttribute( positions, 3 ) );
             // create the particle system
             let particleSys = new THREE.Points(particles, pMaterial);
             particleSys.name = 'particleSys';
             renderer.setAnimationLoop(() => {
-                let particleSys = scene.getObjectByName('particleSys');
-                particleSys
-                    .geometry
-                    .vertices
-                    .forEach(particle => {
-                        particle.z += 0.1;
-                        if (particle.z > 10) {
-                            particle.z = -20
-                        }
-                        particleSys.geometry.verticesNeedUpdate = true;
-                    })
+               let particleSys = scene.getObjectByName('particleSys');
+                console.log(particleSys);
+                for(let i = 2; i < particleCount * 3; i+=3){
+                    let star = particleSys.geometry.attributes.position.array;
+                    star[i] += 0.1;
+                    if(star[i] > 10){
+                        star[i] = -20;
+                    }
+                    particleSys.geometry.attributes.position.needsUpdate = true;
+                }
                 renderer.render(scene, camera)
             })
             // add it to the scene
@@ -746,17 +761,17 @@ function ThreeJsScene() {
                                         style={{display: "grid",textDecoration: "none",color: "white",cursor: "default",flex: "1", fontSize: "150%",
                                         justifyContent: "center", justifyItems: "center"}}>
                                             Frontend:
-                                            <i style={{cursor: "pointer", transition: "all 0.5s ease-out"}
-                                            } onMouseEnter={(e)=>e.currentTarget.style.color = "rgba(44,12,175,1)"}
-                                            onMouseLeave={(e)=>e.currentTarget.style.color = "white"} class="fi-xnsuxl-github"></i>
+                                            <FontAwesomeIcon icon={faGithub} style={{cursor: "pointer", transition: "all 0.5s ease-out"}}
+                                            onMouseEnter={(e)=>e.currentTarget.style.color = "rgba(44,12,175,1)"}
+                                            onMouseLeave={(e)=>e.currentTarget.style.color = "white"}/>
                                         </a>
                                         <a href="https://github.com/Rogerpeke97/APISpring" rel="noopener noreferrer" target="_blank"
                                         style={{display: "grid",textDecoration: "none",color: "white",cursor: "default",flex: "1", fontSize: "150%",
                                         justifyContent: "center", justifyItems: "center"}}>
                                             Backend:
-                                            <i style={{cursor: "pointer", transition: "all 0.5s ease-out"}
-                                            } onMouseEnter={(e)=>e.currentTarget.style.color = "rgba(44,12,175,1)"}
-                                            onMouseLeave={(e)=>e.currentTarget.style.color = "white"} class="fi-xnsuxl-github"></i>
+                                            <FontAwesomeIcon icon={faGithub} style={{cursor: "pointer", transition: "all 0.5s ease-out"}}
+                                            onMouseEnter={(e)=>e.currentTarget.style.color = "rgba(44,12,175,1)"}
+                                            onMouseLeave={(e)=>e.currentTarget.style.color = "white"}/>
                                         </a>
                                         <a href="https://xenta.netlify.app/" rel="noopener noreferrer" target="_blank"
                                         style={{textDecoration: "none",color: "white",cursor: "default",flex: "1", fontSize: "100%",
@@ -815,9 +830,9 @@ function ThreeJsScene() {
                                         <a href="https://github.com/Rogerpeke97/Csv-converter-server-config" rel="noopener noreferrer" target="_blank"
                                         style={{display: "grid",textDecoration: "none",color: "white",cursor: "default",flex: "1", fontSize: "200%",
                                         justifyContent: "center", justifyItems: "center"}}>
-                                            <i style={{cursor: "pointer", transition: "all 0.5s ease-out"}
-                                            } onMouseEnter={(e)=>e.currentTarget.style.color = "rgba(44,12,175,1)"}
-                                            onMouseLeave={(e)=>e.currentTarget.style.color = "white"} class="fi-xnsuxl-github"></i>
+                                            <FontAwesomeIcon icon={faGithub} style={{cursor: "pointer", transition: "all 0.5s ease-out"}}
+                                            onMouseEnter={(e)=>e.currentTarget.style.color = "rgba(44,12,175,1)"}
+                                            onMouseLeave={(e)=>e.currentTarget.style.color = "white"}/>
                                         </a>
                                         <a href="https://csv-convrt.herokuapp.com/" rel="noopener noreferrer" target="_blank"
                                         style={{textDecoration: "none",color: "white",cursor: "default",flex: "1", fontSize: "100%",
@@ -871,6 +886,32 @@ function ThreeJsScene() {
             <div className= "page3" style={{height: "1080px", width: "100%", background: "linear-gradient(17deg, rgba(0,0,0,1) 32%, rgba(10,10,10,10) 56%, rgba(20,20,20,20) 70%)",
             backgroundSize: "400% 400%", animation: "transition 45s infinite"}} ref={page_3}>
             <div ref={moving_div_2} style={style.moving_div_2}></div>
+            </div>
+            <div style={style.footer}>
+                <div style={{flex: "1", display: "grid", alignItems: "center", margin: "2%"}}>
+                    <div>Ignacio Martin Diaz</div>     
+                    <div style={{display: "flex"}}>
+                    <FontAwesomeIcon icon={faMapMarked} style={{marginRight: "1%"}}/> 
+                    <div>Buenos Aires, Argentina</div>
+                    </div>
+                    <div>&copy; Copyright 2021, Ignacio Martin Diaz. All rights reserved.</div>
+                </div>
+                <div style={{flex: "1", display: "grid", alignItems: "center", paddingLeft: "1%", borderLeft: "2px solid white"}}>
+                    <div style={{display: "flex"}}>
+                        <a href="https://github.com/Rogerpeke97/" rel="noopener noreferrer" target="_blank"
+                        style={{justifyContent: "center", display: "grid", textDecoration: "none", alignContent: "center", cursor: "default", color: "white", marginRight: "1%"}}>
+                        <FontAwesomeIcon icon={faGithub} style={{cursor: "pointer", fontSize: "100%", transition: "all 0.5s ease-out"}} />
+                        </a>
+                    <div>Github</div> 
+                    </div>
+                    <div style={{display: "flex"}}>
+                    <a href="https://www.linkedin.com/in/ignacio-martin-diaz-2a30251b7/" rel="noopener noreferrer" target="_blank"
+                        style={{justifyContent: "center", display: "grid", textDecoration: "none", alignContent: "center", cursor: "default", color: "white", marginRight: "1%"}}>
+                        <FontAwesomeIcon icon={faLinkedin} style={{cursor: "pointer", fontSize: "100%", transition: "all 0.5s ease-out"}} />
+                    </a>
+                    <div>LinkedIn</div> 
+                    </div>
+                </div>
             </div>
             <div
                 className="loadingScreen"
