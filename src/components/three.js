@@ -33,10 +33,10 @@ const style = {
         flex: "1", 
         height: "0", 
         zIndex: "0", 
-        width:"50%", 
+        width:"100%", 
         borderBottom: "1080px solid whitesmoke",
         borderRight: "1080px solid transparent",  
-        position: "relative", 
+        position: "absolute", 
         left: "100%", 
         transform: "scaleX(-1)",
         opacity: "0.4"
@@ -184,7 +184,16 @@ const style = {
         position: "absolute",
         height: "100%",
         width: "100%",
-        background: "white",
+        background: "black",
+//        background: "linear-gradient(17deg, rgba(0,0,0,1) 32%, rgba(10,10,10,10) 56%, rgba(20,20,20,20) 70%)",
+//        backgroundSize: "400% 400%",
+        animation: "transition 45s infinite"
+    },
+    canvas_2d_page_3: {
+        position: "absolute",
+        height: "1080px",
+        width: "100%",
+        background: "black",
 //        background: "linear-gradient(17deg, rgba(0,0,0,1) 32%, rgba(10,10,10,10) 56%, rgba(20,20,20,20) 70%)",
 //        backgroundSize: "400% 400%",
         animation: "transition 45s infinite"
@@ -250,6 +259,7 @@ function ThreeJsScene() {
     let explanation_website_3_image = useRef(0);
     let page_3 = useRef(0);
     let nav_bar = useRef(0);
+    let canvas_2d_page_3 = useRef(0);
     useEffect(() => {
         if (componentLoaded === false) {
             let scene = new THREE.Scene();
@@ -317,13 +327,27 @@ function ThreeJsScene() {
                     //CANVAS_2d
                     canvas_2d.current.width = window.innerWidth;
                     canvas_2d.current.height = portfolio_grid.current.clientHeight;
+
+                    canvas_2d_page_3.current.width = window.innerWidth;
+                    canvas_2d_page_3.current.height = page_3.current.clientHeight;
+                    
                     let particle_width = canvas_2d.current.width / 25;
                     let particle_position = -particle_width;
+
+                    let particle_width_page_3 = canvas_2d_page_3.current.width / 25;
+                    let particle_position_page_3 = -particle_width_page_3;
+
                     array_particles.forEach((part)=>{
                         part.x = particle_position;
                         part.positive_amount_to_move = particle_position + particle_width;
                         part.negative_amount_to_move = particle_position - particle_width;
                         particle_position = particle_position + particle_width;
+                    });
+                    array_particles_page_3.forEach((part)=>{
+                        part.x = particle_position_page_3;
+                        part.positive_amount_to_move = particle_position_page_3 + particle_width_page_3;
+                        part.negative_amount_to_move = particle_position_page_3 - particle_width_page_3;
+                        particle_position_page_3 = particle_position_page_3 + particle_width_page_3;
                     });
                 }
             });
@@ -453,15 +477,21 @@ function ThreeJsScene() {
                     this.positive_amount_to_move = positive_amount;
                     this.negative_amount_to_move = negative_amount;
                     this.r = radius_circle;
-                    this.arc = function(position_x, position_y, radius, start, end){
-                        canvas_2d_ctx.beginPath();
-                        let grd = canvas_2d_ctx.createLinearGradient(position_x - this.r, position_y + this.r, position_x + this.r / 2, position_y - this.r);
-                        grd.addColorStop(0.30, "rgba(69,40,189,1)");
-                        grd.addColorStop(0.70, "rgba(43,22,55,1)");
-                        canvas_2d_ctx.fillStyle = grd;
-                        canvas_2d_ctx.arc(position_x, position_y, radius, start, end);
-                        canvas_2d_ctx.closePath();
-                        canvas_2d_ctx.fill();
+                    this.arc = function(position_x, position_y, radius, start, end, canvas_ctx, div_number){
+                        canvas_ctx.beginPath();
+                        let grd = canvas_ctx.createLinearGradient(position_x - this.r, position_y + this.r, position_x + this.r / 2, position_y - this.r);
+                        if(div_number === 0){
+                            grd.addColorStop(0.30, "rgba(69,40,189,1)");
+                            grd.addColorStop(0.70, "rgba(43,22,55,1)");
+                        }
+                        else{
+                            grd.addColorStop(0.30, "rgba(255,255,255,1)");
+                            grd.addColorStop(0.70, "rgba(32,31,31,1)");                            
+                        }
+                        canvas_ctx.fillStyle = grd;
+                        canvas_ctx.arc(position_x, position_y, radius, start, end);
+                        canvas_ctx.closePath();
+                        canvas_ctx.fill();
                     }
                 }
             }
@@ -481,29 +511,25 @@ function ThreeJsScene() {
                 array_particles.push(particle);
             }
 
-            setInterval(()=>{
-                move_particles();
-                update_x_position();
-            },5);
 
             console.log(portfolio_grid.current);
 
-            const move_particles = ()=>{
-                canvas_2d_ctx.fillStyle = "black";
-                canvas_2d_ctx.fillRect(0, 0, canvas_2d.current.width, canvas_2d.current.height);
-                array_particles.forEach((part)=>{
+            const move_particles = (canvas_to_mod, canvas_to_mod_ctx, div_ctx, array_with_particles, div_number)=>{
+                canvas_to_mod_ctx.fillStyle = "black";
+                canvas_to_mod_ctx.fillRect(0, 0, canvas_to_mod.width, canvas_to_mod.height);
+                array_with_particles.forEach((part)=>{
                     if(part.y < 0){
-                        part.y = portfolio_grid.current.clientHeight;
+                        part.y = div_ctx.clientHeight;
                     }
                     part.y = part.y - 0.5;
-                    part.arc(part.x, part.y, part.r, 0, 2 * Math.PI)
+                    part.arc(part.x, part.y, part.r, 0, 2 * Math.PI, canvas_to_mod_ctx, div_number);
                 })
                 //particle.x = particle.x - 0.001;
                 //particle.arc(window.innerWidth / particle.x, window.innerHeight / particle.y, particle.r, 0, 2 * Math.PI);
             }
 
-            const update_x_position = ()=>{
-                array_particles.forEach((part)=>{
+            const update_x_position = (array_with_particles)=>{
+                array_with_particles.forEach((part)=>{
                     if(part.x + amount_to_move < part.positive_amount_to_move && part.x + amount_to_move > part.negative_amount_to_move){
                         part.x = part.x + amount_to_move;                    
                     }
@@ -523,6 +549,30 @@ function ThreeJsScene() {
                 //let y = canvasContainer.current.getBoundingClientRect().height / 2 - mousey ;
             })
 
+
+            //SECOND CANVAS PARTICLES   
+            const canvas_2d_page_3_ctx = canvas_2d_page_3.current.getContext("2d");
+            canvas_2d_page_3.current.width = window.innerWidth;
+            canvas_2d_page_3.current.height = page_3.current.clientHeight;
+            let array_particles_page_3 = [];
+            let particle_width_page_3 = canvas_2d_page_3.current.width / 25;
+            let particle_position_page_3 = -particle_width_page_3;
+
+            for(let i = 0; i < 27; i++){
+                //let particle_height = window.innerHeight / 10;
+                let particle = new particle_generator(particle_position_page_3, Math.floor(Math.random() * page_3.current.clientHeight),
+                particle_position_page_3 + particle_width_page_3, particle_position_page_3 - particle_width_page_3, 8);
+                particle_position_page_3 = particle_position_page_3 + particle_width_page_3;
+                array_particles_page_3.push(particle);
+            }
+            
+
+            setInterval(()=>{
+                move_particles(canvas_2d.current, canvas_2d_ctx, portfolio_grid.current, array_particles, 0);
+                update_x_position(array_particles);
+                move_particles(canvas_2d_page_3.current, canvas_2d_page_3_ctx, page_3.current, array_particles_page_3, 1);
+                update_x_position(array_particles_page_3);
+            },5);
 
 
             //CHECK IF MODELS ARE LOADED
@@ -757,22 +807,26 @@ function ThreeJsScene() {
                                         a set amount of lives that decrease as you hit the trees.<br/>
                                     </div>
                                     <div style={style.website_links}>
-                                        <a href="https://github.com/Rogerpeke97/FrontendAPI" rel="noopener noreferrer" target="_blank"
-                                        style={{display: "grid",textDecoration: "none",color: "white",cursor: "default",flex: "1", fontSize: "150%",
-                                        justifyContent: "center", justifyItems: "center"}}>
-                                            Frontend:
-                                            <FontAwesomeIcon icon={faGithub} style={{cursor: "pointer", transition: "all 0.5s ease-out"}}
-                                            onMouseEnter={(e)=>e.currentTarget.style.color = "rgba(44,12,175,1)"}
-                                            onMouseLeave={(e)=>e.currentTarget.style.color = "white"}/>
-                                        </a>
-                                        <a href="https://github.com/Rogerpeke97/APISpring" rel="noopener noreferrer" target="_blank"
-                                        style={{display: "grid",textDecoration: "none",color: "white",cursor: "default",flex: "1", fontSize: "150%",
-                                        justifyContent: "center", justifyItems: "center"}}>
-                                            Backend:
-                                            <FontAwesomeIcon icon={faGithub} style={{cursor: "pointer", transition: "all 0.5s ease-out"}}
-                                            onMouseEnter={(e)=>e.currentTarget.style.color = "rgba(44,12,175,1)"}
-                                            onMouseLeave={(e)=>e.currentTarget.style.color = "white"}/>
-                                        </a>
+                                        <div style={{display: "grid", justifyContent:"center", alignItems: "center", flex: "1"}}>
+                                            <a href="https://github.com/Rogerpeke97/FrontendAPI" rel="noopener noreferrer" target="_blank"
+                                            style={{display: "grid",textDecoration: "none",color: "white",cursor: "default",flex: "1", fontSize: "150%",
+                                            justifyContent: "center", justifyItems: "center"}}>
+                                                Frontend:
+                                                <FontAwesomeIcon icon={faGithub} style={{cursor: "pointer", transition: "all 0.5s ease-out"}}
+                                                onMouseEnter={(e)=>e.currentTarget.style.color = "rgba(44,12,175,1)"}
+                                                onMouseLeave={(e)=>e.currentTarget.style.color = "white"}/>
+                                            </a>
+                                        </div>
+                                        <div style={{display: "grid", justifyContent:"center", alignItems: "center", flex: "1"}}>
+                                            <a href="https://github.com/Rogerpeke97/APISpring" rel="noopener noreferrer" target="_blank"
+                                            style={{display: "grid",textDecoration: "none",color: "white",cursor: "default",flex: "1", fontSize: "150%",
+                                            justifyContent: "center", justifyItems: "center"}}>
+                                                Backend:
+                                                <FontAwesomeIcon icon={faGithub} style={{cursor: "pointer", transition: "all 0.5s ease-out"}}
+                                                onMouseEnter={(e)=>e.currentTarget.style.color = "rgba(44,12,175,1)"}
+                                                onMouseLeave={(e)=>e.currentTarget.style.color = "white"}/>
+                                            </a>
+                                        </div>
                                         <a href="https://xenta.netlify.app/" rel="noopener noreferrer" target="_blank"
                                         style={{textDecoration: "none",color: "white",cursor: "default",flex: "1", fontSize: "100%",
                                         height: "100%", width: "100%"}}>
@@ -827,13 +881,15 @@ function ThreeJsScene() {
                                     You can sign up, create a user and login.
                                     </div>
                                     <div style={style.website_links}>
-                                        <a href="https://github.com/Rogerpeke97/Csv-converter-server-config" rel="noopener noreferrer" target="_blank"
-                                        style={{display: "grid",textDecoration: "none",color: "white",cursor: "default",flex: "1", fontSize: "200%",
-                                        justifyContent: "center", justifyItems: "center"}}>
-                                            <FontAwesomeIcon icon={faGithub} style={{cursor: "pointer", transition: "all 0.5s ease-out"}}
-                                            onMouseEnter={(e)=>e.currentTarget.style.color = "rgba(44,12,175,1)"}
-                                            onMouseLeave={(e)=>e.currentTarget.style.color = "white"}/>
-                                        </a>
+                                        <div style={{display: "grid", justifyContent:"center", alignItems: "center", flex: "1"}}>
+                                            <a href="https://github.com/Rogerpeke97/Csv-converter-server-config" rel="noopener noreferrer" target="_blank"
+                                            style={{display: "grid",textDecoration: "none",color: "white",cursor: "default", fontSize: "200%",
+                                            justifyContent: "center", justifyItems: "center"}}>
+                                                <FontAwesomeIcon icon={faGithub} style={{cursor: "pointer", transition: "all 0.5s ease-out"}}
+                                                onMouseEnter={(e)=>e.currentTarget.style.color = "rgba(44,12,175,1)"}
+                                                onMouseLeave={(e)=>e.currentTarget.style.color = "white"}/>
+                                            </a>
+                                        </div>
                                         <a href="https://csv-convrt.herokuapp.com/" rel="noopener noreferrer" target="_blank"
                                         style={{textDecoration: "none",color: "white",cursor: "default",flex: "1", fontSize: "100%",
                                         height: "100%", width: "100%"}}>
@@ -885,6 +941,8 @@ function ThreeJsScene() {
             </div>
             <div className= "page3" style={{height: "1080px", width: "100%", background: "linear-gradient(17deg, rgba(0,0,0,1) 32%, rgba(10,10,10,10) 56%, rgba(20,20,20,20) 70%)",
             backgroundSize: "400% 400%", animation: "transition 45s infinite"}} ref={page_3}>
+            <canvas ref={canvas_2d_page_3} style={style.canvas_2d_page_3}>
+            </canvas>
             <div ref={moving_div_2} style={style.moving_div_2}></div>
             </div>
             <div style={style.footer}>
