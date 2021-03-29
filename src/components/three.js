@@ -99,7 +99,7 @@ const style = {
         textDecoration: "underline"
     },
     box_explanation_description: {
-        fontWeight: "bold",
+        fontWeight: "normal",
     },
     grid_images: {
         position: "absolute",
@@ -202,16 +202,29 @@ const style = {
         display: "flex",
         maxWidth: "100%",
         maxHeight: "100%",
+        height: "50%",
+        width: "100%",
         alignItems: "center",
         justifyContent: "center",
-        textAlign: "center"    
+        textAlign: "center",
     },
     technologies_images: {
         flex: "25%",
         maxHeight: "100%",
         width: "25%",
+        objectFit: "contain",
         zIndex: "0",
         transform: "rotateY(180deg)"
+    },
+    technologies_images_normal: {
+        flex: "20%",
+        height: "50%",
+        margin: "3%",
+        width: "20%",
+        zIndex: "0",
+        position: "relative",
+        background: "gray",
+        borderRadius: "10px"
     },
     website_image_container: {
         height: "100%", 
@@ -233,6 +246,26 @@ const style = {
         position: "relative",
         width: "100%",
     },
+    selling_description: {
+        display: "grid",
+        justifyContent: "center",
+        alignItems: "center",
+        textAlign: "center",
+        zIndex: "1",
+        position: "relative",
+        left: "15%",
+        width: "70%",
+        paddingTop: "5%"
+    },
+    page_3:{
+        height: "1080px",
+        width: "100%", 
+        background: "linear-gradient(17deg, rgba(0,0,0,1) 32%, rgba(10,10,10,10) 56%, rgba(20,20,20,20) 70%)",
+        backgroundSize: "400% 400%", 
+        animation: "transition 45s infinite",
+        display: "grid",
+        gridTemplateRows: "25% 25% 25% 25%"
+    }
 }
 
 
@@ -395,7 +428,7 @@ function ThreeJsScene() {
                 blending: THREE.AdditiveBlending,
                 transparent: false
             });
-            var positions = []; // 3 vertices per point
+            let positions = [];
             
             for (let i = 0; i < particleCount; i++) {
 
@@ -405,13 +438,12 @@ function ThreeJsScene() {
 
                 positions.push(posX, posY, posZ);
             }
-            particles.setAttribute( 'position', new THREE.Float32BufferAttribute( positions, 3 ) );
+            particles.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
             // create the particle system
             let particleSys = new THREE.Points(particles, pMaterial);
             particleSys.name = 'particleSys';
             renderer.setAnimationLoop(() => {
                let particleSys = scene.getObjectByName('particleSys');
-                console.log(particleSys);
                 for(let i = 2; i < particleCount * 3; i+=3){
                     let star = particleSys.geometry.attributes.position.array;
                     star[i] += 0.1;
@@ -422,7 +454,6 @@ function ThreeJsScene() {
                 }
                 renderer.render(scene, camera)
             })
-            // add it to the scene
             scene.add(cube)
 
             scene.add(particleSys)
@@ -581,11 +612,9 @@ function ThreeJsScene() {
                     "Loading Existential Buffer",
                     "Setting Universal Physical Constants",
                     "Modeling Object Components",
-                    "Installing ransomware: Complete >:)",
                     "Gathering Particle Sources",
                     "I'm testing your patience",
                     "Reconfoobling energymotron...",
-                    "Your left thumb points to the right and your right thumb points to the left.",
                     "I'm sorry for being so slow",
                     "Too fair to worship, too divine to love",
                     "An idea is always a generalization, and generalization is a property of thinking" +
@@ -766,7 +795,7 @@ function ThreeJsScene() {
                                         <div style={style.technologies_holder}>
                                             <img src="spring_boot.png" alt="Spring boot" style={style.technologies_images}></img>
                                             <img src="Reactjslogo.png" alt="React" style={style.technologies_images}></img>
-                                            <img src="threejslogo.png" alt="Threejs" style={style.technologies_images}></img>
+                                            <img src="/testimages/threejslogo.svg" alt="Threejs" style={style.technologies_images}></img>
                                             <img src="postgresqllogo.png" alt="Spring boot" style={style.technologies_images}></img>
                                         </div>
                                         <div style={style.website_button_backwards} onClick={()=>{
@@ -939,11 +968,21 @@ function ThreeJsScene() {
                     <div ref={moving_div_1} style={style.moving_div_1}></div>
                 </div>
             </div>
-            <div className= "page3" style={{height: "1080px", width: "100%", background: "linear-gradient(17deg, rgba(0,0,0,1) 32%, rgba(10,10,10,10) 56%, rgba(20,20,20,20) 70%)",
-            backgroundSize: "400% 400%", animation: "transition 45s infinite"}} ref={page_3}>
-            <canvas ref={canvas_2d_page_3} style={style.canvas_2d_page_3}>
-            </canvas>
-            <div ref={moving_div_2} style={style.moving_div_2}></div>
+            <div className= "page3" style={style.page_3} ref={page_3}>
+                <div style={style.selling_description}>
+                    I will create the website you desire, make it interactive, applying specific 3d models for it in case you want it or 2d animations 
+                    that will make your website look modern, aesthetic and most importantly scalable with the help of these technologies:
+                    <div style={style.technologies_holder}>
+                        <img src="/testimages/Reactjslogo.svg" alt="reactlogo" style={style.technologies_images_normal} onMouseEnter={(e)=>console.log(e.currentTarget)}></img>
+                        <img src="/testimages/nodejslogo.svg" alt="nodejs" style={style.technologies_images_normal}></img>
+                        <img src="/testimages/postgresqllogo.svg" alt="postgresql" style={style.technologies_images_normal}></img>
+                        <img src="/testimages/spring_boot.svg" alt="spring boot" style={style.technologies_images_normal}></img>
+                        <img src="/testimages/threejslogo.svg" alt="threejs" style={style.technologies_images_normal}></img>
+                    </div>
+                </div>
+                <canvas ref={canvas_2d_page_3} style={style.canvas_2d_page_3}>
+                </canvas>
+                <div ref={moving_div_2} style={style.moving_div_2}></div>
             </div>
             <div style={style.footer}>
                 <div style={{flex: "1", display: "grid", alignItems: "center", margin: "2%"}}>
