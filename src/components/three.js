@@ -54,7 +54,7 @@ const style = {
         top: "5%",
         zIndex: "2",
         backgroundColor: "black",
-        opacity: "0.4",
+        opacity: "0",
         boxShadow: "0 0 34px 18px grey"
     },
     my_work_title: {
@@ -303,37 +303,10 @@ function ThreeJsScene() {
             let width =  window.innerWidth;
             camera
                 .position
-                .set(-2, 0, 10);
-            const color = 'white';
-            const intensity = 1;
-            const light2 = new THREE.DirectionalLight(color, intensity);
-            light2
-                .position
-                .set(5, 0, 3);
-            scene.add(light2);
-            //LIGHT FROM PLANET
-            const textureFlare = new THREE.TextureLoader(manager);
-            const textureFlare0 = textureFlare.load( 'lensflare0.png' );
-            const textureFlare3 = textureFlare.load( 'lensflare3.png' );
-            addLight( 0.55, 0.9, 0.5, 5000, 0, - 1000 );
-            addLight( 0.08, 0.8, 0.5, 0, 0, 15);
-            addLight( 0.995, 0.5, 0.9, 5000, 5000, - 1000 );
-
-            function addLight( h, s, l, x, y, z ) {
-
-                const light = new THREE.PointLight( 0xffffff, 1.5, 1000 );
-                light.color.setHSL( h, s, l );
-                light.position.set( x, y, z );
-                scene.add( light );
-
-                const lensflare = new Lensflare();
-                lensflare.addElement( new LensflareElement( textureFlare0, 700, 0, light.color ) );
-                lensflare.addElement( new LensflareElement( textureFlare3, 60, 0.6 ) );
-                lensflare.addElement( new LensflareElement( textureFlare3, 70, 0.7 ) );
-                lensflare.addElement( new LensflareElement( textureFlare3, 120, 0.9 ) );
-                lensflare.addElement( new LensflareElement( textureFlare3, 70, 1 ) );
-                light.add( lensflare );
-            }            
+                .set(0, 2, 8);
+            /*camera
+                .rotation
+                .set(0, -5, 0);*/
 
             const mouse = new THREE.Vector2();
 
@@ -385,43 +358,17 @@ function ThreeJsScene() {
                 }
             });
 
-            //SETTING SPHERE BACKGROUND
-
-            scene.background = new THREE
-                .CubeTextureLoader()
-                .setPath('textures/')
-                .load([
-                    'px.jpg',
-                    'nx.jpg',
-                    'py.jpg',
-                    'ny.jpg',
-                    'pz.jpg',
-                    'nz.jpg'
-                ]);
-
             renderer.setSize(width, height);
             canvasContainer
                 .current
                 .appendChild(renderer.domElement);
 
-            let sunBump = new THREE
-                .TextureLoader(manager)
-                .load('sunbump.png');
-
-            let sunTexture = new THREE
-                .TextureLoader(manager)
-                .load('sun.jpg');
-            let geometry = new THREE.SphereGeometry(1, 32, 32);
-            const material = new THREE.MeshPhongMaterial({map: sunTexture, alphaTest: 0.1, bumpMap: sunBump, bumpScale: 0.005});
-            let cube = new THREE.Mesh(geometry, material);
-
-
             //PARTICLES
-            let particleCount = 2000
-            let particleDistance = 53;
+            let particleCount = 2600; // Hay una mas porque el float da apenas por encima de 0 
+            let particleDistance = 51;
             let particles = new THREE.BufferGeometry();
             let texture = new THREE
-                .TextureLoader()
+                .TextureLoader(manager)
                 .load('flare.png');
             let pMaterial = new THREE.PointsMaterial({
                 color: 'white', size: 0.3, map: texture, alphaTest: 0.1, // removes black squares
@@ -429,60 +376,39 @@ function ThreeJsScene() {
                 transparent: false
             });
             let positions = [];
-            
-            for (let i = 0; i < particleCount; i++) {
-
-                let posX = (Math.random() - 0.5) * particleDistance;
-                let posY = (Math.random() - 0.5) * particleDistance;
-                let posZ = (Math.random() - 0.5) * particleDistance;
-
-                positions.push(posX, posY, posZ);
+            for (let i = 5; i > 0; i-= 0.2) {
+                let count = -10;
+                for(let j = 0; j < 20; j+=0.2){
+                    let posX = count;
+                    let posY = 0;
+                    let posZ = i;
+                    positions.push(posX, posY, posZ);
+                    count+=0.2;
+                }
             }
             particles.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
             // create the particle system
             let particleSys = new THREE.Points(particles, pMaterial);
             particleSys.name = 'particleSys';
+            let period = 200;
+            let time = 0;
             renderer.setAnimationLoop(() => {
                let particleSys = scene.getObjectByName('particleSys');
-                for(let i = 2; i < particleCount * 3; i+=3){
+                for(let i = 1; i < particleCount * 3; i+=3){
                     let star = particleSys.geometry.attributes.position.array;
-                    star[i] += 0.1;
-                    if(star[i] > 10){
-                        star[i] = -20;
-                    }
+                    let particle_max_position_wave = 0.5 * Math.sin(((2 * Math.PI) / 2.5) * star[i+1] - ((2 * Math.PI) / period * time));
+
+                    star[i] += (particle_max_position_wave / 100);
+
                     particleSys.geometry.attributes.position.needsUpdate = true;
+                    time+=0.001;
                 }
                 renderer.render(scene, camera)
             })
-            scene.add(cube)
 
             scene.add(particleSys)
 
-            let tween = new TWEEN
-                .Tween(pMaterial.color)
-                .to({
-                    r: 0.2,
-                    g: 0,
-                    b: 1
-                }, 5000)
-                .yoyo(true)
-                .repeat(99999)
-                .start()
 
-            function animateTween(time) {
-                TWEEN.update(time)
-                requestAnimationFrame(animateTween)
-            }
-            setTimeout(() => {
-                return tween = new TWEEN
-                    .Tween(camera.position)
-                    .to({
-                        x: 2,
-                        y: 0,
-                        z: 3
-                    }, 5000)
-                    .start()
-            }, 20000)
 
             let animate = () => {
                 target.x = (0.5 - mouse.x) * 0.002;
@@ -490,12 +416,9 @@ function ThreeJsScene() {
                 camera.rotation.x += 0.05 * (target.y - camera.rotation.x);
                 camera.rotation.y += 0.05 * (target.x - camera.rotation.y);
                 requestAnimationFrame(animate);
-                cube.rotation.x += 0.01;
-                cube.rotation.y += 0.01;
                 renderer.render(scene, camera);
             };
             animate();
-            requestAnimationFrame(animateTween);
 
 
 
