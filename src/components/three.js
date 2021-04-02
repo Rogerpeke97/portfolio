@@ -2,6 +2,7 @@ import React from 'react';
 import * as THREE from "three";
 import {useEffect, useRef, useState} from "react";
 import { Lensflare, LensflareElement } from 'three/examples/jsm/objects/Lensflare.js';
+import { Reflector } from 'three/examples/jsm/objects/Reflector.js';
 import TWEEN from '@tweenjs/tween.js'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faGithub, faLinkedin} from '@fortawesome/free-brands-svg-icons'
@@ -293,26 +294,59 @@ function ThreeJsScene() {
     let page_3 = useRef(0);
     let nav_bar = useRef(0);
     let canvas_2d_page_3 = useRef(0);
+    let camera = useRef(0); 
     useEffect(() => {
         if (componentLoaded === false) {
             let scene = new THREE.Scene();
             let manager = new THREE.LoadingManager(); // WHEN MODELS ARE LOADED .onLoad will be called
-            let camera = new THREE.PerspectiveCamera(75, canvasContainer.current.clientWidth / canvasContainer.current.clientHeight, 0.1, 1000);
+            camera.current = new THREE.PerspectiveCamera(75, canvasContainer.current.clientWidth / canvasContainer.current.clientHeight, 0.1, 1000);
             let renderer = new THREE.WebGLRenderer();
             let height = canvasContainer.current.clientHeight;
             let width =  window.innerWidth;
+            const loader = new THREE.TextureLoader();
+
+
+            for(let i = -15; i < 15; i+=5){
+                const light = new THREE.PointLight( 0xffffff, 0.5, 5000 );
+                light.position.set( i, 8, -20 );
+                light.castShadow = true; // default false
+                //Set up shadow properties for the light
+                light.shadow.mapSize.width = 512; // default
+                light.shadow.mapSize.height = 512; // default
+                scene.add( light);
+            }
+            
+
+
+            const geometry = new THREE.PlaneGeometry( 40, 15, 32 );
+
+            let groundMirror = new Reflector( geometry, {
+                clipBias: 0.003,
+                textureWidth: window.innerWidth * window.devicePixelRatio,
+                textureHeight: window.innerHeight * window.devicePixelRatio,
+                color: 0x000000,
+                opacity: 0.1
+            } );
+            groundMirror.position.y = -0.3;
+            groundMirror.position.z = 0;
+            groundMirror.rotateX( - Math.PI / 2 );
+            scene.add( groundMirror );
+
+
+
             camera
-                .position
-                .set(0, 2, 8);
-            /*camera
-                .rotation
-                .set(0, -5, 0);*/
+            .current.position
+            .set(0, 1, 5);
+            camera
+            .current.rotation.y = 0;
+            camera
+            .current.rotation.x = -0.5;
+            camera
+            .current.rotation.z = 0;
 
             const mouse = new THREE.Vector2();
 
             const windowHalf = new THREE.Vector2(window.innerWidth / window.innerHeight);
-
-            const target = new THREE.Vector2();
 
             document.addEventListener('mousemove', onMouseMove);
 
@@ -326,8 +360,9 @@ function ThreeJsScene() {
                     height = document.documentElement.clientHeight;
                     renderer.setSize(width, height);
                     canvasContainer.current.style.width = width;
-                    camera.aspect = width / height;
+                    camera.current.aspect = width / height;
                     camera
+                        .current
                         .updateProjectionMatrix();
                     scroll_value = window.scrollY;
                     //CANVAS_2d
@@ -363,19 +398,32 @@ function ThreeJsScene() {
                 .current
                 .appendChild(renderer.domElement);
 
+            
+
             //PARTICLES
             let particleCount = 2600; // Hay una mas porque el float da apenas por encima de 0 
-            let particleDistance = 51;
             let particles = new THREE.BufferGeometry();
             let texture = new THREE
                 .TextureLoader(manager)
                 .load('flare.png');
             let pMaterial = new THREE.PointsMaterial({
-                color: 'white', size: 0.3, map: texture, alphaTest: 0.1, // removes black squares
-                blending: THREE.AdditiveBlending,
+                color: 'white', size: 0.1, map: texture, alphaTest: 0.1, // removes black squares
+                blending: THREE.CustomBlending,
                 transparent: false
             });
+
+            const planeSize = 0.05;
+
+            const shadowTexture = loader.load('roundshadow.png');
+
+            const shadowGeo = new THREE.PlaneGeometry(planeSize, planeSize);
+            const shadowMat = new THREE.MeshPhongMaterial({
+                map: shadowTexture, opacity: 4, alphaTest: 0.1,
+                blending: THREE.CustomBlending, color: 'black',
+                transparent: false,
+            });
             let positions = [];
+            let shadows = [];
             for (let i = 5; i > 0; i-= 0.2) {
                 let count = -10;
                 for(let j = 0; j < 20; j+=0.2){
@@ -383,40 +431,66 @@ function ThreeJsScene() {
                     let posY = 0;
                     let posZ = i;
                     positions.push(posX, posY, posZ);
-                    count+=0.2;
+
+                    let shadowMesh = new THREE.Mesh(shadowGeo, shadowMat);
+
+                    shadowMesh.position.x = count;
+                    shadowMesh.position.y = -0.2;
+                    shadowMesh.position.z = i;  
+                    shadowMesh.rotation.x = Math.PI * -.5;
+                    shadows.push(shadowMesh);
+                    scene.add(shadowMesh);
+                    count+=0.2;   
                 }
             }
             particles.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
             // create the particle system
             let particleSys = new THREE.Points(particles, pMaterial);
+            particleSys.receiveShadow = true;
+            particleSys.castShadow = true;
             particleSys.name = 'particleSys';
             let period = 200;
             let time = 0;
+            let particle_max_position_wave;
+            let star = particleSys.geometry.attributes.position.array;
             renderer.setAnimationLoop(() => {
-               let particleSys = scene.getObjectByName('particleSys');
                 for(let i = 1; i < particleCount * 3; i+=3){
-                    let star = particleSys.geometry.attributes.position.array;
-                    let particle_max_position_wave = 0.5 * Math.sin(((2 * Math.PI) / 2.5) * star[i+1] - ((2 * Math.PI) / period * time));
+                    particle_max_position_wave = 0.5 * Math.sin(((2 * Math.PI) / 2.5) * star[i+1] - ((2 * Math.PI) / period * time));
 
                     star[i] += (particle_max_position_wave / 100);
-
+                    if(i < 2525){
+                        shadows[i-1].material.opacity -= particle_max_position_wave / 1000;
+                    }
                     particleSys.geometry.attributes.position.needsUpdate = true;
                     time+=0.001;
                 }
-                renderer.render(scene, camera)
+                renderer.render(scene, camera.current)
             })
 
             scene.add(particleSys)
+            
+            let tween = new TWEEN
+                .Tween(pMaterial.color)
+                .to({
+                    r: 0.2,
+                    g: 0,
+                    b: 1
+                }, 5000)
+                .yoyo(true)
+                .repeat(99999)
+                .start();
 
+            function animateTween(time) {
+                TWEEN.update(time)
+                requestAnimationFrame(animateTween)
+            }
+
+            requestAnimationFrame(animateTween);
 
 
             let animate = () => {
-                target.x = (0.5 - mouse.x) * 0.002;
-                target.y = (0.5 - mouse.y) * 0.002;
-                camera.rotation.x += 0.05 * (target.y - camera.rotation.x);
-                camera.rotation.y += 0.05 * (target.x - camera.rotation.y);
                 requestAnimationFrame(animate);
-                renderer.render(scene, camera);
+                renderer.render(scene, camera.current);
             };
             animate();
 
@@ -655,6 +729,8 @@ function ThreeJsScene() {
         let x = mousex - canvasContainer.current.getBoundingClientRect().width / 2 ;
         let y = canvasContainer.current.getBoundingClientRect().height / 2 - mousey ;
         transparent_overlay.current.style.transform = `perspective(700px) rotateY(${x / 100}deg) rotateX(${ y / 100}deg)`;
+        camera.current.rotation.y = (x / 100) * (Math.PI / 180);
+        camera.current.rotation.x = -(y / 100) * (Math.PI / 180) - 0.5;
     }
 
     return (
