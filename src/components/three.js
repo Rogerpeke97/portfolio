@@ -6,7 +6,7 @@ import { Reflector } from 'three/examples/jsm/objects/Reflector.js';
 import TWEEN from '@tweenjs/tween.js'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faGithub, faLinkedin} from '@fortawesome/free-brands-svg-icons'
-import { faWindowClose, faQuestionCircle, faMapMarked } from '@fortawesome/free-solid-svg-icons'
+import { faWindowClose, faQuestionCircle, faMapMarked, faCopy } from '@fortawesome/free-solid-svg-icons'
 
 const style = {
     portfolio_grid: {
@@ -41,20 +41,6 @@ const style = {
         left: "100%", 
         transform: "scaleX(-1)",
         opacity: "0.4"
-    },
-    transparent_overlay: {
-        display: "grid",
-        pointerEvents: "none",
-        position: "absolute",
-        minWidth: "90%",
-        maxWidth: "90%",
-        maxHeight: "90%",
-        minHeight: "90%",
-        left: "5%",
-        transition: "all 0.1s ease-out",
-        top: "5%",
-        zIndex: "2",
-        backgroundColor: "transparent",
     },
     my_work_title: {
         display: "grid",
@@ -105,6 +91,7 @@ const style = {
         maxHeight: "100%",
         minHeight: "100%",
         maxWidth: "100%",
+        objectFit: "contain",
         zIndex: "0"
     },
     explanation_website : {
@@ -254,7 +241,8 @@ const style = {
         position: "relative",
         left: "15%",
         width: "70%",
-        paddingTop: "5%"
+        paddingTop: "5%",
+        fontSize: "150%"
     },
     page_3:{
         height: "1080px",
@@ -264,6 +252,62 @@ const style = {
         animation: "transition 45s infinite",
         display: "grid",
         gridTemplateRows: "25% 25% 25% 25%"
+    },
+    transparent_overlay: {
+        display: "grid",
+        position: "absolute",
+        minWidth: "90%",
+        maxWidth: "90%",
+        maxHeight: "90%",
+        minHeight: "90%",
+        left: "5%",
+        transition: "all 0.1s ease-out",
+        gridTemplateRows: "50% 50%",
+        top: "5%",
+        zIndex: "2",
+        backgroundColor: "transparent",
+    },
+    title_letter:{
+        transition: 'all 0.5s ease-out',
+        cursor: 'default',
+        fontSize: '1000%',
+        fontFamily: 'Teko, sans-serif'
+    },
+    title_letter_small:{
+        transition: 'all 0.5s ease-out',
+        cursor: 'default',
+        color: 'white',
+        fontFamily: 'Teko, sans-serif'
+    },
+    letter_container: {
+        display: "flex", 
+        justifyContent: "center"
+    },
+    a_link_holder: {
+        display: "grid",
+        textDecoration: "none",
+        color: "white",
+        cursor: "default",
+        flex: "1", 
+        justifyContent: "center",
+        alignItems: "center"
+    },
+    clipboard: {
+        display: "grid",
+        pointerEvents: "none",
+        position: "absolute",
+        textAlign: "center",
+        alignItems: "center",
+        left: "50%",
+        top: "50%",
+        width: "30%",
+        height: "15%",
+        marginLeft: "-15%",
+        marginTop: "-1%",
+        transition: "0.5s ease-out",
+        opacity: "0",
+        background: "black",
+        borderRadius: "5px"
     }
 }
 
@@ -293,6 +337,7 @@ function ThreeJsScene() {
     let nav_bar = useRef(0);
     let canvas_2d_page_3 = useRef(0);
     let camera = useRef(0); 
+    let copied_to_clipboard = useRef(0);
     useEffect(() => {
         if (componentLoaded === false) {
             let scene = new THREE.Scene();
@@ -333,8 +378,8 @@ function ThreeJsScene() {
 
             let groundMirror = new Reflector( geometry, {
                 clipBias: 0.003,
-                textureWidth: window.innerWidth * window.devicePixelRatio,
-                textureHeight: window.innerHeight * window.devicePixelRatio,
+                textureWidth: width,
+                textureHeight: height,
                 color: 0x000000,
                 opacity: 0.1
             } );
@@ -369,6 +414,8 @@ function ThreeJsScene() {
                 if (canvasContainer.current !== null) {
                     width = window.innerWidth;
                     height = document.documentElement.clientHeight;
+                    const renderTarget = groundMirror.getRenderTarget();
+                    renderTarget.setSize(width, height);
                     renderer.setSize(width, height);
                     canvasContainer.current.style.width = width;
                     camera.current.aspect = width / height;
@@ -744,15 +791,57 @@ function ThreeJsScene() {
         camera.current.rotation.x = -(y / 100) * (Math.PI / 180) - 0.8;
     }
 
+
+    const title_letter = (letter, small)=>{
+        let span_return = [];
+        for(let i = 0; i < letter.length; i++){
+            span_return.push(small
+            ?
+            <h1
+            style={style.title_letter_small}
+            onMouseEnter={(e)=>e.currentTarget.style.color='rgba(44,12,175,1)'}
+            onMouseLeave={(e)=>e.currentTarget.style.color='white'}
+            >{letter[i]}</h1>
+            :
+            <h1
+            style={style.title_letter}
+            onMouseEnter={(e)=>e.currentTarget.style.color='rgba(44,12,175,1)'}
+            onMouseLeave={(e)=>e.currentTarget.style.color='white'}
+            >{letter[i]}</h1>
+            )
+        }
+        return(
+            span_return
+        )
+    }
+
+    const copied_to_clipboard_function = ()=>{
+        copied_to_clipboard.current.style.opacity = "1";
+        setTimeout(()=>copied_to_clipboard.current.style.opacity = "0", 500)
+    }
+
+
     return (
         <div style={{maxWidth: "100%", height: "100%", position: "relative"}}>
             <div ref={nav_bar} style={{display: "flex", maxWidth: "100%", minWidth: "100%", height: "5rem", background: "black", position: "fixed",
             color: "white", top: "0", zIndex: "3"
             }}>
-                <div style={{justifyContent: "center", alignContent: "center", display: "grid", flex: "1"}}>
-                <a href="LatestResume.pdf" style={{textDecoration: "none", fontWeight: "bold"}} download>
-                        <i className="fi-swsuxl-download-wide"></i>
-                        Resume</a>
+                <div style={{justifyContent: "center", alignContent: "center", display: "flex", flex: "1"}}>
+                    <div style={style.letter_container}>{title_letter('IGNACIO.MARTIN.DIAZ', true)}</div>
+                    <div style={style.a_link_holder}>
+                        <a href="https://github.com/Rogerpeke97" rel="noopener noreferrer" target="_blank">
+                            <FontAwesomeIcon icon={faGithub} style={{cursor: "pointer", transition: "all 0.5s ease-out", color:"white", fontSize: "200%"}}
+                            onMouseEnter={(e)=>e.currentTarget.style.color = "rgba(44,12,175,1)"}
+                            onMouseLeave={(e)=>e.currentTarget.style.color = "white"}/>
+                        </a>
+                    </div>
+                    <div style={style.a_link_holder}>
+                        <a href="https://www.linkedin.com/in/ignacio-martin-diaz-2a30251b7/" rel="noopener noreferrer" target="_blank">
+                            <FontAwesomeIcon icon={faLinkedin} style={{cursor: "pointer", transition: "all 0.5s ease-out", color:"white", fontSize: "200%"}}
+                            onMouseEnter={(e)=>e.currentTarget.style.color = "rgba(44,12,175,1)"}
+                            onMouseLeave={(e)=>e.currentTarget.style.color = "white"}/>                    
+                        </a>
+                    </div>
                 </div>
                 <div style={{justifyContent: "center", alignContent: "center", display: "flex", flex: "1", alignItems: "center"}}>
                     <i className="fi-xnsuxl-house-solid" style={{fontSize: "100%"}} />
@@ -771,7 +860,13 @@ function ThreeJsScene() {
                 mouseMove(event);
             }}>
                 <div ref={transparent_overlay} style={style.transparent_overlay} onMouseMove={(e)=>mouseMove(e)}>
-                    <div>Ignacio Martin Diaz</div>
+                    <div style={style.letter_container}>{title_letter('IGNACIO.MARTIN.DIAZ', false)}</div>
+                    <h1 style={{fontSize: "200%", margin: "0", fontWeight: "lighter", textAlign: "justify"}}>
+                        My name is Ignacio Diaz, i mainly focus on the creation of 3d websites
+                        and i am currently offering my services as a freelancer to design and 
+                        create the website you desire utilizing technologies that will guarantee
+                        its scalability and functionality across all platforms. 
+                    </h1>
                 </div>
             </div>
 
@@ -846,6 +941,8 @@ function ThreeJsScene() {
                                         but in reality the character is just orbiting around the surface of the sphere. <br/>
                                         You have a score, which is saved if your performance was better than your previous best score and
                                         a set amount of lives that decrease as you hit the trees.<br/>
+                                        My wish was to fill the entire sphere full of trees and grass but performance was being heavily affected. This will
+                                        be improved in the future <br/>
                                     </div>
                                     <div style={style.website_links}>
                                         <div style={{display: "grid", justifyContent:"center", alignItems: "center", flex: "1"}}>
@@ -917,9 +1014,7 @@ function ThreeJsScene() {
                                     It has a lot of backend functionalities that allowed me to learn about backend and frontend requests,
                                     remote storage using googlecloud's api, file storage using multer, downloading files from googlecloud and 
                                     display them on the frontend. 
-                                    Also, deploying the website using the heroku cli, creating a database for the login user data, 
-                                    setting up the remote database, hashing the password when you sign up and storing cookies for the specific user session.
-                                    You can sign up, create a user and login.
+                                    Also, deploying the website using the heroku cli and creating a database for the login user data.
                                     </div>
                                     <div style={style.website_links}>
                                         <div style={{display: "grid", justifyContent:"center", alignItems: "center", flex: "1"}}>
@@ -964,14 +1059,18 @@ function ThreeJsScene() {
                                     </div>
                                 </div>
                                 <div style={style.box_explanation}>
-                                    <div>Xenta's website:</div>
+                                <div style={style.box_explanation_title}>Portfolio website:</div>
                                     <div>
-                                        This website is basically an "infinite" game where you are given the sensation that you are actually moving forward <br/>
-                                        but in reality the character is just orbiting around the surface of the sphere. You have a score, which is saved if your per
-                                        formance was better than your previous best score and a set amount of lives that decrease as you hit the trees.<br/>
+                                        This website is my old portfolio, contains other minor projects.<br/>
                                     </div>
                                     <div style={style.website_links}>
-                                        
+                                        <a href="https://rogerpeke97.github.io/portfolio/" rel="noopener noreferrer" target="_blank"
+                                            style={{textDecoration: "none",color: "white",cursor: "default",flex: "1", fontSize: "100%",
+                                            height: "100%", width: "100%"}}>
+                                                <div style={style.website_button_links}
+                                                onMouseEnter={(e)=>e.currentTarget.style.boxShadow = "inset 0px -80px 0px rgba(24,8,100,1)"}
+                                                onMouseLeave={(e)=>e.currentTarget.style.boxShadow = ""}>Visit site</div>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -1006,12 +1105,17 @@ function ThreeJsScene() {
                     <div>&copy; Copyright 2021, Ignacio Martin Diaz. All rights reserved.</div>
                 </div>
                 <div style={{flex: "1", display: "grid", alignItems: "center", paddingLeft: "1%", borderLeft: "2px solid white"}}>
-                    <div style={{display: "flex"}}>
-                        <a href="https://github.com/Rogerpeke97/" rel="noopener noreferrer" target="_blank"
-                        style={{justifyContent: "center", display: "grid", textDecoration: "none", alignContent: "center", cursor: "default", color: "white", marginRight: "1%"}}>
-                        <FontAwesomeIcon icon={faGithub} style={{cursor: "pointer", fontSize: "100%", transition: "all 0.5s ease-out"}} />
-                        </a>
-                    <div>Github</div> 
+                    <div>
+                    <h4>Contact me at: </h4>
+                    <h4 style={{fontStyle: "italic", textDecoration:"underline"}}>
+                        rogerpeke97@gmail.com
+                        <FontAwesomeIcon icon={faCopy} 
+                            style={{cursor: "pointer", fontSize: "100%", transition: "all 0.5s ease-out"}}
+                            onMouseEnter={(e)=>e.currentTarget.style.color = "rgba(44,12,175,1)"}
+                            onMouseLeave={(e)=>e.currentTarget.style.color = "white"}
+                            onClick={()=>copied_to_clipboard_function()}
+                        />
+                    </h4>
                     </div>
                     <div style={{display: "flex"}}>
                     <a href="https://www.linkedin.com/in/ignacio-martin-diaz-2a30251b7/" rel="noopener noreferrer" target="_blank"
@@ -1021,6 +1125,7 @@ function ThreeJsScene() {
                     <div>LinkedIn</div> 
                     </div>
                 </div>
+                <div ref={copied_to_clipboard} style={style.clipboard}>Copied to clipboard</div>
             </div>
             <div
                 className="loadingScreen"
