@@ -1,17 +1,6 @@
 import React, {useState, useRef, useEffect} from 'react';
 import TicTacToe from './tictactoe';
 function ContainerGrids() {
-    function TicTacDemo() {
-        let tictactoe = document.getElementById('TicTacToe');
-        tictactoe.style.display = 'grid'
-        tictactoe.style.animation = 'popTic 1s normal forwards ease-out'
-        // REMEMBER WHEN DIV DISSAPEARS AFTER ANIMATION IT'S BECAUSE YOU NEED TO DISPLAY
-        // GRID AFTER THE ANIMATION!!!
-        tictactoe.onanimationend = () => {
-            tictactoe.style.display = 'grid'
-        }
-    }
-
     const [gridShowing, setgridShowing] = useState(0);
     const firstMenu0 = useRef(0);
     const firstMenu1 = useRef(0);
@@ -395,14 +384,6 @@ function ContainerGrids() {
                         </h4>
                         <div className="project_wrapper_links">
                             <button>
-                                <a
-                                    href="#"
-                                    id="btn"
-                                    onClick={() => {
-                                    TicTacDemo()
-                                }}>
-                                    Play!
-                                </a>
                             </button>
                             <a
                                 href="https://github.com/Rogerpeke97/tictactoe"

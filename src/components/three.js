@@ -1,12 +1,11 @@
 import React from 'react';
 import * as THREE from "three";
 import {useEffect, useRef, useState} from "react";
-import { Lensflare, LensflareElement } from 'three/examples/jsm/objects/Lensflare.js';
 import { Reflector } from 'three/examples/jsm/objects/Reflector.js';
 import TWEEN from '@tweenjs/tween.js'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faGithub, faGoogle, faLinkedin} from '@fortawesome/free-brands-svg-icons'
-import { faWindowClose, faQuestionCircle, faMapMarked, faCopy } from '@fortawesome/free-solid-svg-icons'
+import { faMapMarked, faCopy } from '@fortawesome/free-solid-svg-icons'
 
 const style = {
     loading: {
@@ -420,9 +419,7 @@ const style = {
 function ThreeJsScene() {
     const [componentLoaded,
         setComponentLoaded] = useState(false);
-    let loadingScreenMessages = useRef(0);
     let loading = useRef(0);
-    const [message, setMessage] = useState("Show background");
     let moving_div_1 = useRef(0);
     let moving_div_2 = useRef(0);
     let transparent_overlay = useRef(0);
@@ -451,7 +448,6 @@ function ThreeJsScene() {
             let renderer = new THREE.WebGLRenderer();
             let height = canvasContainer.current.clientHeight;
             let width =  window.innerWidth;
-            const loader = new THREE.TextureLoader();
 
 
             for(let i = -15; i < 15; i+=5){
@@ -643,7 +639,7 @@ function ThreeJsScene() {
                 .yoyo(true)
                 .repeat(99999)
                 .start();
-
+            console.log(tween);
             function animateTween(time) {
                 TWEEN.update(time)
                 requestAnimationFrame(animateTween)
@@ -734,7 +730,6 @@ function ThreeJsScene() {
             let amount_to_move;
             document.addEventListener('mousemove', (e)=>{
                 mousex = (e.clientX   - ( canvas_2d.current.getBoundingClientRect().left / 2)) ;
-                let mousey = (e.clientY  - ( canvas_2d.current.getBoundingClientRect().top / 2)) ;
                 x = mousex - canvas_2d.current.getBoundingClientRect().width / 2 ;
                 amount_to_move = (x - mouse_movement_amount) / 100;
                 mouse_movement_amount = x;
