@@ -5,10 +5,32 @@ import { Lensflare, LensflareElement } from 'three/examples/jsm/objects/Lensflar
 import { Reflector } from 'three/examples/jsm/objects/Reflector.js';
 import TWEEN from '@tweenjs/tween.js'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faGithub, faLinkedin} from '@fortawesome/free-brands-svg-icons'
+import {faGithub, faGoogle, faLinkedin} from '@fortawesome/free-brands-svg-icons'
 import { faWindowClose, faQuestionCircle, faMapMarked, faCopy } from '@fortawesome/free-solid-svg-icons'
 
 const style = {
+    loading: {
+        display: "grid",
+        width: "100%",
+        height:"100vh",
+        position: "fixed",
+        background: "black",
+        top: "0%",
+        transition: "all 0.5s ease-out",
+        justifyContent: "center",
+        alignContent: "center",
+        left: "0%",
+        zIndex: "3"
+    },
+    loading_complete: {
+        display: "none",
+        width: "100%",
+        height:"100vh",
+        position: "fixed",
+        top: "0%",
+        left: "0%",
+        zIndex: "3"
+    },
     portfolio_grid: {
         display: "grid",
         width: "90%",
@@ -57,9 +79,15 @@ const style = {
     },
     grid: {
         display: "flex",
+        paddingBottom: "1%"
+    },
+    grid_phone_media: {
+        display: "grid",
+        gridTemplateRows: "50% 50%",
+        fontSize: "75%",
+        paddingBottom: "12%"
     },
     box: {
-        margin: "2%",
         position: "relative",
         width: "100%",
         border: "5px solid white",
@@ -77,6 +105,15 @@ const style = {
         display: "grid",
         gridTemplateRows: "20% 60% 20%"
     },
+    box_explanation_small: {
+        margin: "0%",
+        position: "relative",
+        width: "100%",
+        flex: "1",
+        transition: "transform 0.5s ease-out",
+        display: "grid",
+        gridTemplateRows: "20% 60% 20%"
+    },
     box_explanation_title: {
         fontWeight: "bold",
         fontSize: "300%",
@@ -85,6 +122,13 @@ const style = {
     },
     box_explanation_description: {
         fontWeight: "normal",
+        textAlign: "justify"
+    },
+    box_explanation_description_small: {
+        fontWeight: "normal",
+        display: "grid",
+        alignContent: "center",
+        textAlign: "justify"
     },
     grid_images: {
         position: "absolute",
@@ -97,8 +141,8 @@ const style = {
     explanation_website : {
         position: "absolute",
         background: "linear-gradient(56deg, rgba(24,14,19,1) 28%, rgba(78,21,35,1) 59%)",
-        textAlign: "center",
         display: "grid",
+        textAlign: "center",
         gridTemplateRows: "10% 70% 20%",
         width: "100%",
         height: "100%",
@@ -194,6 +238,16 @@ const style = {
         justifyContent: "center",
         textAlign: "center",
     },
+    technologies_holder_small: {
+        display: "flex",
+        maxWidth: "100%",
+        maxHeight: "100%",
+        height: "100%",
+        width: "100%",
+        alignItems: "center",
+        justifyContent: "center",
+        textAlign: "center",
+    },
     technologies_images: {
         flex: "25%",
         maxHeight: "100%",
@@ -236,13 +290,25 @@ const style = {
         display: "grid",
         justifyContent: "center",
         alignItems: "center",
-        textAlign: "center",
+        textAlign: "justify",
         zIndex: "1",
         position: "relative",
         left: "15%",
         width: "70%",
         paddingTop: "5%",
         fontSize: "150%"
+    },
+    selling_description_small: {
+        display: "grid",
+        justifyContent: "center",
+        alignItems: "center",
+        textAlign: "justify",
+        zIndex: "1",
+        position: "relative",
+        left: "15%",
+        width: "70%",
+        paddingTop: "5%",
+        fontSize: "100%"
     },
     page_3:{
         height: "1080px",
@@ -251,7 +317,7 @@ const style = {
         backgroundSize: "400% 400%", 
         animation: "transition 45s infinite",
         display: "grid",
-        gridTemplateRows: "25% 25% 25% 25%"
+        gridTemplateRows: "30% 30%"
     },
     transparent_overlay: {
         display: "grid",
@@ -263,6 +329,20 @@ const style = {
         left: "5%",
         transition: "all 0.1s ease-out",
         gridTemplateRows: "50% 50%",
+        top: "5%",
+        zIndex: "2",
+        backgroundColor: "transparent",
+    },
+    transparent_overlay_small: {
+        display: "grid",
+        position: "absolute",
+        minWidth: "100%",
+        maxWidth: "100%",
+        maxHeight: "90%",
+        minHeight: "90%",
+        left: "0%",
+        transition: "all 0.1s ease-out",
+        gridTemplateRows: "20% 20%",
         top: "5%",
         zIndex: "2",
         backgroundColor: "transparent",
@@ -279,9 +359,33 @@ const style = {
         color: 'white',
         fontFamily: 'Teko, sans-serif'
     },
+    title_letter_small_footer:{
+        transition: 'all 0.5s ease-out',
+        cursor: 'default',
+        margin: "0",
+        color: 'white',
+        fontFamily: 'Teko, sans-serif'
+    },
     letter_container: {
         display: "flex", 
         justifyContent: "center"
+    },
+    letter_container_small: {
+        display: "flex", 
+        justifyContent: "center",
+        fontSize: "34%"
+    },
+    title_description: {
+        fontSize: "200%",
+        margin: "0",
+        fontWeight: "lighter", 
+        textAlign: "justify"
+    },
+    title_description_small: {
+        fontSize: "115%",
+        margin: "0",
+        fontWeight: "lighter", 
+        textAlign: "justify"
     },
     a_link_holder: {
         display: "grid",
@@ -289,7 +393,7 @@ const style = {
         color: "white",
         cursor: "default",
         flex: "1", 
-        justifyContent: "center",
+        justifyContent: "right",
         alignItems: "center"
     },
     clipboard: {
@@ -300,9 +404,9 @@ const style = {
         alignItems: "center",
         left: "50%",
         top: "50%",
-        width: "30%",
+        width: "250px",
         height: "15%",
-        marginLeft: "-15%",
+        marginLeft: "-125px",
         marginTop: "-1%",
         transition: "0.5s ease-out",
         opacity: "0",
@@ -338,6 +442,7 @@ function ThreeJsScene() {
     let canvas_2d_page_3 = useRef(0);
     let camera = useRef(0); 
     let copied_to_clipboard = useRef(0);
+    const [smartphoneView, setSmartphoneView] = useState(false);
     useEffect(() => {
         if (componentLoaded === false) {
             let scene = new THREE.Scene();
@@ -419,21 +524,20 @@ function ThreeJsScene() {
                     renderer.setSize(width, height);
                     canvasContainer.current.style.width = width;
                     camera.current.aspect = width / height;
+                    nav_bar.current.style.width = width;
                     camera
                         .current
                         .updateProjectionMatrix();
                     scroll_value = window.scrollY;
                     //CANVAS_2d
-                    canvas_2d.current.width = window.innerWidth;
-                    canvas_2d.current.height = portfolio_grid.current.clientHeight;
+                    canvas_2d.current.width = width;
 
-                    canvas_2d_page_3.current.width = window.innerWidth;
-                    canvas_2d_page_3.current.height = page_3.current.clientHeight;
+                    canvas_2d_page_3.current.width = width;
                     
-                    let particle_width = canvas_2d.current.width / 25;
+                    let particle_width = width / 25;
                     let particle_position = -particle_width;
 
-                    let particle_width_page_3 = canvas_2d_page_3.current.width / 25;
+                    let particle_width_page_3 = width / 25;
                     let particle_position_page_3 = -particle_width_page_3;
 
                     array_particles.forEach((part)=>{
@@ -448,6 +552,8 @@ function ThreeJsScene() {
                         part.negative_amount_to_move = particle_position_page_3 - particle_width_page_3;
                         particle_position_page_3 = particle_position_page_3 + particle_width_page_3;
                     });
+                    let scrollX = window.scrollX;
+                    document.documentElement.scrollLeft = -scrollX; // On resize the window scrolls in x due to moving_divs
                 }
             });
 
@@ -638,10 +744,10 @@ function ThreeJsScene() {
 
             //SECOND CANVAS PARTICLES   
             const canvas_2d_page_3_ctx = canvas_2d_page_3.current.getContext("2d");
-            canvas_2d_page_3.current.width = window.innerWidth;
+            canvas_2d_page_3.current.width = width;
             canvas_2d_page_3.current.height = page_3.current.clientHeight;
             let array_particles_page_3 = [];
-            let particle_width_page_3 = canvas_2d_page_3.current.width / 25;
+            let particle_width_page_3 = width / 25;
             let particle_position_page_3 = -particle_width_page_3;
 
             for(let i = 0; i < 27; i++){
@@ -653,30 +759,16 @@ function ThreeJsScene() {
             }
             
 
-            setInterval(()=>{
+            const animation_loop = ()=>{
                 move_particles(canvas_2d.current, canvas_2d_ctx, portfolio_grid.current, array_particles, 0);
                 update_x_position(array_particles);
                 move_particles(canvas_2d_page_3.current, canvas_2d_page_3_ctx, page_3.current, array_particles_page_3, 1);
                 update_x_position(array_particles_page_3);
-            },5);
-
-
-            //CHECK IF MODELS ARE LOADED
-            manager.onProgress = () => {
-                let array = [
-                    "Loading Existential Buffer",
-                    "Setting Universal Physical Constants",
-                    "Modeling Object Components",
-                    "Gathering Particle Sources",
-                    "I'm testing your patience",
-                    "Reconfoobling energymotron...",
-                    "I'm sorry for being so slow",
-                    "Too fair to worship, too divine to love",
-                    "An idea is always a generalization, and generalization is a property of thinking" +
-                            ". To generalize means to think",
-                ]
-                loadingScreenMessages.current.innerText = array[Math.floor(Math.random() * array.length)];
+                requestAnimationFrame(animation_loop);
             }
+
+            animation_loop();
+
 
             //MOVE DIVS LEFT TO RIGHT
             let current_scroll_value;
@@ -756,6 +848,17 @@ function ThreeJsScene() {
             }
             
         }
+            //media queries
+        let phoneViewCheck = (e)=>{
+            if(e.matches === true){
+                setSmartphoneView(true);
+            }
+            else{
+                setSmartphoneView(false);
+            }
+        }
+        phoneViewCheck(window.matchMedia("(max-width: 1100px)"));
+        window.matchMedia("(max-width: 1100px)").addEventListener('change', phoneViewCheck);
     })
 
 
@@ -816,52 +919,76 @@ function ThreeJsScene() {
     }
 
     const copied_to_clipboard_function = ()=>{
+        const text_to_copy = document.createElement('textarea');
+        text_to_copy.value = 'rogerpeke97@gmail.com';
+        document.body.appendChild(text_to_copy);
+        text_to_copy.select();
+        document.execCommand('copy');
+        document.body.removeChild(text_to_copy);  
         copied_to_clipboard.current.style.opacity = "1";
         setTimeout(()=>copied_to_clipboard.current.style.opacity = "0", 500)
     }
 
 
+
+
     return (
         <div style={{maxWidth: "100%", height: "100%", position: "relative"}}>
-            <div ref={nav_bar} style={{display: "flex", maxWidth: "100%", minWidth: "100%", height: "5rem", background: "black", position: "fixed",
+            <div ref={nav_bar} style={{display: "flex", width: "100%", height: "5rem", background: "black", position: "sticky",
             color: "white", top: "0", zIndex: "3"
             }}>
-                <div style={{justifyContent: "center", alignContent: "center", display: "flex", flex: "1"}}>
+                <div style={{justifyContent: "left", alignContent: "center", display: "flex", flex: "1", marginLeft: "2%"}}>
                     <div style={style.letter_container}>{title_letter('IGNACIO.MARTIN.DIAZ', true)}</div>
-                    <div style={style.a_link_holder}>
-                        <a href="https://github.com/Rogerpeke97" rel="noopener noreferrer" target="_blank">
-                            <FontAwesomeIcon icon={faGithub} style={{cursor: "pointer", transition: "all 0.5s ease-out", color:"white", fontSize: "200%"}}
-                            onMouseEnter={(e)=>e.currentTarget.style.color = "rgba(44,12,175,1)"}
-                            onMouseLeave={(e)=>e.currentTarget.style.color = "white"}/>
-                        </a>
-                    </div>
-                    <div style={style.a_link_holder}>
-                        <a href="https://www.linkedin.com/in/ignacio-martin-diaz-2a30251b7/" rel="noopener noreferrer" target="_blank">
-                            <FontAwesomeIcon icon={faLinkedin} style={{cursor: "pointer", transition: "all 0.5s ease-out", color:"white", fontSize: "200%"}}
-                            onMouseEnter={(e)=>e.currentTarget.style.color = "rgba(44,12,175,1)"}
-                            onMouseLeave={(e)=>e.currentTarget.style.color = "white"}/>                    
-                        </a>
-                    </div>
                 </div>
-                <div style={{justifyContent: "center", alignContent: "center", display: "flex", flex: "1", alignItems: "center"}}>
-                    <i className="fi-xnsuxl-house-solid" style={{fontSize: "100%"}} />
-                    <div style={{width: "100%", height: "10px", background: "white"}}>
+                <div style={{flex:"1", display: "flex", alignContent: "center", marginRight: "2%"}}>
+                    <div style={style.a_link_holder}>
+                            <a href="https://github.com/Rogerpeke97" rel="noopener noreferrer" target="_blank">
+                                <FontAwesomeIcon icon={faGithub} style={{cursor: "pointer", transition: "all 0.5s ease-out", color:"white", fontSize: "200%"}}
+                                onMouseEnter={(e)=>e.currentTarget.style.color = "rgba(44,12,175,1)"}
+                                onMouseLeave={(e)=>e.currentTarget.style.color = "white"}/>
+                            </a>
+                        </div>
+                        <div style={style.a_link_holder}>
+                            <a href="https://www.linkedin.com/in/ignacio-martin-diaz-2a30251b7/" rel="noopener noreferrer" target="_blank">
+                                <FontAwesomeIcon icon={faLinkedin} style={{cursor: "pointer", transition: "all 0.5s ease-out", color:"white", fontSize: "200%"}}
+                                onMouseEnter={(e)=>e.currentTarget.style.color = "rgba(44,12,175,1)"}
+                                onMouseLeave={(e)=>e.currentTarget.style.color = "white"}/>                    
+                            </a>
                     </div>
-                    <div style={{display: "grid", borderRadius: "50%", background: "gray", width: "5%"}}>1</div>
-                </div>
-                <div style={{justifyContent: "center", alignContent: "center", display: "grid", flex: "1"}}>
-                    <div>{message}</div> 
                 </div>
             </div>
             <div
-                style={{position: "relative", height: "100vh", maxWidth: "100%", minWidth: "100%", top: "0", marginTop: "5rem", marginBottom: "0"}}
+                style={componentLoaded
+                ? 
+                style.loading_complete
+                :
+                style.loading
+                }
+                ref={loading}>
+                <div>
+                    <div className="LOADINGCONTAINER">
+                    <span>L</span>
+                    <span>O</span>
+                    <span>A</span>
+                    <span>D</span>
+                    <span>I</span>
+                    <span>N</span>
+                    <span>G</span>
+                    <span>.</span>
+                    <span>.</span>
+                    <span>.</span>
+                    </div>
+                </div>
+            </div>
+            <div
+                style={{position: "relative", height: "100vh", maxWidth: "100%", minWidth: "100%", top: "0", marginBottom: "0"}}
                 ref={canvasContainer}
                 onMouseMove={(event) => {
                 mouseMove(event);
             }}>
-                <div ref={transparent_overlay} style={style.transparent_overlay} onMouseMove={(e)=>mouseMove(e)}>
-                    <div style={style.letter_container}>{title_letter('IGNACIO.MARTIN.DIAZ', false)}</div>
-                    <h1 style={{fontSize: "200%", margin: "0", fontWeight: "lighter", textAlign: "justify"}}>
+                <div ref={transparent_overlay} style={smartphoneView ? style.transparent_overlay_small : style.transparent_overlay} onMouseMove={(e)=>mouseMove(e)}>
+                    <div style={smartphoneView ? style.letter_container_small : style.letter_container}>{title_letter('IGNACIO.MARTIN.DIAZ', false)}</div>
+                    <h1 style={smartphoneView ? style.title_description_small : style.title_description}>
                         My name is Ignacio Diaz, i mainly focus on the creation of 3d websites
                         and i am currently offering my services as a freelancer to design and 
                         create the website you desire utilizing technologies that will guarantee
@@ -889,13 +1016,13 @@ function ThreeJsScene() {
                                     underline_login.current.style.transform = "scaleX(0)";   
                                 }}
                             >
-                                <div style={{border: "3px solid rgba(24,8,100,1)", borderRadius: "6px"}} ref={login_font}>My work:</div>
+                                <div style={{border: "3px solid rgba(24,8,100,1)", borderRadius: "6px", fontFamily: "Teko, sans-serif", fontSize: "120%"}} ref={login_font}>My work:</div>
                                 <div style={{height: "2px", width: "100%", background:"white",
                                 transform: "scaleX(0)", transition: "all 0.3s ease-out"}} ref={underline_login}></div>
                             </div>  
                         </div> 
                         <div style={style.websites}>
-                            <div style={style.grid}>
+                            <div style={smartphoneView ? style.grid_phone_media : style.grid}>
                                 <div style={style.box}>
                                     <div style={style.explanation_website} ref={explanation_website_1_image}>
                                         <div style={{transform: "rotateY(180deg)", textDecoration: "underline"}}>{"<Technologies used: />"}</div>
@@ -934,9 +1061,9 @@ function ThreeJsScene() {
                                         onMouseLeave={(e)=>e.currentTarget.style.boxShadow = ""}>See details</div>
                                     </div>
                                 </div>
-                                <div style={style.box_explanation}>
+                                <div style={smartphoneView ? style.box_explanation_small : style.box_explanation}>
                                     <div style={style.box_explanation_title}>Xenta's website:</div>
-                                    <div style={style.box_explanation_description}>
+                                    <div style={smartphoneView ? style.box_explanation_description_small : style.box_explanation_description}>
                                         This website is basically an "infinite" game where you are given the sensation that you are actually moving forward
                                         but in reality the character is just orbiting around the surface of the sphere. <br/>
                                         You have a score, which is saved if your performance was better than your previous best score and
@@ -975,9 +1102,16 @@ function ThreeJsScene() {
                                     </div>
                                 </div>                          
                             </div>
-                            <div style={style.grid}>
+                            <div style={smartphoneView ? style.grid_phone_media : style.grid}>
                                 <div style={style.box}>
                                     <div style={style.explanation_website} ref={explanation_website_2_image}>
+                                        <div style={{transform: "rotateY(180deg)", textDecoration: "underline"}}>{"<Technologies used: />"}</div>
+                                        <div style={style.technologies_holder}>
+                                            <img src="nodejslogo.png" alt="Spring boot" style={style.technologies_images}></img>
+                                            <img src="Reactjslogo.png" alt="React" style={style.technologies_images}></img>
+                                            <img src="/testimages/threejslogo.svg" alt="Threejs" style={style.technologies_images}></img>
+                                            <img src="postgresqllogo.png" alt="Spring boot" style={style.technologies_images}></img>
+                                        </div>
                                         <div style={style.website_button_backwards} onClick={()=>{
                                                 website_2_image.current.style.transform = "rotateY(0deg)";
                                                 explanation_website_2_image.current.style.transform = "rotateY(0deg)";
@@ -989,14 +1123,14 @@ function ThreeJsScene() {
                                     <div style={style.website_image_container} ref={website_2_image}>
                                         <div style={{height: "100%", width: "100%", position: "absolute", transition: "all 0.5s ease-out",
                                         display: "grid", justifyItems: "center", background: "black"}}>
-                                                <img src="project1.gif" alt="xenta game" style={style.grid_images}></img>
+                                                <img src="project1.gif" alt="csv converter" style={style.grid_images}></img>
                                         </div>
                                         <div style={{height: "100%", width: "100%", position: "absolute", transition: "all 0.5s ease-out",
                                         display: "grid", justifyItems: "center", background: "black", opacity: "1"}} 
                                         onMouseEnter={(e)=>e.currentTarget.style.opacity = "0"}
                                         onMouseLeave={(e)=>e.currentTarget.style.opacity = "1"}
                                         >
-                                            <img src="project1_front.png" alt="xenta game" style={style.grid_images}></img>
+                                            <img src="project1_front.png" alt="csv converter" style={style.grid_images}></img>
                                         </div>
                                         <div style={style.website_button} onClick={()=>{
                                             website_2_image.current.style.transform = "rotateY(180deg)";
@@ -1009,7 +1143,7 @@ function ThreeJsScene() {
                                 </div>
                                 <div style={style.box_explanation}>
                                     <div style={style.box_explanation_title}>Csv-converter:</div>
-                                    <div style={style.box_explanation_description}>
+                                    <div style={smartphoneView ? style.box_explanation_description_small : style.box_explanation_description}>
                                     This is my first project, it converts csv files and displays them in a canvas using chartjs. 
                                     It has a lot of backend functionalities that allowed me to learn about backend and frontend requests,
                                     remote storage using googlecloud's api, file storage using multer, downloading files from googlecloud and 
@@ -1036,9 +1170,14 @@ function ThreeJsScene() {
                                     </div>
                                 </div>   
                             </div>
-                            <div style={style.grid}>
+                            <div style={smartphoneView ? style.grid_phone_media : style.grid}>
                                 <div style={style.box}>
                                     <div style={style.explanation_website} ref={explanation_website_3_image}>
+                                        <div style={{transform: "rotateY(180deg)", textDecoration: "underline"}}>{"<Technologies used: />"}</div>
+                                        <div style={style.technologies_holder}>
+                                            <img src="Reactjslogo.png" alt="React" style={style.technologies_images}></img>
+                                            <img src="/testimages/threejslogo.svg" alt="Threejs" style={style.technologies_images}></img>
+                                        </div>
                                         <div style={style.website_button_backwards} onClick={()=>{
                                                 website_3_image.current.style.transform = "rotateY(0deg)";
                                                 explanation_website_3_image.current.style.transform = "rotateY(0deg)";
@@ -1048,8 +1187,17 @@ function ThreeJsScene() {
                                         onMouseLeave={(e)=>e.currentTarget.style.boxShadow = ""}>Click this button to flip-back!</div>                                    
                                     </div>
                                     <div style={style.website_image_container} ref={website_3_image}>
-                                        <img src="xenta_front_page.jpg" alt="xenta game" style={style.grid_images}></img>
-                                        <div style={style.website_button} onClick={()=>{
+                                        <div style={{height: "100%", width: "100%", position: "absolute", transition: "all 0.5s ease-out",
+                                        display: "grid", justifyItems: "center", background: "black"}}>
+                                                <img src="portfolio_home.gif" alt="xenta game" style={style.grid_images}></img>
+                                        </div>
+                                        <div style={{height: "100%", width: "100%", position: "absolute", transition: "all 0.5s ease-out",
+                                        display: "grid", justifyItems: "center", background: "black", opacity: "1"}} 
+                                        onMouseEnter={(e)=>e.currentTarget.style.opacity = "0"}
+                                        onMouseLeave={(e)=>e.currentTarget.style.opacity = "1"}
+                                        >
+                                            <img src="portfolio_home.png" alt="portfolio" style={style.grid_images}></img>
+                                        </div>                                        <div style={style.website_button} onClick={()=>{
                                             website_3_image.current.style.transform = "rotateY(180deg)";
                                             explanation_website_3_image.current.style.transform = "rotateY(180deg)";
                                             website_3_image.current.style.zIndex = "1";
@@ -1060,7 +1208,7 @@ function ThreeJsScene() {
                                 </div>
                                 <div style={style.box_explanation}>
                                 <div style={style.box_explanation_title}>Portfolio website:</div>
-                                    <div>
+                                    <div style={smartphoneView ? style.box_explanation_description_small : style.box_explanation_description}>
                                         This website is my old portfolio, contains other minor projects.<br/>
                                     </div>
                                     <div style={style.website_links}>
@@ -1080,10 +1228,10 @@ function ThreeJsScene() {
                 </div>
             </div>
             <div className= "page3" style={style.page_3} ref={page_3}>
-                <div style={style.selling_description}>
+                <div style={smartphoneView ? style.selling_description_small : style.selling_description}>
                     I will create the website you desire, make it interactive, applying specific 3d models for it in case you want it or 2d animations 
                     that will make your website look modern, aesthetic and most importantly scalable with the help of these technologies:
-                    <div style={style.technologies_holder}>
+                    <div style={smartphoneView ? style.technologies_holder_small : style.technologies_holder}>
                         <img src="/testimages/Reactjslogo.svg" alt="reactlogo" style={style.technologies_images_normal} onMouseEnter={(e)=>console.log(e.currentTarget)}></img>
                         <img src="/testimages/nodejslogo.svg" alt="nodejs" style={style.technologies_images_normal}></img>
                         <img src="/testimages/postgresqllogo.svg" alt="postgresql" style={style.technologies_images_normal}></img>
@@ -1097,8 +1245,8 @@ function ThreeJsScene() {
             </div>
             <div style={style.footer}>
                 <div style={{flex: "1", display: "grid", alignItems: "center", margin: "2%"}}>
-                    <div>Ignacio Martin Diaz</div>     
-                    <div style={{display: "flex"}}>
+                    <h2 style={style.title_letter_small_footer}>IGNACIO.MARTIN.DIAZ</h2>
+                    <div style={{display: "flex", marginBottom: "1%"}}>
                     <FontAwesomeIcon icon={faMapMarked} style={{marginRight: "1%"}}/> 
                     <div>Buenos Aires, Argentina</div>
                     </div>
@@ -1108,49 +1256,18 @@ function ThreeJsScene() {
                     <div>
                     <h4>Contact me at: </h4>
                     <h4 style={{fontStyle: "italic", textDecoration:"underline"}}>
+                        <FontAwesomeIcon icon={faGoogle} style={{marginRight: "1%"}}/> 
                         rogerpeke97@gmail.com
                         <FontAwesomeIcon icon={faCopy} 
-                            style={{cursor: "pointer", fontSize: "100%", transition: "all 0.5s ease-out"}}
+                            style={{cursor: "pointer", fontSize: "100%", marginLeft: "2%", transition: "all 0.5s ease-out"}}
                             onMouseEnter={(e)=>e.currentTarget.style.color = "rgba(44,12,175,1)"}
                             onMouseLeave={(e)=>e.currentTarget.style.color = "white"}
                             onClick={()=>copied_to_clipboard_function()}
                         />
                     </h4>
                     </div>
-                    <div style={{display: "flex"}}>
-                    <a href="https://www.linkedin.com/in/ignacio-martin-diaz-2a30251b7/" rel="noopener noreferrer" target="_blank"
-                        style={{justifyContent: "center", display: "grid", textDecoration: "none", alignContent: "center", cursor: "default", color: "white", marginRight: "1%"}}>
-                        <FontAwesomeIcon icon={faLinkedin} style={{cursor: "pointer", fontSize: "100%", transition: "all 0.5s ease-out"}} />
-                    </a>
-                    <div>LinkedIn</div> 
-                    </div>
                 </div>
                 <div ref={copied_to_clipboard} style={style.clipboard}>Copied to clipboard</div>
-            </div>
-            <div
-                className="loadingScreen"
-                style={componentLoaded
-                ? {
-                    display: "none"
-                }
-                : {
-                    display: "grid"
-                }}>
-                <div className="LOADING" ref={loading}>
-                    <div className="LOADINGCONTAINER">
-                    <span>L</span>
-                    <span>O</span>
-                    <span>A</span>
-                    <span>D</span>
-                    <span>I</span>
-                    <span>N</span>
-                    <span>G</span>
-                    <span>.</span>
-                    <span>.</span>
-                    <span>.</span>
-                    </div>
-                    <div className="messages" ref={loadingScreenMessages}></div>
-                </div>
             </div>
         </div>
     )
