@@ -984,8 +984,8 @@ function ThreeJsScene() {
                 <div ref={transparent_overlay} style={smartphoneView ? style.transparent_overlay_small : style.transparent_overlay} onMouseMove={(e)=>mouseMove(e)}>
                     <div style={smartphoneView ? style.letter_container_small : style.letter_container}>{title_letter('IGNACIO.MARTIN.DIAZ', false)}</div>
                     <h1 style={smartphoneView ? style.title_description_small : style.title_description}>
-                        My name is Ignacio Diaz, i mainly focus on the creation of 3d websites
-                        and i am currently offering my services as a freelancer to design and 
+                        My name is Ignacio Diaz, I mainly focus on the creation of 3d websites
+                        and I am currently offering my services as a freelancer to design and 
                         create the website you desire utilizing technologies that will guarantee
                         its scalability and functionality across all platforms. 
                     </h1>
