@@ -629,7 +629,7 @@ function ThreeJsScene() {
 
             scene.add(particleSys)
             
-            let tween = new TWEEN
+            new TWEEN
                 .Tween(pMaterial.color)
                 .to({
                     r: 0.2,
