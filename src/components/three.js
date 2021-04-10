@@ -561,7 +561,7 @@ function ThreeJsScene() {
             
 
             //PARTICLES
-            let particleCount = 2600; // Hay una mas porque el float da apenas por encima de 0 
+            let particleCount = 2600; // There is one more due to the float being slightly above 0 
             let particles = new THREE.BufferGeometry();
             let texture = new THREE
                 .TextureLoader(manager)
@@ -639,7 +639,6 @@ function ThreeJsScene() {
                 .yoyo(true)
                 .repeat(99999)
                 .start();
-            console.log(tween);
             function animateTween(time) {
                 TWEEN.update(time)
                 requestAnimationFrame(animateTween)
@@ -700,7 +699,6 @@ function ThreeJsScene() {
             }
 
 
-            console.log(portfolio_grid.current);
 
             const move_particles = (canvas_to_mod, canvas_to_mod_ctx, div_ctx, array_with_particles, div_number)=>{
                 canvas_to_mod_ctx.fillStyle = "black";
@@ -1225,9 +1223,9 @@ function ThreeJsScene() {
             <div className= "page3" style={style.page_3} ref={page_3}>
                 <div style={smartphoneView ? style.selling_description_small : style.selling_description}>
                     I will create the website you desire, make it interactive, applying specific 3d models for it in case you want it or 2d animations 
-                    that will make your website look modern, aesthetic and most importantly scalable with the help of these technologies:
+                    that will make your website look modern and scalable with the help of these technologies:
                     <div style={smartphoneView ? style.technologies_holder_small : style.technologies_holder}>
-                        <img src="/testimages/Reactjslogo.svg" alt="reactlogo" style={style.technologies_images_normal} onMouseEnter={(e)=>console.log(e.currentTarget)}></img>
+                        <img src="/testimages/Reactjslogo.svg" alt="reactlogo" style={style.technologies_images_normal}></img>
                         <img src="/testimages/nodejslogo.svg" alt="nodejs" style={style.technologies_images_normal}></img>
                         <img src="/testimages/postgresqllogo.svg" alt="postgresql" style={style.technologies_images_normal}></img>
                         <img src="/testimages/spring_boot.svg" alt="spring boot" style={style.technologies_images_normal}></img>
