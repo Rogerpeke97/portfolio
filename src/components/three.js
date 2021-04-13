@@ -13,7 +13,8 @@ const style = {
         width: "100%",
         height:"100vh",
         position: "fixed",
-        background: "black",
+        backgroundColor: "black",
+        background: "url('background.png') no-repeat fixed center",
         top: "0%",
         transition: "all 0.5s ease-out",
         justifyContent: "center",
@@ -411,6 +412,33 @@ const style = {
         opacity: "0",
         background: "black",
         borderRadius: "5px"
+    },
+    loading_bar : {
+        width: "300px",
+        marginTop: "5%",
+        zIndex: "2",
+        height: "60px",
+        backgroundColor: "black",
+        boxShadow: "5px 5px 15px 5px black"
+    },
+    progress_bar: {
+        display: "grid",
+        position: "relative",
+        transition: "all 0.5s ease-out",
+        width: "0%",
+        top: "-80%",
+        height: "60px",
+        background: "rgba(24,8,100,1)"
+    },
+    percentage: {
+        position: "relative",
+        fontFamily: 'Teko, sans-serif',
+        top: "10%",
+        fontSize: "200%",
+        zIndex: "5",
+        display: "grid",
+        textAlign: "center",
+        alignContent: "center"
     }
 }
 
@@ -440,6 +468,8 @@ function ThreeJsScene() {
     let camera = useRef(0); 
     let copied_to_clipboard = useRef(0);
     const [smartphoneView, setSmartphoneView] = useState(false);
+    let percentage = useRef(0);
+    let progress_bar = useRef(0);
     useEffect(() => {
         if (componentLoaded === false) {
             let scene = new THREE.Scene();
@@ -824,8 +854,21 @@ function ThreeJsScene() {
                         }
                 }
             }
+            percentage.current.innerText = "0 %";
+            manager.onProgress = ()=>{
+                if(parseInt(percentage.current.innerText.slice(0, -2)) < 100){
+                    percentage.current.innerText = parseInt(percentage.current.innerText.slice(0, -2)) + 1 + " %";
+                    progress_bar.current.style.width = (percentage.current.innerText).replace(' ', '');
+                }
+                else{
+                    percentage.current.innerText = "100%";
+                    progress_bar.current.style.width = percentage.current.innerText;
+                }
+            }
 
             manager.onLoad = () => {
+                percentage.current.innerText = "100%";
+                progress_bar.current.style.width = percentage.current.innerText;
                 loading.current.style.animation = 'loadingDone 2s normal ease-out';
                 setTimeout(()=>{setComponentLoaded(true)}, 2000);
                 scroll_value = window.scrollY;
@@ -951,8 +994,9 @@ function ThreeJsScene() {
                 </div>
             </div>
             <div
-                style={componentLoaded
-                ? 
+                style={
+                componentLoaded
+                ?
                 style.loading_complete
                 :
                 style.loading
@@ -971,6 +1015,10 @@ function ThreeJsScene() {
                     <span>.</span>
                     <span>.</span>
                     </div>
+                </div>
+                <div style={style.loading_bar} >
+                    <div style={style.percentage} ref={percentage}></div>
+                    <div style={style.progress_bar} ref={progress_bar}></div>
                 </div>
             </div>
             <div
