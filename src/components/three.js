@@ -14,7 +14,6 @@ const style = {
         height:"100vh",
         position: "fixed",
         backgroundColor: "black",
-        background: "url('background.png') no-repeat fixed center",
         top: "0%",
         transition: "all 0.5s ease-out",
         justifyContent: "center",
@@ -867,6 +866,8 @@ function ThreeJsScene() {
             }
 
             manager.onLoad = () => {
+                let scrollX = window.scrollX;
+                document.documentElement.scrollLeft = -scrollX; // On resize the window scrolls in x due to moving_divs
                 percentage.current.innerText = "100%";
                 progress_bar.current.style.width = percentage.current.innerText;
                 loading.current.style.animation = 'loadingDone 2s normal ease-out';
