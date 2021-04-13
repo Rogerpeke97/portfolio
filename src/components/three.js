@@ -471,6 +471,8 @@ function ThreeJsScene() {
     let progress_bar = useRef(0);
     useEffect(() => {
         if (componentLoaded === false) {
+            let scrollX = window.scrollX;
+            document.documentElement.scrollLeft = -scrollX; // On resize the window scrolls in x due to moving_divs
             let scene = new THREE.Scene();
             let manager = new THREE.LoadingManager();
             camera.current = new THREE.PerspectiveCamera(75, canvasContainer.current.clientWidth / canvasContainer.current.clientHeight, 0.1, 1000);
@@ -866,8 +868,6 @@ function ThreeJsScene() {
             }
 
             manager.onLoad = () => {
-                let scrollX = window.scrollX;
-                document.documentElement.scrollLeft = -scrollX; // On resize the window scrolls in x due to moving_divs
                 percentage.current.innerText = "100%";
                 progress_bar.current.style.width = percentage.current.innerText;
                 loading.current.style.animation = 'loadingDone 2s normal ease-out';
