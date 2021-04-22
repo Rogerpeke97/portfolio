@@ -476,7 +476,7 @@ function ThreeJsScene() {
             let scene = new THREE.Scene();
             let manager = new THREE.LoadingManager();
             camera.current = new THREE.PerspectiveCamera(75, canvasContainer.current.clientWidth / canvasContainer.current.clientHeight, 0.1, 1000);
-            let renderer = new THREE.WebGLRenderer();
+            let renderer = new THREE.WebGLRenderer({antialias: true});
             let height = canvasContainer.current.clientHeight;
             let width =  window.innerWidth;
 
@@ -655,7 +655,6 @@ function ThreeJsScene() {
                     particleSys.geometry.attributes.position.needsUpdate = true;
                     time+=0.001;
                 }
-                renderer.render(scene, camera.current)
             })
 
             scene.add(particleSys)
