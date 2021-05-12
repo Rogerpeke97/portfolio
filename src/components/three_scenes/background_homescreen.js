@@ -1,7 +1,5 @@
 import * as THREE from "three";
-import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
-import React, {useEffect, useRef, useState} from 'react';
-import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls';
+import React, {useEffect, useRef} from 'react';
 import { Reflector } from 'three/examples/jsm/objects/Reflector.js';
 import TWEEN from '@tweenjs/tween.js'
 

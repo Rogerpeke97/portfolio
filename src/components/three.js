@@ -546,7 +546,6 @@ function ThreeJsScene() {
             window.addEventListener('resize', () => {
                 if (canvasContainer.current !== null) {
                     width = window.innerWidth;
-                    height = document.documentElement.clientHeight;
                     const renderTarget = groundMirror.getRenderTarget();
                     renderTarget.setSize(width, height);
                     renderer.setSize(width, height);
@@ -1193,7 +1192,6 @@ function ThreeJsScene() {
                             </div>
                         </div>       
                     </div>
-                    {/* <div ref={moving_div_1} style={style.moving_div_1}></div> */}
                 </div>
             </div>
             <div className= "page3" style={style.page_3} ref={page_3}>
@@ -1210,7 +1208,6 @@ function ThreeJsScene() {
                 </div>
                 <canvas ref={canvas_2d_page_3} style={style.canvas_2d_page_3}>
                 </canvas>
-                {/* <div ref={moving_div_2} style={style.moving_div_2}></div> */}
             </div>
             <div style={style.footer}>
                 <div style={{flex: "1", display: "grid", alignItems: "center", margin: "2%"}}>
