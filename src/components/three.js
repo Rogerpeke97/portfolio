@@ -451,8 +451,6 @@ function ThreeJsScene() {
     const [componentLoaded,
         setComponentLoaded] = useState(false);
     let loading = useRef(0);
-    let moving_div_1 = useRef(0);
-    let moving_div_2 = useRef(0);
     let transparent_overlay = useRef(0);
     let canvasContainer = useRef(0);
     let portfolio_grid = useRef(0);
