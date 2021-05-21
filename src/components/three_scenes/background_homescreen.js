@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import { Reflector } from 'three/examples/jsm/objects/Reflector.js';
 import TWEEN from '@tweenjs/tween.js'
 
@@ -26,23 +26,105 @@ const style = {
         zIndex: "2",
         backgroundColor: "transparent",
     },
+    transparent_overlay_small: {
+        display: "grid",
+        position: "absolute",
+        minWidth: "100%",
+        maxWidth: "100%",
+        maxHeight: "90%",
+        minHeight: "90%",
+        left: "0%",
+        transition: "all 0.1s ease-out",
+        gridTemplateRows: "20% 20%",
+        top: "5%",
+        zIndex: "2",
+        backgroundColor: "transparent",
+    },
+    letter_container: {
+        display: "flex", 
+        justifyContent: "center",
+        alignItems: "center"
+    },
+    letter_container_small: {
+        display: "flex", 
+        justifyContent: "center",
+        fontSize: "34%",
+        alignItems: "center"
+    },
+    title_description: {
+        fontSize: "200%",
+        margin: "0",
+        fontWeight: "lighter", 
+        textAlign: "justify"
+    },
+    title_description_small: {
+        fontSize: "115%",
+        margin: "0",
+        fontWeight: "lighter", 
+        textAlign: "justify"
+    },
+    loading: {
+        display: "grid",
+        width: "100%",
+        height:"100vh",
+        position: "fixed",
+        backgroundColor: "black",
+        top: "0%",
+        transition: "all 0.5s ease-out",
+        justifyContent: "center",
+        alignContent: "center",
+        left: "0%",
+        zIndex: "3"
+    },
+    loading_complete: {
+        display: "none",
+        width: "100%",
+        height:"100vh",
+        position: "fixed",
+        top: "0%",
+        left: "0%",
+        zIndex: "3"
+    },
+    loading_bar : {
+        width: "300px",
+        marginTop: "5%",
+        zIndex: "2",
+        height: "60px",
+        backgroundColor: "black",
+        boxShadow: "5px 5px 15px 5px black"
+    },
+    progress_bar: {
+        display: "grid",
+        position: "relative",
+        transition: "all 0.5s ease-out",
+        width: "0%",
+        top: "-80%",
+        height: "60px",
+        background: "rgba(24,8,100,1)"
+    },
+    percentage: {
+        position: "relative",
+        fontFamily: 'Teko, sans-serif',
+        top: "10%",
+        fontSize: "200%",
+        zIndex: "5",
+        display: "grid",
+        textAlign: "center",
+        alignContent: "center"
+    }
 }
 
-const BackgroundHome = ({canvasContainer, nav_bar, smartphoneView, title_letter, percentage, progress_bar, loading, setComponentLoaded, transparent_overlay})=>{
-    let camera = useRef(0); 
-    let mouseMove = (e)=>{
-        let mousex = (e.clientX   - ( canvasContainer.current.getBoundingClientRect().left / 2)) ;
-        let mousey = (e.clientY  - ( canvasContainer.current.getBoundingClientRect().top / 2)) ;
-        let x = mousex - canvasContainer.current.getBoundingClientRect().width / 2 ;
-        let y = canvasContainer.current.getBoundingClientRect().height / 2 - mousey ;
-        transparent_overlay.current.style.transform = `perspective(700px) rotateY(${x / 100}deg) rotateX(${ y / 100}deg)`;
-        camera.current.rotation.y = (x / 100) * (Math.PI / 180);
-        camera.current.rotation.x = -(y / 100) * (Math.PI / 180) - 0.8;
-    }
-    useEffect(()=>{
-        if(camera.current){
-        let scrollX = window.scrollX;
-        document.documentElement.scrollLeft = -scrollX; // On resize the window scrolls in x due to moving_divs
+const BackgroundHome = ({smartphoneView, setSmartphoneView, title_letter})=>{
+    const camera = useRef(0);
+    const canvasContainer = useRef(0);    
+    const progress_bar = useRef(0);
+    const [componentLoaded,
+        setComponentLoaded] = useState(false);
+    const loading = useRef(0);
+    const transparent_overlay = useRef(0);
+    const percentage = useRef(0);
+
+    useEffect(() => {
         let scene = new THREE.Scene();
         let manager = new THREE.LoadingManager();
         camera.current = new THREE.PerspectiveCamera(75, canvasContainer.current.clientWidth / canvasContainer.current.clientHeight, 0.1, 1000);
@@ -115,13 +197,13 @@ const BackgroundHome = ({canvasContainer, nav_bar, smartphoneView, title_letter,
         window.addEventListener('resize', () => {
             if (canvasContainer.current !== null) {
                 width = window.innerWidth;
-                height = document.documentElement.clientHeight;
+                height = window.innerHeight;
                 const renderTarget = groundMirror.getRenderTarget();
                 renderTarget.setSize(width, height);
                 renderer.setSize(width, height);
                 canvasContainer.current.style.width = width;
                 camera.current.aspect = width / height;
-                nav_bar.current.style.width = width;
+                // nav_bar.current.style.width = width;
                 camera
                     .current
                     .updateProjectionMatrix();
@@ -245,20 +327,32 @@ const BackgroundHome = ({canvasContainer, nav_bar, smartphoneView, title_letter,
             progress_bar.current.style.width = percentage.current.innerText;
             loading.current.style.animation = 'loadingDone 2s normal ease-out';
             setTimeout(()=>{setComponentLoaded(true)}, 2000);
-            // scroll_value = window.scrollY;
-            //SCROLL EVENT TO MOVE DIV COLOR AGREGAR WINDOW ON RESIZE Y CREAR OBJETO
-            // window.addEventListener('scroll', function scrolling(){
-            //     current_scroll_value = window.scrollY;
-            //     requestAnimationFrame(()=>{
-            //         move_divs(moving_div_1, -100);
-            //         move_divs_backwards(moving_div_2, 100);
-            //         scroll_value = current_scroll_value;                 
-            //     });
-            // });
+        }
+            //media queries
+    const phoneViewCheck = (e)=>{
+        if(e.matches === true){
+            setSmartphoneView(true);
+        }
+        else{
+        setSmartphoneView(false);
         }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[]);
+    phoneViewCheck(window.matchMedia("(max-width: 1100px)"));
+    window.matchMedia("(max-width: 1100px)").addEventListener('change', phoneViewCheck);
+        
+// eslint-disable-next-line react-hooks/exhaustive-deps
+}, []);
+const mouseMove = (e)=>{
+    if(componentLoaded === true){
+        let mousex = (e.clientX   - ( canvasContainer.current.getBoundingClientRect().left / 2)) ;
+        let mousey = (e.clientY  - ( canvasContainer.current.getBoundingClientRect().top / 2)) ;
+        let x = mousex - canvasContainer.current.getBoundingClientRect().width / 2 ;
+        let y = canvasContainer.current.getBoundingClientRect().height / 2 - mousey ;
+        transparent_overlay.current.style.transform = `perspective(700px) rotateY(${x / 100}deg) rotateX(${ y / 100}deg)`;
+        camera.current.rotation.y = (x / 100) * (Math.PI / 180);
+        camera.current.rotation.x = -(y / 100) * (Math.PI / 180) - 0.8;
+    }
+}
     return(
         <div
             style={{position: "relative", height: "100vh", maxWidth: "100%", minWidth: "100%", top: "0", marginBottom: "0"}}
@@ -274,6 +368,34 @@ const BackgroundHome = ({canvasContainer, nav_bar, smartphoneView, title_letter,
                     create the website you desire utilizing technologies that will guarantee
                     its scalability and functionality across all platforms. 
                 </h1>
+            </div>
+            <div
+                style={
+                componentLoaded
+                ?
+                style.loading_complete
+                :
+                style.loading
+                }
+                ref={loading}>
+                <div>
+                    <div className="LOADINGCONTAINER">
+                    <span>L</span>
+                    <span>O</span>
+                    <span>A</span>
+                    <span>D</span>
+                    <span>I</span>
+                    <span>N</span>
+                    <span>G</span>
+                    <span>.</span>
+                    <span>.</span>
+                    <span>.</span>
+                    </div>
+                </div>
+                <div style={style.loading_bar} >
+                    <div style={style.percentage} ref={percentage}></div>
+                    <div style={style.progress_bar} ref={progress_bar}></div>
+                </div>
             </div>
         </div>
     )
