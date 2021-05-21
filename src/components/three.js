@@ -6,6 +6,8 @@ import TWEEN from '@tweenjs/tween.js'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faGithub, faGoogle, faLinkedin} from '@fortawesome/free-brands-svg-icons'
 import { faMapMarked, faCopy } from '@fortawesome/free-solid-svg-icons'
+import CanvasBlue from './particles_2d/canvas_2d_blue'
+import CanvasWhite from './particles_2d/canvas_2d_white'
 
 const style = {
     loading: {
@@ -208,24 +210,6 @@ const style = {
         alignItems: "center",
         justifyContent: "center",
         textAlign: "center"
-    },
-    canvas_2d: {
-        position: "absolute",
-        height: "100%",
-        width: "100%",
-        background: "black",
-//        background: "linear-gradient(17deg, rgba(0,0,0,1) 32%, rgba(10,10,10,10) 56%, rgba(20,20,20,20) 70%)",
-//        backgroundSize: "400% 400%",
-        animation: "transition 45s infinite"
-    },
-    canvas_2d_page_3: {
-        position: "absolute",
-        height: "1080px",
-        width: "100%",
-        background: "black",
-//        background: "linear-gradient(17deg, rgba(0,0,0,1) 32%, rgba(10,10,10,10) 56%, rgba(20,20,20,20) 70%)",
-//        backgroundSize: "400% 400%",
-        animation: "transition 45s infinite"
     },
     technologies_holder: {
         display: "flex",
@@ -450,30 +434,27 @@ const style = {
 function ThreeJsScene() {
     const [componentLoaded,
         setComponentLoaded] = useState(false);
-    let loading = useRef(0);
-    let transparent_overlay = useRef(0);
-    let canvasContainer = useRef(0);
-    let portfolio_grid = useRef(0);
-    let underline_login = useRef(0);
-    let login_font = useRef(0);
-    let canvas_2d = useRef(0);
-    let website_1_image = useRef(0);
-    let explanation_website_1_image = useRef(0);
-    let website_2_image = useRef(0);
-    let explanation_website_2_image = useRef(0);
-    let website_3_image = useRef(0);
-    let explanation_website_3_image = useRef(0);
-    let page_3 = useRef(0);
-    let nav_bar = useRef(0);
-    let canvas_2d_page_3 = useRef(0);
-    let camera = useRef(0); 
-    let copied_to_clipboard = useRef(0);
+    const loading = useRef(0);
+    const transparent_overlay = useRef(0);
+    const canvasContainer = useRef(0);
+    const portfolio_grid = useRef(0);
+    const underline_login = useRef(0);
+    const login_font = useRef(0);
+    const website_1_image = useRef(0);
+    const explanation_website_1_image = useRef(0);
+    const website_2_image = useRef(0);
+    const explanation_website_2_image = useRef(0);
+    const website_3_image = useRef(0);
+    const explanation_website_3_image = useRef(0);
+    const page_3 = useRef(0);
+    const nav_bar = useRef(0);
+    const camera = useRef(0); 
+    const copied_to_clipboard = useRef(0);
     const [smartphoneView, setSmartphoneView] = useState(false);
-    let percentage = useRef(0);
-    let progress_bar = useRef(0);
+    const percentage = useRef(0);
+    const progress_bar = useRef(0);
+
     useEffect(() => {
-            let scrollX = window.scrollX;
-            document.documentElement.scrollLeft = -scrollX; // On resize the window scrolls in x due to moving_divs
             let scene = new THREE.Scene();
             let manager = new THREE.LoadingManager();
             camera.current = new THREE.PerspectiveCamera(75, canvasContainer.current.clientWidth / canvasContainer.current.clientHeight, 0.1, 1000);
@@ -546,6 +527,7 @@ function ThreeJsScene() {
             window.addEventListener('resize', () => {
                 if (canvasContainer.current !== null) {
                     width = window.innerWidth;
+                    height = window.innerHeight;
                     const renderTarget = groundMirror.getRenderTarget();
                     renderTarget.setSize(width, height);
                     renderer.setSize(width, height);
@@ -555,31 +537,6 @@ function ThreeJsScene() {
                     camera
                         .current
                         .updateProjectionMatrix();
-                    //CANVAS_2d
-                    canvas_2d.current.width = width;
-
-                    canvas_2d_page_3.current.width = width;
-                    
-                    let particle_width = width / 25;
-                    let particle_position = -particle_width;
-
-                    let particle_width_page_3 = width / 25;
-                    let particle_position_page_3 = -particle_width_page_3;
-
-                    array_particles.forEach((part)=>{
-                        part.x = particle_position;
-                        part.positive_amount_to_move = particle_position + particle_width;
-                        part.negative_amount_to_move = particle_position - particle_width;
-                        particle_position = particle_position + particle_width;
-                    });
-                    array_particles_page_3.forEach((part)=>{
-                        part.x = particle_position_page_3;
-                        part.positive_amount_to_move = particle_position_page_3 + particle_width_page_3;
-                        part.negative_amount_to_move = particle_position_page_3 - particle_width_page_3;
-                        particle_position_page_3 = particle_position_page_3 + particle_width_page_3;
-                    });
-                    let scrollX = window.scrollX;
-                    document.documentElement.scrollLeft = -scrollX; // On resize the window scrolls in x due to moving_divs
                 }
             });
 
@@ -683,115 +640,6 @@ function ThreeJsScene() {
             };
             animate();
 
-
-
-            //canvas_2d
-
-            class particle_generator{
-                constructor(x_pos, y_pos, positive_amount, negative_amount, radius_circle){
-                    this.x = x_pos;
-                    this.y = y_pos;
-                    this.positive_amount_to_move = positive_amount;
-                    this.negative_amount_to_move = negative_amount;
-                    this.r = radius_circle;
-                    this.arc = function(position_x, position_y, radius, start, end, canvas_ctx, div_number){
-                        canvas_ctx.beginPath();
-                        let grd = canvas_ctx.createLinearGradient(position_x - this.r, position_y + this.r, position_x + this.r / 2, position_y - this.r);
-                        if(div_number === 0){
-                            grd.addColorStop(0.30, "rgba(69,40,189,1)");
-                            grd.addColorStop(0.70, "rgba(43,22,55,1)");
-                        }
-                        else{
-                            grd.addColorStop(0.30, "rgba(255,255,255,1)");
-                            grd.addColorStop(0.70, "rgba(32,31,31,1)");                            
-                        }
-                        canvas_ctx.fillStyle = grd;
-                        canvas_ctx.arc(position_x, position_y, radius, start, end);
-                        canvas_ctx.closePath();
-                        canvas_ctx.fill();
-                    }
-                }
-            }
-
-            const canvas_2d_ctx = canvas_2d.current.getContext("2d");
-            canvas_2d.current.width = window.innerWidth;
-            canvas_2d.current.height = portfolio_grid.current.clientHeight;
-            let array_particles = [];
-            let particle_width = canvas_2d.current.width / 25;
-            let particle_position = -particle_width;
-
-            for(let i = 0; i < 27; i++){
-                //let particle_height = window.innerHeight / 10;
-                let particle = new particle_generator(particle_position, Math.floor(Math.random() * portfolio_grid.current.clientHeight),
-                particle_position + particle_width, particle_position - particle_width, 8);
-                particle_position = particle_position + particle_width;
-                array_particles.push(particle);
-            }
-
-
-
-            const move_particles = (canvas_to_mod, canvas_to_mod_ctx, div_ctx, array_with_particles, div_number)=>{
-                canvas_to_mod_ctx.fillStyle = "black";
-                canvas_to_mod_ctx.fillRect(0, 0, canvas_to_mod.width, canvas_to_mod.height);
-                array_with_particles.forEach((part)=>{
-                    if(part.y < 0){
-                        part.y = div_ctx.clientHeight;
-                    }
-                    part.y = part.y - 0.5;
-                    part.arc(part.x, part.y, part.r, 0, 2 * Math.PI, canvas_to_mod_ctx, div_number);
-                })
-                //particle.x = particle.x - 0.001;
-                //particle.arc(window.innerWidth / particle.x, window.innerHeight / particle.y, particle.r, 0, 2 * Math.PI);
-            }
-
-            const update_x_position = (array_with_particles)=>{
-                array_with_particles.forEach((part)=>{
-                    if(part.x + amount_to_move < part.positive_amount_to_move && part.x + amount_to_move > part.negative_amount_to_move){
-                        part.x = part.x + amount_to_move;                    
-                    }
-                });
-            }
-
-            let mouse_movement_amount = 0;
-            let mousex;
-            let x;
-            let amount_to_move;
-            document.addEventListener('mousemove', (e)=>{
-                mousex = (e.clientX   - ( canvas_2d.current.getBoundingClientRect().left / 2)) ;
-                x = mousex - canvas_2d.current.getBoundingClientRect().width / 2 ;
-                amount_to_move = (x - mouse_movement_amount) / 100;
-                mouse_movement_amount = x;
-                //let y = canvasContainer.current.getBoundingClientRect().height / 2 - mousey ;
-            })
-
-
-            //SECOND CANVAS PARTICLES   
-            const canvas_2d_page_3_ctx = canvas_2d_page_3.current.getContext("2d");
-            canvas_2d_page_3.current.width = width;
-            canvas_2d_page_3.current.height = page_3.current.clientHeight;
-            let array_particles_page_3 = [];
-            let particle_width_page_3 = width / 25;
-            let particle_position_page_3 = -particle_width_page_3;
-
-            for(let i = 0; i < 27; i++){
-                //let particle_height = window.innerHeight / 10;
-                let particle = new particle_generator(particle_position_page_3, Math.floor(Math.random() * page_3.current.clientHeight),
-                particle_position_page_3 + particle_width_page_3, particle_position_page_3 - particle_width_page_3, 8);
-                particle_position_page_3 = particle_position_page_3 + particle_width_page_3;
-                array_particles_page_3.push(particle);
-            }
-            
-
-            const animation_loop = ()=>{
-                move_particles(canvas_2d.current, canvas_2d_ctx, portfolio_grid.current, array_particles, 0);
-                update_x_position(array_particles);
-                move_particles(canvas_2d_page_3.current, canvas_2d_page_3_ctx, page_3.current, array_particles_page_3, 1);
-                update_x_position(array_particles_page_3);
-                requestAnimationFrame(animation_loop);
-            }
-
-            animation_loop();
-
             percentage.current.innerText = "0 %";
             manager.onProgress = ()=>{
                 if(parseInt(percentage.current.innerText.slice(0, -2)) < 100){
@@ -810,19 +658,20 @@ function ThreeJsScene() {
                 loading.current.style.animation = 'loadingDone 2s normal ease-out';
                 setTimeout(()=>{setComponentLoaded(true)}, 2000);
             }
-            
-            //media queries
-        let phoneViewCheck = (e)=>{
+                //media queries
+        const phoneViewCheck = (e)=>{
             if(e.matches === true){
                 setSmartphoneView(true);
             }
             else{
-                setSmartphoneView(false);
+            setSmartphoneView(false);
             }
         }
         phoneViewCheck(window.matchMedia("(max-width: 1100px)"));
         window.matchMedia("(max-width: 1100px)").addEventListener('change', phoneViewCheck);
+            
     }, []);
+
 
 
 
@@ -841,6 +690,10 @@ function ThreeJsScene() {
         grid1_intro.style.transform = `perspective(700px) rotateY(${x / 100}deg) rotateX(${ y / 100}deg)`;
         grid1_name_img.style.transform = `perspective(700px) rotateY(${x / 100}deg) rotateX(${ y / 100}deg)`;
     }*/
+
+
+
+
 
 
 
@@ -968,9 +821,7 @@ function ThreeJsScene() {
             <div className= "THEFREAKINGPAGE" style={{display: "grid", maxWidth: "100%", minHeight: "1620px", maxHeight: "1620px", position: "relative",
              zIndex: "2"
              }}>
-                <canvas ref={canvas_2d} style={style.canvas_2d}>
-
-                </canvas>
+                <CanvasBlue portfolio_grid = {portfolio_grid} />
                 <div style={{display: "grid", maxHeight: "1620px"}}>
                     <div ref={portfolio_grid} style={style.portfolio_grid}>
                         <div style={style.my_work_title}>
@@ -1206,8 +1057,7 @@ function ThreeJsScene() {
                         <img src="/testimages/threejslogo.svg" alt="threejs" style={style.technologies_images_normal}></img>
                     </div>
                 </div>
-                <canvas ref={canvas_2d_page_3} style={style.canvas_2d_page_3}>
-                </canvas>
+                <CanvasWhite page_3 = {page_3}/>
             </div>
             <div style={style.footer}>
                 <div style={{flex: "1", display: "grid", alignItems: "center", margin: "2%"}}>
