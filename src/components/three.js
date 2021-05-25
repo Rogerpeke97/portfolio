@@ -516,12 +516,11 @@ function ThreeJsScene() {
                                 <div style={smartphoneView ? style.box_explanation_small : style.box_explanation}>
                                     <div style={style.box_explanation_title}>Xenta's website:</div>
                                     <div style={smartphoneView ? style.box_explanation_description_small : style.box_explanation_description}>
-                                        This website is basically an "infinite" game where you are given the sensation that you are actually moving forward
-                                        but in reality the character is just orbiting around the surface of the sphere. <br/>
-                                        You have a score, which is saved if your performance was better than your previous best score and
-                                        a set amount of lives that decrease as you hit the trees.<br/>
-                                        My wish was to fill the entire sphere full of trees and grass but performance was being heavily affected. This will
-                                        be improved in the future <br/>
+                                        This website is basically an "infinite" (If you don't die that is) game where you are given the sensation
+                                        that you are moving forward but in reality the character is just orbiting around the surface of the sphere.
+                                        This was achieved using Trigonometry which was also applied to the movement of the trees and grass as time passes. 
+                                        You have a score, which is saved if your performance was better than your previous best score and a set amount of lives 
+                                        that decrease as you hit the trees. This website uses JWT to authenticate users with the Spring Boot Backend.
                                     </div>
                                     <div style={style.website_links}>
                                         <div style={{display: "grid", justifyContent:"center", alignItems: "center", flex: "1"}}>
