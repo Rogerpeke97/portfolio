@@ -197,7 +197,6 @@ const BackgroundHome = ({smartphoneView, setSmartphoneView, title_letter})=>{
         window.addEventListener('resize', () => {
             if (canvasContainer.current !== null) {
                 width = window.innerWidth;
-                height = window.innerHeight;
                 const renderTarget = groundMirror.getRenderTarget();
                 renderTarget.setSize(width, height);
                 renderer.setSize(width, height);
@@ -355,7 +354,7 @@ const mouseMove = (e)=>{
 }
     return(
         <div
-            style={{position: "relative", height: "100vh", maxWidth: "100%", minWidth: "100%", top: "0", marginBottom: "0"}}
+            style={{position: "relative", minHeight: "100vh", maxHeight: "100vh", maxWidth: "100%", minWidth: "100%", top: "0", marginBottom: "0"}}
             ref={canvasContainer}
             onMouseMove={(event) => {
             mouseMove(event);

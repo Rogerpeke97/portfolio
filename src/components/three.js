@@ -1,22 +1,15 @@
 import React from 'react';
 import {useRef, useState} from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faGithub, faGoogle, faLinkedin} from '@fortawesome/free-brands-svg-icons'
+import {faGoogle} from '@fortawesome/free-brands-svg-icons'
 import { faMapMarked, faCopy } from '@fortawesome/free-solid-svg-icons'
 import CanvasBlue from './particles_2d/canvas_2d_blue'
 import CanvasWhite from './particles_2d/canvas_2d_white'
 import BackgroundHome from './three_scenes/background_homescreen'
+import NavBar from './nav_bar/nav_bar.js'
+import Page2 from './page_2/page_2.js'
 
 const style = {
-    portfolio_grid: {
-        display: "grid",
-        width: "90%",
-        gridTemplateRows: "10% 90%",
-        height: "1620px",
-        position: "relative",
-        left: "5%",
-        zIndex: "1",
-    },
     moving_div_1: {
         flex: "1",
         height: "0", 
@@ -299,15 +292,6 @@ const style = {
         color: 'white',
         fontFamily: 'Teko, sans-serif'
     },
-    a_link_holder: {
-        display: "grid",
-        textDecoration: "none",
-        color: "white",
-        cursor: "default",
-        flex: "1", 
-        justifyContent: "right",
-        alignItems: "center"
-    },
     clipboard: {
         display: "grid",
         pointerEvents: "none",
@@ -341,51 +325,10 @@ const style = {
 
 
 function ThreeJsScene() {
-
-    const portfolio_grid = useRef(0);
-    const underline_login = useRef(0);
-    const login_font = useRef(0);
-    const website_1_image = useRef(0);
-    const explanation_website_1_image = useRef(0);
-    const website_2_image = useRef(0);
-    const explanation_website_2_image = useRef(0);
-    const website_3_image = useRef(0);
-    const explanation_website_3_image = useRef(0);
     const page_3 = useRef(0);
-    const nav_bar = useRef(0);
     const copied_to_clipboard = useRef(0);
     const [smartphoneView, setSmartphoneView] = useState(false);
-
-
-
-
-
-
-    /*function MouseMoveE(event) {
-        let canvasContainer = document.getElementById('canvas')
-        let mousex = (event.clientX   - ( canvasContainer.getBoundingClientRect().left / 2)) ;
-        let mousey = (event.clientY  - ( canvasContainer.getBoundingClientRect().top / 2)) ;
-        let x = mousex - canvasContainer.getBoundingClientRect().width / 2 ;
-        let y = canvasContainer.getBoundingClientRect().height / 2 - mousey ;
-        let overlay = document.getElementById('overlay');
-        let overlay2 = document.getElementById('overlay2');
-        let grid1_intro = document.getElementById('grid1_intro');
-        let grid1_name_img = document.getElementById('grid1_name_img');
-        overlay.style.transform = `perspective(700px) rotateY(${x / 100}deg) rotateX(${ y / 100}deg)`;
-        overlay2.style.transform = `perspective(700px) rotateY(${x / 100}deg) rotateX(${ y / 100}deg)`;
-        grid1_intro.style.transform = `perspective(700px) rotateY(${x / 100}deg) rotateX(${ y / 100}deg)`;
-        grid1_name_img.style.transform = `perspective(700px) rotateY(${x / 100}deg) rotateX(${ y / 100}deg)`;
-    }*/
-
-
-
-
-
-
-
-
-
-
+    const portfolio_grid = useRef(0);
 
     const title_letter = (letter, small)=>{
         let span_return = [];
@@ -421,261 +364,15 @@ function ThreeJsScene() {
         setTimeout(()=>copied_to_clipboard.current.style.opacity = "0", 500)
     }
 
-
-
-
     return (
         <div style={{maxWidth: "100%", height: "100%", position: "relative"}}>
-            <div ref={nav_bar} style={{display: "flex", width: "100%", height: "5rem", background: "black", position: "sticky",
-            color: "white", top: "0", zIndex: "3"
-            }}>
-                <div style={{justifyContent: "left", alignContent: "center", display: "flex", flex: "1", marginLeft: "2%"}}>
-                    <div style={style.letter_container}>{title_letter('IGNACIO.MARTIN.DIAZ', true)}</div>
-                </div>
-                <div style={{flex:"1", display: "flex", alignContent: "center", marginRight: "2%"}}>
-                    <div style={style.a_link_holder}>
-                            <a href="https://github.com/Rogerpeke97" rel="noopener noreferrer" target="_blank">
-                                <FontAwesomeIcon icon={faGithub} style={{cursor: "pointer", transition: "all 0.5s ease-out", color:"white", fontSize: "200%"}}
-                                onMouseEnter={(e)=>e.currentTarget.style.color = "rgba(44,12,175,1)"}
-                                onMouseLeave={(e)=>e.currentTarget.style.color = "white"}/>
-                            </a>
-                        </div>
-                        <div style={style.a_link_holder}>
-                            <a href="https://www.linkedin.com/in/ignacio-martin-diaz-2a30251b7/" rel="noopener noreferrer" target="_blank">
-                                <FontAwesomeIcon icon={faLinkedin} style={{cursor: "pointer", transition: "all 0.5s ease-out", color:"white", fontSize: "200%"}}
-                                onMouseEnter={(e)=>e.currentTarget.style.color = "rgba(44,12,175,1)"}
-                                onMouseLeave={(e)=>e.currentTarget.style.color = "white"}/>                    
-                            </a>
-                    </div>
-                </div>
-            </div>
+            <NavBar title_letter = {title_letter} />
             <BackgroundHome smartphoneView = {smartphoneView} setSmartphoneView = {setSmartphoneView} title_letter = {title_letter} />
-
-            <div className= "THEFREAKINGPAGE" style={{display: "grid", maxWidth: "100%", minHeight: "1620px", maxHeight: "1620px", position: "relative",
+            <div style={{display: "grid", maxWidth: "100%", minHeight: "1620px", maxHeight: "1620px", position: "relative",
              zIndex: "2"
              }}>
                 <CanvasBlue portfolio_grid = {portfolio_grid} />
-                <div style={{display: "grid", maxHeight: "1620px"}}>
-                    <div ref={portfolio_grid} style={style.portfolio_grid}>
-                        <div style={style.my_work_title}>
-                            <div
-                                onMouseEnter={()=>{
-                                    login_font.current.style.color = "white";
-                                    underline_login.current.style.transform = "scaleX(1)";
-                                }}
-                                onMouseLeave={()=>{
-                                    login_font.current.style.color = "white";
-                                    underline_login.current.style.transform = "scaleX(0)";   
-                                }}
-                            >
-                                <div style={{border: "3px solid rgba(24,8,100,1)", borderRadius: "6px", fontFamily: "Teko, sans-serif", fontSize: "120%"}} ref={login_font}>My work:</div>
-                                <div style={{height: "2px", width: "100%", background:"white",
-                                transform: "scaleX(0)", transition: "all 0.3s ease-out"}} ref={underline_login}></div>
-                            </div>  
-                        </div> 
-                        <div style={style.websites}>
-                            <div style={smartphoneView ? style.grid_phone_media : style.grid}>
-                                <div style={style.box}>
-                                    <div style={style.explanation_website} ref={explanation_website_1_image}>
-                                        <div style={{transform: "rotateY(180deg)", textDecoration: "underline"}}>{"<Technologies used: />"}</div>
-                                        <div style={style.technologies_holder}>
-                                            <img src="spring_boot.png" alt="Spring boot" style={style.technologies_images}></img>
-                                            <img src="Reactjslogo.png" alt="React" style={style.technologies_images}></img>
-                                            <img src="/testimages/threejslogo.svg" alt="Threejs" style={style.technologies_images}></img>
-                                            <img src="postgresqllogo.png" alt="Spring boot" style={style.technologies_images}></img>
-                                        </div>
-                                        <div style={style.website_button_backwards} onClick={()=>{
-                                                website_1_image.current.style.transform = "rotateY(0deg)";
-                                                explanation_website_1_image.current.style.transform = "rotateY(0deg)";
-                                                website_1_image.current.style.zIndex = "2";
-                                                explanation_website_1_image.current.style.zIndex = "1";
-                                        }} onMouseEnter={(e)=>e.currentTarget.style.boxShadow = "inset 0px -120px 0px rgba(24,8,100,1)"}
-                                        onMouseLeave={(e)=>e.currentTarget.style.boxShadow = ""}>Click this button to flip-back!</div>                                    
-                                    </div>
-                                    <div style={style.website_image_container} ref={website_1_image}>
-                                        <div style={{height: "100%", width: "100%", position: "absolute", transition: "all 0.5s ease-out",
-                                        display: "grid", justifyItems: "center", background: "black"}}>
-                                            <img src="xenta_gif.gif" alt="xenta game" style={style.grid_images}></img>
-                                        </div>
-                                        <div style={{height: "100%", width: "100%", position: "absolute", transition: "all 0.5s ease-out",
-                                        display: "grid", justifyItems: "center", background: "black", opacity: "1"}} 
-                                        onMouseEnter={(e)=>e.currentTarget.style.opacity = "0"}
-                                        onMouseLeave={(e)=>e.currentTarget.style.opacity = "1"}
-                                        >
-                                            <img src="xenta_front_page.jpg" alt="xenta game" style={style.grid_images}></img>
-                                        </div>
-                                        <div style={style.website_button} onClick={()=>{
-                                            website_1_image.current.style.transform = "rotateY(180deg)";
-                                            explanation_website_1_image.current.style.transform = "rotateY(180deg)";
-                                            website_1_image.current.style.zIndex = "1";
-                                            explanation_website_1_image.current.style.zIndex = "2";
-                                        }} onMouseEnter={(e)=>e.currentTarget.style.boxShadow = "inset 0px -120px 0px rgba(24,8,100,1)"}
-                                        onMouseLeave={(e)=>e.currentTarget.style.boxShadow = ""}>See details</div>
-                                    </div>
-                                </div>
-                                <div style={smartphoneView ? style.box_explanation_small : style.box_explanation}>
-                                    <div style={style.box_explanation_title}>Xenta's website:</div>
-                                    <div style={smartphoneView ? style.box_explanation_description_small : style.box_explanation_description}>
-                                        This website is basically an "infinite" (If you don't die that is) game where you are given the sensation
-                                        that you are moving forward but in reality the character is just orbiting around the surface of the sphere.
-                                        This was achieved using Trigonometry which was also applied to the movement of the trees and grass as time passes. 
-                                        You have a score, which is saved if your performance was better than your previous best score and a set amount of lives 
-                                        that decrease as you hit the trees. This website uses JWT to authenticate users with the Spring Boot Backend.
-                                    </div>
-                                    <div style={style.website_links}>
-                                        <div style={{display: "grid", justifyContent:"center", alignItems: "center", flex: "1"}}>
-                                            <a href="https://github.com/Rogerpeke97/FrontendAPI" rel="noopener noreferrer" target="_blank"
-                                            style={{display: "grid",textDecoration: "none",color: "white",cursor: "default",flex: "1", fontSize: "150%",
-                                            justifyContent: "center", justifyItems: "center"}}>
-                                                Frontend:
-                                                <FontAwesomeIcon icon={faGithub} style={{cursor: "pointer", transition: "all 0.5s ease-out"}}
-                                                onMouseEnter={(e)=>e.currentTarget.style.color = "rgba(44,12,175,1)"}
-                                                onMouseLeave={(e)=>e.currentTarget.style.color = "white"}/>
-                                            </a>
-                                        </div>
-                                        <div style={{display: "grid", justifyContent:"center", alignItems: "center", flex: "1"}}>
-                                            <a href="https://github.com/Rogerpeke97/APISpring" rel="noopener noreferrer" target="_blank"
-                                            style={{display: "grid",textDecoration: "none",color: "white",cursor: "default",flex: "1", fontSize: "150%",
-                                            justifyContent: "center", justifyItems: "center"}}>
-                                                Backend:
-                                                <FontAwesomeIcon icon={faGithub} style={{cursor: "pointer", transition: "all 0.5s ease-out"}}
-                                                onMouseEnter={(e)=>e.currentTarget.style.color = "rgba(44,12,175,1)"}
-                                                onMouseLeave={(e)=>e.currentTarget.style.color = "white"}/>
-                                            </a>
-                                        </div>
-                                        <a href="https://xenta.netlify.app/" rel="noopener noreferrer" target="_blank"
-                                        style={{textDecoration: "none",color: "white",cursor: "default",flex: "1", fontSize: "100%",
-                                        height: "100%", width: "100%"}}>
-                                            <div style={style.website_button_links}
-                                            onMouseEnter={(e)=>e.currentTarget.style.boxShadow = "inset 0px -120px 0px rgba(24,8,100,1)"}
-                                            onMouseLeave={(e)=>e.currentTarget.style.boxShadow = ""}>Visit site</div>
-                                        </a>
-                                    </div>
-                                </div>                          
-                            </div>
-                            <div style={smartphoneView ? style.grid_phone_media : style.grid}>
-                                <div style={style.box}>
-                                    <div style={style.explanation_website} ref={explanation_website_2_image}>
-                                        <div style={{transform: "rotateY(180deg)", textDecoration: "underline"}}>{"<Technologies used: />"}</div>
-                                        <div style={style.technologies_holder}>
-                                            <img src="nodejslogo.png" alt="Spring boot" style={style.technologies_images}></img>
-                                            <img src="Reactjslogo.png" alt="React" style={style.technologies_images}></img>
-                                            <img src="/testimages/threejslogo.svg" alt="Threejs" style={style.technologies_images}></img>
-                                            <img src="postgresqllogo.png" alt="Spring boot" style={style.technologies_images}></img>
-                                        </div>
-                                        <div style={style.website_button_backwards} onClick={()=>{
-                                                website_2_image.current.style.transform = "rotateY(0deg)";
-                                                explanation_website_2_image.current.style.transform = "rotateY(0deg)";
-                                                website_2_image.current.style.zIndex = "2";
-                                                explanation_website_2_image.current.style.zIndex = "1";
-                                        }} onMouseEnter={(e)=>e.currentTarget.style.boxShadow = "inset 0px -120px 0px rgba(24,8,100,1)"}
-                                        onMouseLeave={(e)=>e.currentTarget.style.boxShadow = ""}>Click this button to flip-back!</div>                                    
-                                    </div>
-                                    <div style={style.website_image_container} ref={website_2_image}>
-                                        <div style={{height: "100%", width: "100%", position: "absolute", transition: "all 0.5s ease-out",
-                                        display: "grid", justifyItems: "center", background: "black"}}>
-                                                <img src="project1.gif" alt="csv converter" style={style.grid_images}></img>
-                                        </div>
-                                        <div style={{height: "100%", width: "100%", position: "absolute", transition: "all 0.5s ease-out",
-                                        display: "grid", justifyItems: "center", background: "black", opacity: "1"}} 
-                                        onMouseEnter={(e)=>e.currentTarget.style.opacity = "0"}
-                                        onMouseLeave={(e)=>e.currentTarget.style.opacity = "1"}
-                                        >
-                                            <img src="project1_front.png" alt="csv converter" style={style.grid_images}></img>
-                                        </div>
-                                        <div style={style.website_button} onClick={()=>{
-                                            website_2_image.current.style.transform = "rotateY(180deg)";
-                                            explanation_website_2_image.current.style.transform = "rotateY(180deg)";
-                                            website_2_image.current.style.zIndex = "1";
-                                            explanation_website_2_image.current.style.zIndex = "2";
-                                        }} onMouseEnter={(e)=>e.currentTarget.style.boxShadow = "inset 0px -120px 0px rgba(24,8,100,1)"}
-                                        onMouseLeave={(e)=>e.currentTarget.style.boxShadow = ""}>See details</div>
-                                    </div>
-                                </div>
-                                <div style={style.box_explanation}>
-                                    <div style={style.box_explanation_title}>Csv-converter:</div>
-                                    <div style={smartphoneView ? style.box_explanation_description_small : style.box_explanation_description}>
-                                    This is my first project, it converts csv files and displays them in a canvas using chartjs. 
-                                    It has a lot of backend functionalities that allowed me to learn about backend and frontend requests,
-                                    remote storage using googlecloud's api, file storage using multer, downloading files from googlecloud and 
-                                    display them on the frontend. 
-                                    Also, deploying the website using the heroku cli and creating a database for the login user data.
-                                    </div>
-                                    <div style={style.website_links}>
-                                        <div style={{display: "grid", justifyContent:"center", alignItems: "center", flex: "1"}}>
-                                            <a href="https://github.com/Rogerpeke97/Csv-converter-server-config" rel="noopener noreferrer" target="_blank"
-                                            style={{display: "grid",textDecoration: "none",color: "white",cursor: "default", fontSize: "200%",
-                                            justifyContent: "center", justifyItems: "center"}}>
-                                                <FontAwesomeIcon icon={faGithub} style={{cursor: "pointer", transition: "all 0.5s ease-out"}}
-                                                onMouseEnter={(e)=>e.currentTarget.style.color = "rgba(44,12,175,1)"}
-                                                onMouseLeave={(e)=>e.currentTarget.style.color = "white"}/>
-                                            </a>
-                                        </div>
-                                        <a href="https://csv-convrt.herokuapp.com/" rel="noopener noreferrer" target="_blank"
-                                        style={{textDecoration: "none",color: "white",cursor: "default",flex: "1", fontSize: "100%",
-                                        height: "100%", width: "100%"}}>
-                                            <div style={style.website_button_links}
-                                            onMouseEnter={(e)=>e.currentTarget.style.boxShadow = "inset 0px -120px 0px rgba(24,8,100,1)"}
-                                            onMouseLeave={(e)=>e.currentTarget.style.boxShadow = ""}>Visit site</div>
-                                        </a>
-                                    </div>
-                                </div>   
-                            </div>
-                            <div style={smartphoneView ? style.grid_phone_media : style.grid}>
-                                <div style={style.box}>
-                                    <div style={style.explanation_website} ref={explanation_website_3_image}>
-                                        <div style={{transform: "rotateY(180deg)", textDecoration: "underline"}}>{"<Technologies used: />"}</div>
-                                        <div style={style.technologies_holder}>
-                                            <img src="Reactjslogo.png" alt="React" style={style.technologies_images}></img>
-                                            <img src="/testimages/threejslogo.svg" alt="Threejs" style={style.technologies_images}></img>
-                                        </div>
-                                        <div style={style.website_button_backwards} onClick={()=>{
-                                                website_3_image.current.style.transform = "rotateY(0deg)";
-                                                explanation_website_3_image.current.style.transform = "rotateY(0deg)";
-                                                website_3_image.current.style.zIndex = "2";
-                                                explanation_website_3_image.current.style.zIndex = "1";
-                                        }} onMouseEnter={(e)=>e.currentTarget.style.boxShadow = "inset 0px -120px 0px rgba(24,8,100,1)"}
-                                        onMouseLeave={(e)=>e.currentTarget.style.boxShadow = ""}>Click this button to flip-back!</div>                                    
-                                    </div>
-                                    <div style={style.website_image_container} ref={website_3_image}>
-                                        <div style={{height: "100%", width: "100%", position: "absolute", transition: "all 0.5s ease-out",
-                                        display: "grid", justifyItems: "center", background: "black"}}>
-                                                <img src="portfolio_home.gif" alt="xenta game" style={style.grid_images}></img>
-                                        </div>
-                                        <div style={{height: "100%", width: "100%", position: "absolute", transition: "all 0.5s ease-out",
-                                        display: "grid", justifyItems: "center", background: "black", opacity: "1"}} 
-                                        onMouseEnter={(e)=>e.currentTarget.style.opacity = "0"}
-                                        onMouseLeave={(e)=>e.currentTarget.style.opacity = "1"}
-                                        >
-                                            <img src="portfolio_home.png" alt="portfolio" style={style.grid_images}></img>
-                                        </div>                                        <div style={style.website_button} onClick={()=>{
-                                            website_3_image.current.style.transform = "rotateY(180deg)";
-                                            explanation_website_3_image.current.style.transform = "rotateY(180deg)";
-                                            website_3_image.current.style.zIndex = "1";
-                                            explanation_website_3_image.current.style.zIndex = "2";
-                                        }} onMouseEnter={(e)=>e.currentTarget.style.boxShadow = "inset 0px -120px 0px rgba(24,8,100,1)"}
-                                        onMouseLeave={(e)=>e.currentTarget.style.boxShadow = ""}>See details</div>
-                                    </div>
-                                </div>
-                                <div style={style.box_explanation}>
-                                <div style={style.box_explanation_title}>Portfolio website:</div>
-                                    <div style={smartphoneView ? style.box_explanation_description_small : style.box_explanation_description}>
-                                        This website is my old portfolio, contains other minor projects.<br/>
-                                    </div>
-                                    <div style={style.website_links}>
-                                        <a href="https://rogerpeke97.github.io/portfolio/" rel="noopener noreferrer" target="_blank"
-                                            style={{textDecoration: "none",color: "white",cursor: "default",flex: "1", fontSize: "100%",
-                                            height: "100%", width: "100%"}}>
-                                                <div style={style.website_button_links}
-                                                onMouseEnter={(e)=>e.currentTarget.style.boxShadow = "inset 0px -120px 0px rgba(24,8,100,1)"}
-                                                onMouseLeave={(e)=>e.currentTarget.style.boxShadow = ""}>Visit site</div>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>       
-                    </div>
-                </div>
+                <Page2 smartphoneView = {smartphoneView} portfolio_grid = {portfolio_grid}/>
             </div>
             <div className= "page3" style={style.page_3} ref={page_3}>
                 <div style={smartphoneView ? style.selling_description_small : style.selling_description}>
