@@ -55,7 +55,6 @@ body::-webkit-scrollbar-thumb
   max-width: 350px;
   font-size: 200%;
   grid-template-columns: 10% 10% 10% 10% 10% 10% 10% 10% 10% 10%;
-  font-family: Teko, sans-serif;
 }
 
 .LOADINGCONTAINER>span{

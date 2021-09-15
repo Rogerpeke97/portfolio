@@ -1,3 +1,98 @@
+html, body, button{
+	font-family: 'Roboto', sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	font-size: 1rem;
+}
+h1{
+	margin: 0;
+	text-align: justify;
+	font-size: 100%;
+}
+
+.nav-container{
+	display: flex;
+	width: 100%;
+	height: 5rem;
+	background: black;
+	position: sticky;
+	color: white;
+	top: 0;
+	z-index: 3;
+}
+.a-link-holder{
+	display: grid;
+	text-decoration: none;
+	color: white;
+	cursor: default;
+	flex: 1;
+	justify-content: right;
+	align-items: center;
+}
+.grid{
+	display: grid;
+}
+.flex{
+	display: flex;
+}
+.flex-child{
+	display: flex;
+	flex: 1;
+}
+.align-left{
+	align-content: flex-start;
+}
+.align-right{
+	align-content: flex-end;
+}
+.align-center{
+	align-content: center;
+}
+.align-items-left{
+	align-items: flex-start;
+}
+.align-items-right{
+	align-items: flex-end;
+}
+.align-items-center{
+	align-items: center;
+}
+.justify-left{
+	justify-content: left;
+}
+.justify-right{
+	justify-content: right;
+}
+.justify-center{
+	justify-content: center;
+}
+.icon-custom svg{
+	cursor: pointer;
+	transition: all 0.5s ease-out;
+	color: white;
+	font-size: 200%;
+}
+.window-size-container{
+	position: relative;
+	min-height: 100vh;
+	max-height: 100vh; 
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	margin-bottom: 0; 
+}
+.absolute{
+	position: absolute;
+}
+.pa-1{
+	padding: 8px;
+}
+.pa-2{
+	padding: 16px;
+}
+
+
 @keyframes moveDiv{
     to{
         left: 0%;
