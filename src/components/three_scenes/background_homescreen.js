@@ -76,32 +76,6 @@ const style = {
     left: "0%",
     zIndex: "3"
   },
-  loading_bar: {
-    width: "300px",
-    marginTop: "5%",
-    zIndex: "2",
-    height: "60px",
-    backgroundColor: "black",
-    boxShadow: "5px 5px 15px 5px black"
-  },
-  progress_bar: {
-    display: "grid",
-    position: "relative",
-    transition: "all 0.5s ease-out",
-    width: "0%",
-    top: "-80%",
-    height: "60px",
-    background: "rgba(24,8,100,1)"
-  },
-  percentage: {
-    position: "relative",
-    top: "10%",
-    fontSize: "200%",
-    zIndex: "5",
-    display: "grid",
-    textAlign: "center",
-    alignContent: "center"
-  }
 }
 
 const BackgroundHome = ({ smartphoneView, setSmartphoneView, title_letter }) => {
@@ -277,13 +251,13 @@ const BackgroundHome = ({ smartphoneView, setSmartphoneView, title_letter }) => 
   return (
     <div className="window-size-container" ref={canvasContainer} onMouseMove={(e) => mouseMove(e)}>
       <div className="window-size-container absolute grid justify-center pa-2" ref={transparent_overlay} onMouseMove={(e) => mouseMove(e)}>
-        <div style={smartphoneView ? style.letter_container_small : style.letter_container}>{title_letter('IGNACIO.MARTIN.DIAZ', false)}</div>
-        <h1 class="pa-1">
+        <div class="flex justify-center align-items-center">{title_letter('IGNACIO.MARTIN.DIAZ', false)}</div>
+        <h3 class="pa-1">
           My name is Ignacio Diaz, I mainly focus on the creation of 3d websites
           and I am currently offering my services as a freelancer to design and
           create the website you desire utilizing technologies that will guarantee
           its scalability and functionality across all platforms.
-        </h1>
+        </h3>
       </div>
       <div
         style={
@@ -308,9 +282,9 @@ const BackgroundHome = ({ smartphoneView, setSmartphoneView, title_letter }) => 
             <span>.</span>
           </div>
         </div>
-        <div style={style.loading_bar} >
-          <div style={style.percentage} ref={percentage}></div>
-          <div style={style.progress_bar} ref={progress_bar}></div>
+        <div className="loading-bar">
+          <div className="percentage" ref={percentage}></div>
+          <div className="progress-bar grid" ref={progress_bar}></div>
         </div>
       </div>
     </div>

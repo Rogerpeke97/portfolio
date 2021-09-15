@@ -271,27 +271,6 @@ const style = {
 		display: "grid",
 		gridTemplateRows: "30% 30%"
 	},
-	title_letter: {
-		transition: 'all 0.5s ease-out',
-		cursor: 'default',
-		fontSize: '1000%',
-		margin: "0",
-		fontFamily: 'Teko, sans-serif'
-	},
-	title_letter_small: {
-		transition: 'all 0.5s ease-out',
-		cursor: 'default',
-		margin: "0",
-		color: 'white',
-		fontFamily: 'Teko, sans-serif'
-	},
-	title_letter_small_footer: {
-		transition: 'all 0.5s ease-out',
-		cursor: 'default',
-		margin: "0",
-		color: 'white',
-		fontFamily: 'Teko, sans-serif'
-	},
 	clipboard: {
 		display: "grid",
 		pointerEvents: "none",
@@ -335,14 +314,12 @@ function ThreeJsScene() {
 		for (let i = 0; i < letter.length; i++) {
 			span_return.push(small
 				?
-				<h1 key={i}
-					style={style.title_letter_small}
+				<h1 key={i} className="title"
 					onMouseEnter={(e) => e.currentTarget.style.color = 'rgba(44,12,175,1)'}
 					onMouseLeave={(e) => e.currentTarget.style.color = 'white'}
 				>{letter[i]}</h1>
 				:
-				<h1
-					style={style.title_letter}
+				<h1 key={i} className="title"
 					onMouseEnter={(e) => e.currentTarget.style.color = 'rgba(44,12,175,1)'}
 					onMouseLeave={(e) => e.currentTarget.style.color = 'white'}
 				>{letter[i]}</h1>
@@ -391,7 +368,7 @@ function ThreeJsScene() {
 			</div>
 			<div style={style.footer}>
 				<div style={{ flex: "1", display: "grid", alignItems: "center", margin: "2%" }}>
-					<h2 style={style.title_letter_small_footer}>IGNACIO.MARTIN.DIAZ</h2>
+					<h2 className="title">IGNACIO.MARTIN.DIAZ</h2>
 					<div style={{ display: "flex", marginBottom: "1%" }}>
 						<FontAwesomeIcon icon={faMapMarked} style={{ marginRight: "1%" }} />
 						<div>Buenos Aires, Argentina</div>

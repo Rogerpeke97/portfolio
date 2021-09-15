@@ -3,11 +3,39 @@ html, body, button{
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	font-size: 1rem;
+	margin: 0;
+	overflow-x: hidden;
+	color: white;
 }
+
+.App {
+	display: grid;
+}
+
+body::-webkit-scrollbar-track
+{
+	border: 1px solid black;
+	background-color: #F5F5F5;
+}
+
+body::-webkit-scrollbar
+{
+	width: 10px;
+	background-color: #F5F5F5;
+}
+
+body::-webkit-scrollbar-thumb
+{
+	background-color: #000000;  
+}
+
 h1{
 	margin: 0;
 	text-align: justify;
-	font-size: 100%;
+}
+h3{
+	margin: 0;
+	text-align: justify;
 }
 
 .nav-container{
@@ -19,6 +47,13 @@ h1{
 	color: white;
 	top: 0;
 	z-index: 3;
+}
+.title{
+	transition: all 0.5s ease-out;
+	cursor: default;
+	margin: 0;
+	color: white;
+	font-family: Teko, sans-serif;
 }
 .a-link-holder{
 	display: grid;
@@ -91,6 +126,109 @@ h1{
 .pa-2{
 	padding: 16px;
 }
+
+/* ANIMATION BEFORE LOADING */
+.LOADING{
+	display: grid;
+	height: 100%;
+	justify-items: center;
+	align-content: center;
+	width: 100%;
+	position: absolute;
+	color: white;
+	background: black;
+	top: 0;
+	/*animation: loading 1s normal forwards ease-in-out;*/
+	z-index: 15;
+	transition: all .5s ease-out;
+	-webkit-transition: all .5s ease-out;
+}
+
+.LOADINGCONTAINER{
+	display: grid;
+	min-width: 180px;
+	max-width: 350px;
+	font-size: 200%;
+	grid-template-columns: 10% 10% 10% 10% 10% 10% 10% 10% 10% 10%;
+}
+
+.LOADINGCONTAINER>span{
+	cursor: default;
+	display: block;
+	animation: loading 1s normal forwards 7 ease-in-out;
+	-webkit-animation: loading 1s normal forwards 7 ease-in-out;
+	text-align: center;
+	margin: 0;
+	color: white;
+	text-shadow: -1px 0px 9px rgb(255, 255, 255);
+	transition: all 1s ease-out;
+	-webkit-transition: all 1s ease-out;
+}
+.LOADING>.messages{
+			cursor: default;
+			display: block;
+			animation: loading 1s normal forwards 7 ease-in-out;
+			-webkit-animation: loading 1s normal forwards 7 ease-in-out;
+			text-align: center;
+			margin: 0;
+			color: white;
+			text-shadow: -1px 0px 9px rgb(255, 255, 255);
+			transition: all 1s ease-out;
+			-webkit-transition: all 1s ease-out;
+}
+.loading-bar{
+	width: 300px;
+	margin-top: 5%;
+	z-index: 2;
+	height: 60px;
+	background-color: black;
+	box-shadow: 5px 5px 15px 5px black;
+}
+.progress-bar{
+	position: relative;
+	transition: all 0.5s ease-out;
+	width: 0%;
+	top: -80%;
+	height: 60px,;
+	background: rgba(24,8,100,1);
+}
+.percentage{
+	position: relative;
+	top: 10%;
+	font-size: 200%;
+	z-index: 5;
+	display: grid;
+	text-align: center;
+	align-content: center;
+}
+
+@keyframes loading{
+	from {
+			transform: scale(1, 1);
+			-webkit-transform: scale(1, 1);
+	}
+	50% {
+					transform: scale(1.1, 1.1);
+					-webkit-transform: scale(1.1, 1.1);
+	}
+	to {
+					transform: scale(1, 1);
+					-webkit-transform: scale(1, 1);
+	}
+}
+
+
+@keyframes loadingDone{
+	from {
+			opacity: 1;
+			transform: scale(1, 1);
+	}
+	to {
+			opacity: 0;
+			transform: scale(1, 1);
+	}
+}
+
 
 
 @keyframes moveDiv{
