@@ -1,5 +1,6 @@
 import React from 'react';
-import { useRef, useState } from "react";
+import { useRef, useState, useContext } from "react";
+import { MediaContext } from '../context/MediaContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGoogle } from '@fortawesome/free-brands-svg-icons'
 import { faMapMarked, faCopy } from '@fortawesome/free-solid-svg-icons'
@@ -309,6 +310,8 @@ function ThreeJsScene() {
 	const [smartphoneView, setSmartphoneView] = useState(false);
 	const portfolio_grid = useRef(0);
 
+	const query = useContext(MediaContext)
+
 	const title_letter = (letter, small) => {
 		let span_return = [];
 		for (let i = 0; i < letter.length; i++) {
@@ -344,13 +347,13 @@ function ThreeJsScene() {
 	return (
 		<div style={{ maxWidth: "100%", height: "100%", position: "relative" }}>
 			<NavBar title_letter={title_letter} />
-			<BackgroundHome smartphoneView={smartphoneView} setSmartphoneView={setSmartphoneView} title_letter={title_letter} />
+			<BackgroundHome title_letter={title_letter} />
 			<div style={{
 				display: "grid", maxWidth: "100%", minHeight: "1620px", maxHeight: "1620px", position: "relative",
 				zIndex: "2"
 			}}>
 				<CanvasBlue portfolio_grid={portfolio_grid} />
-				<Page2 smartphoneView={smartphoneView} portfolio_grid={portfolio_grid} />
+				<Page2 smartphoneView={query} portfolio_grid={portfolio_grid} />
 			</div>
 			<div className="page3" style={style.page_3} ref={page_3}>
 				<div style={smartphoneView ? style.selling_description_small : style.selling_description}>

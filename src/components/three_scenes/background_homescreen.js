@@ -1,6 +1,7 @@
 import * as THREE from "three";
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useContext } from 'react';
 import { Reflector } from 'three/examples/jsm/objects/Reflector.js';
+import { MediaContext } from "../../context/MediaContext.js";
 
 const style = {
   transparent_overlay: {
@@ -78,7 +79,7 @@ const style = {
   },
 }
 
-const BackgroundHome = ({ smartphoneView, setSmartphoneView, title_letter }) => {
+const BackgroundHome = ({title_letter}) => {
   const camera = useRef(0);
   const canvasContainer = useRef(0);
   const progress_bar = useRef(0);
@@ -86,6 +87,7 @@ const BackgroundHome = ({ smartphoneView, setSmartphoneView, title_letter }) => 
   const loading = useRef(0);
   const transparent_overlay = useRef(0);
   const percentage = useRef(0);
+  const query = useContext(MediaContext)
 
 
 
@@ -227,16 +229,7 @@ const BackgroundHome = ({ smartphoneView, setSmartphoneView, title_letter }) => 
       setTimeout(() => { setComponentLoaded(true) }, 2000);
     }
 
-    //media queries
-    const phoneViewCheck = (e) => {
-      e.matches ? setSmartphoneView(true) : setSmartphoneView(false)
-    }
-    phoneViewCheck(window.matchMedia("(max-width: 1100px)"));
-    window.matchMedia("(max-width: 1100px)").addEventListener('change', phoneViewCheck);
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
   const mouseMove = (e) => {
     if (componentLoaded) {
       const mousex = (e.clientX - (canvasContainer.current.getBoundingClientRect().left / 2));
@@ -252,21 +245,14 @@ const BackgroundHome = ({ smartphoneView, setSmartphoneView, title_letter }) => 
     <div className="window-size-container" ref={canvasContainer} onMouseMove={(e) => mouseMove(e)}>
       <div className="window-size-container absolute grid justify-center pa-2" ref={transparent_overlay} onMouseMove={(e) => mouseMove(e)}>
         <div class="flex justify-center align-items-center">{title_letter('IGNACIO.MARTIN.DIAZ', false)}</div>
-        <h3 class="pa-1">
+        <h3 class="pa-1" onClick={()=>console.log(query)}>
           My name is Ignacio Diaz, I mainly focus on the creation of 3d websites
           and I am currently offering my services as a freelancer to design and
           create the website you desire utilizing technologies that will guarantee
           its scalability and functionality across all platforms.
         </h3>
       </div>
-      <div
-        style={
-          componentLoaded
-            ?
-            style.loading_complete
-            :
-            style.loading
-        }
+      <div style={ componentLoaded ? style.loading_complete : style.loading }
         ref={loading}>
         <div>
           <div className="LOADINGCONTAINER">
