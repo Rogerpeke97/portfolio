@@ -1,14 +1,14 @@
 import React from 'react';
-import { useRef, useState, useContext } from "react";
+import { useRef, useContext } from "react";
 import { MediaContext } from '../context/MediaContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGoogle } from '@fortawesome/free-brands-svg-icons'
 import { faMapMarked, faCopy } from '@fortawesome/free-solid-svg-icons'
-import CanvasBlue from './particles_2d/canvas_2d_blue'
-import CanvasWhite from './particles_2d/canvas_2d_white'
-import BackgroundHome from './three_scenes/background_homescreen'
-import NavBar from './nav_bar/nav_bar.js'
-import Page2 from './page_2/page_2.js'
+import ParticlesBlue from '../components/particleScenes/ParticlesBlue'
+import ParticlesWhite from '../components/particleScenes/ParticlesWhite'
+import Waves from '../components/threeJsScenes/Waves'
+import NavBar from '../components/general/NavBar.js'
+import Projects from '../components/Projects.js'
 
 const style = {
 	moving_div_1: {
@@ -306,16 +306,15 @@ const style = {
 
 function ThreeJsScene() {
 	const page_3 = useRef(0);
-	const copied_to_clipboard = useRef(0);
-	const [smartphoneView, setSmartphoneView] = useState(false);
-	const portfolio_grid = useRef(0);
+	const copiedToClipboard = useRef(0);
+	const portfolioGrid = useRef(0);
 
-	const query = useContext(MediaContext)
+	const mediaQuery = useContext(MediaContext)
 
-	const title_letter = (letter, small) => {
-		let span_return = [];
+	const titleLetter = (letter, small) => {
+		let spanReturn = [];
 		for (let i = 0; i < letter.length; i++) {
-			span_return.push(small
+			spanReturn.push(small
 				?
 				<h1 key={i} className="title"
 					onMouseEnter={(e) => e.currentTarget.style.color = 'rgba(44,12,175,1)'}
@@ -329,37 +328,34 @@ function ThreeJsScene() {
 			)
 		}
 		return (
-			span_return
+			spanReturn
 		)
 	}
 
-	const copied_to_clipboard_function = () => {
-		const text_to_copy = document.createElement('textarea');
-		text_to_copy.value = 'rogerpeke97@gmail.com';
-		document.body.appendChild(text_to_copy);
-		text_to_copy.select();
+	const copiedToClipboardFn = () => {
+		const textToCopy = document.createElement('textarea');
+		textToCopy.value = 'rogerpeke97@gmail.com';
+		document.body.appendChild(textToCopy);
+		textToCopy.select();
 		document.execCommand('copy');
-		document.body.removeChild(text_to_copy);
-		copied_to_clipboard.current.style.opacity = "1";
-		setTimeout(() => copied_to_clipboard.current.style.opacity = "0", 500)
+		document.body.removeChild(textToCopy);
+		copiedToClipboard.current.style.opacity = "1";
+		setTimeout(() => copiedToClipboard.current.style.opacity = "0", 500)
 	}
 
 	return (
-		<div style={{ maxWidth: "100%", height: "100%", position: "relative" }}>
-			<NavBar title_letter={title_letter} />
-			<BackgroundHome title_letter={title_letter} />
-			<div style={{
-				display: "grid", maxWidth: "100%", minHeight: "1620px", maxHeight: "1620px", position: "relative",
-				zIndex: "2"
-			}}>
-				<CanvasBlue portfolio_grid={portfolio_grid} />
-				<Page2 smartphoneView={query} portfolio_grid={portfolio_grid} />
+		<div>
+			<NavBar titleLetter={titleLetter} />
+			<Waves titleLetter={titleLetter} />
+			<div className="grid sections-home">
+				<ParticlesBlue portfolioGrid={portfolioGrid} />
+				<Projects mediaQuery={mediaQuery} portfolioGrid={portfolioGrid} />
 			</div>
-			<div className="page3" style={style.page_3} ref={page_3}>
-				<div style={smartphoneView ? style.selling_description_small : style.selling_description}>
+			<div className="grid sections-home" ref={page_3}>
+				<div style={mediaQuery ? style.selling_description_small : style.selling_description}>
 					I will create the website you desire, make it interactive, applying specific 3d models for it in case you want it or 2d animations
 					that will make your website look modern and scalable with the help of these technologies:
-					<div style={smartphoneView ? style.technologies_holder_small : style.technologies_holder}>
+					<div style={mediaQuery ? style.technologies_holder_small : style.technologies_holder}>
 						<img src="/testimages/Reactjslogo.svg" alt="reactlogo" style={style.technologies_images_normal}></img>
 						<img src="/testimages/nodejslogo.svg" alt="nodejs" style={style.technologies_images_normal}></img>
 						<img src="/testimages/postgresqllogo.svg" alt="postgresql" style={style.technologies_images_normal}></img>
@@ -367,7 +363,7 @@ function ThreeJsScene() {
 						<img src="/testimages/threejslogo.svg" alt="threejs" style={style.technologies_images_normal}></img>
 					</div>
 				</div>
-				<CanvasWhite page_3={page_3} />
+				<ParticlesWhite page_3={page_3} />
 			</div>
 			<div style={style.footer}>
 				<div style={{ flex: "1", display: "grid", alignItems: "center", margin: "2%" }}>
@@ -388,12 +384,12 @@ function ThreeJsScene() {
 								style={{ cursor: "pointer", fontSize: "100%", marginLeft: "2%", transition: "all 0.5s ease-out" }}
 								onMouseEnter={(e) => e.currentTarget.style.color = "rgba(44,12,175,1)"}
 								onMouseLeave={(e) => e.currentTarget.style.color = "white"}
-								onClick={() => copied_to_clipboard_function()}
+								onClick={() => copiedToClipboardFn()}
 							/>
 						</h4>
 					</div>
 				</div>
-				<div ref={copied_to_clipboard} style={style.clipboard}>Copied to clipboard</div>
+				<div ref={copiedToClipboard} style={style.clipboard}>Copied to clipboard</div>
 			</div>
 		</div>
 	)

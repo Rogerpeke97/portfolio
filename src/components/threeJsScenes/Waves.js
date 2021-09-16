@@ -3,89 +3,13 @@ import React, { useEffect, useRef, useState, useContext } from 'react';
 import { Reflector } from 'three/examples/jsm/objects/Reflector.js';
 import { MediaContext } from "../../context/MediaContext.js";
 
-const style = {
-  transparent_overlay: {
-    display: "grid",
-    position: "absolute",
-    minWidth: "90%",
-    maxWidth: "90%",
-    maxHeight: "90%",
-    minHeight: "90%",
-    left: "5%",
-    transition: "all 0.1s ease-out",
-    gridTemplateRows: "50% 50%",
-    top: "5%",
-    zIndex: "2",
-    backgroundColor: "transparent",
-  },
-  transparent_overlay_small: {
-    display: "grid",
-    position: "absolute",
-    minWidth: "100%",
-    maxWidth: "100%",
-    maxHeight: "90%",
-    minHeight: "90%",
-    left: "0%",
-    transition: "all 0.1s ease-out",
-    gridTemplateRows: "20% 20%",
-    top: "5%",
-    zIndex: "2",
-    backgroundColor: "transparent",
-  },
-  letter_container: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center"
-  },
-  letter_container_small: {
-    display: "flex",
-    justifyContent: "center",
-    fontSize: "34%",
-    alignItems: "center"
-  },
-  title_description: {
-    margin: "0",
-    fontWeight: "lighter",
-    wordWrap: "break-word",
-    textAlign: "justify"
-  },
-  title_description_small: {
-    margin: "0",
-    wordWrap: "break-word",
-    fontWeight: "lighter",
-    textAlign: "justify"
-  },
-  loading: {
-    display: "grid",
-    width: "100%",
-    height: "100vh",
-    position: "fixed",
-    backgroundColor: "black",
-    top: "0%",
-    transition: "all 0.5s ease-out",
-    justifyContent: "center",
-    alignContent: "center",
-    left: "0%",
-    zIndex: "3"
-  },
-  loading_complete: {
-    display: "none",
-    width: "100%",
-    height: "100vh",
-    position: "fixed",
-    top: "0%",
-    left: "0%",
-    zIndex: "3"
-  },
-}
-
-const BackgroundHome = ({title_letter}) => {
+const Waves = ({titleLetter}) => {
   const camera = useRef(0);
   const canvasContainer = useRef(0);
-  const progress_bar = useRef(0);
+  const progressBar = useRef(0);
   const [componentLoaded, setComponentLoaded] = useState(false);
   const loading = useRef(0);
-  const transparent_overlay = useRef(0);
+  const transparentOverlay = useRef(0);
   const percentage = useRef(0);
   const query = useContext(MediaContext)
 
@@ -214,17 +138,17 @@ const BackgroundHome = ({title_letter}) => {
     manager.onProgress = () => {
       if (parseInt(percentage.current.innerText.slice(0, -2)) < 100) {
         percentage.current.innerText = parseInt(percentage.current.innerText.slice(0, -2)) + 1 + " %";
-        progress_bar.current.style.width = (percentage.current.innerText).replace(' ', '');
+        progressBar.current.style.width = (percentage.current.innerText).replace(' ', '');
       }
       else {
         percentage.current.innerText = "100%";
-        progress_bar.current.style.width = percentage.current.innerText;
+        progressBar.current.style.width = percentage.current.innerText;
       }
     }
 
     manager.onLoad = () => {
       percentage.current.innerText = "100%";
-      progress_bar.current.style.width = percentage.current.innerText;
+      progressBar.current.style.width = percentage.current.innerText;
       loading.current.style.animation = 'loadingDone 2s normal ease-out';
       setTimeout(() => { setComponentLoaded(true) }, 2000);
     }
@@ -236,23 +160,23 @@ const BackgroundHome = ({title_letter}) => {
       const mousey = (e.clientY - (canvasContainer.current.getBoundingClientRect().top / 2));
       const x = mousex - canvasContainer.current.getBoundingClientRect().width / 2;
       const y = canvasContainer.current.getBoundingClientRect().height / 2 - mousey;
-      transparent_overlay.current.style.transform = `perspective(700px) rotateY(${x / 100}deg) rotateX(${y / 100}deg)`;
+      transparentOverlay.current.style.transform = `perspective(700px) rotateY(${x / 100}deg) rotateX(${y / 100}deg)`;
       camera.current.rotation.y = (x / 100) * (Math.PI / 180);
       camera.current.rotation.x = -(y / 100) * (Math.PI / 180) - 0.8;
     }
   }
   return (
     <div className="window-size-container" ref={canvasContainer} onMouseMove={(e) => mouseMove(e)}>
-      <div className="window-size-container absolute grid justify-center pa-2" ref={transparent_overlay} onMouseMove={(e) => mouseMove(e)}>
-        <div class="flex justify-center align-items-center">{title_letter('IGNACIO.MARTIN.DIAZ', false)}</div>
-        <h3 class="pa-1" onClick={()=>console.log(query)}>
+      <div className="window-size-container absolute grid justify-center pa-2" ref={transparentOverlay} onMouseMove={(e) => mouseMove(e)}>
+        <div className="flex justify-center align-items-center">{titleLetter('IGNACIO.MARTIN.DIAZ', false)}</div>
+        <h3 className="pa-1" onClick={()=>console.log(query)}>
           My name is Ignacio Diaz, I mainly focus on the creation of 3d websites
           and I am currently offering my services as a freelancer to design and
           create the website you desire utilizing technologies that will guarantee
           its scalability and functionality across all platforms.
         </h3>
       </div>
-      <div style={ componentLoaded ? style.loading_complete : style.loading }
+      <div className={ componentLoaded ? "display-none" : "loading-container" }
         ref={loading}>
         <div>
           <div className="LOADINGCONTAINER">
@@ -270,11 +194,11 @@ const BackgroundHome = ({title_letter}) => {
         </div>
         <div className="loading-bar">
           <div className="percentage" ref={percentage}></div>
-          <div className="progress-bar grid" ref={progress_bar}></div>
+          <div className="progress-bar grid" ref={progressBar}></div>
         </div>
       </div>
     </div>
   )
 }
 
-export default BackgroundHome;
+export default Waves;

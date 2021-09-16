@@ -1,23 +1,8 @@
 import React, {useEffect, useRef} from 'react';
 
+const ParticlesWhite = ({page_3})=>{
 
-
-const style = {
-    canvas_2d: {
-        position: "absolute",
-        height: "100%",
-        width: "100vw",
-        background: "black",
-//        background: "linear-gradient(17deg, rgba(0,0,0,1) 32%, rgba(10,10,10,10) 56%, rgba(20,20,20,20) 70%)",
-//        backgroundSize: "400% 400%",
-        animation: "transition 45s infinite"
-    }
-}
-
-
-const CanvasBlue = ({portfolio_grid})=>{
-
-    const canvas_2d = useRef(0);
+    const canvas_2d_page_3 = useRef(0);
     
     useEffect(()=>{
            //canvas_2d
@@ -46,24 +31,6 @@ const CanvasBlue = ({portfolio_grid})=>{
                 }
             }
         }
-
-        const canvas_2d_ctx = canvas_2d.current.getContext("2d");
-        canvas_2d.current.width = portfolio_grid.current.clientWidth;
-        canvas_2d.current.height = portfolio_grid.current.clientHeight;
-        let array_particles = [];
-        let particle_width = canvas_2d.current.width / 25;
-        let particle_position = -particle_width;
-
-        for(let i = 0; i < 27; i++){
-            //let particle_height = window.innerHeight / 10;
-            let particle = new particle_generator(particle_position, Math.floor(Math.random() * portfolio_grid.current.clientHeight),
-            particle_position + particle_width, particle_position - particle_width, 8);
-            particle_position = particle_position + particle_width;
-            array_particles.push(particle);
-        }
-
-
-
         const move_particles = (canvas_to_mod, canvas_to_mod_ctx, div_ctx, array_with_particles, div_number)=>{
             canvas_to_mod_ctx.fillStyle = "black";
             canvas_to_mod_ctx.fillRect(0, 0, canvas_to_mod.width, canvas_to_mod.height);
@@ -86,18 +53,33 @@ const CanvasBlue = ({portfolio_grid})=>{
             });
         }
 
+        const canvas_2d_page_3_ctx = canvas_2d_page_3.current.getContext("2d");
+        canvas_2d_page_3.current.width = page_3.current.clientWidth;
+        canvas_2d_page_3.current.height = page_3.current.clientHeight;
+        let array_particles_page_3 = [];
+        let particle_width_page_3 = page_3.current.clientWidth / 25;
+        let particle_position_page_3 = -particle_width_page_3;
+
+        for(let i = 0; i < 27; i++){
+            //let particle_height = window.innerHeight / 10;
+            let particle = new particle_generator(particle_position_page_3, Math.floor(Math.random() * page_3.current.clientHeight),
+            particle_position_page_3 + particle_width_page_3, particle_position_page_3 - particle_width_page_3, 8);
+            particle_position_page_3 = particle_position_page_3 + particle_width_page_3;
+            array_particles_page_3.push(particle);
+        }
         let mouse_movement_amount = 0;
-        let mousex, x, amount_to_move;
+        let mousex, x, amount_to_move;   
         document.addEventListener('mousemove', (e)=>{
-            mousex = (e.clientX   - ( canvas_2d.current.getBoundingClientRect().left / 2)) ;
-            x = mousex - canvas_2d.current.getBoundingClientRect().width / 2 ;
+            mousex = (e.clientX   - ( canvas_2d_page_3.current.getBoundingClientRect().left / 2)) ;
+            x = mousex - canvas_2d_page_3.current.getBoundingClientRect().width / 2 ;
             amount_to_move = (x - mouse_movement_amount) / 100;
             mouse_movement_amount = x;
             //let y = canvasContainer.current.getBoundingClientRect().height / 2 - mousey ;
         });
+
         const animation_loop = ()=>{
-            move_particles(canvas_2d.current, canvas_2d_ctx, portfolio_grid.current, array_particles, 0);
-            update_x_position(array_particles);
+            move_particles(canvas_2d_page_3.current, canvas_2d_page_3_ctx, page_3.current, array_particles_page_3, 1);
+            update_x_position(array_particles_page_3);
             requestAnimationFrame(animation_loop);
         }
 
@@ -105,27 +87,27 @@ const CanvasBlue = ({portfolio_grid})=>{
 
         window.addEventListener('resize', ()=>{
             //CANVAS_2d
-            canvas_2d.current.width = window.innerWidth;
+            canvas_2d_page_3.current.width = window.innerWidth;
 
-            particle_width = window.innerWidth / 25;
-            particle_position = -particle_width;
+            particle_width_page_3 = window.innerWidth / 25;
+            particle_position_page_3 = -particle_width_page_3;
 
-            array_particles.forEach((part)=>{
-                part.x = particle_position;
-                part.positive_amount_to_move = particle_position + particle_width;
-                part.negative_amount_to_move = particle_position - particle_width;
-                particle_position = particle_position + particle_width;
+            array_particles_page_3.forEach((part)=>{
+                part.x = particle_position_page_3;
+                part.positive_amount_to_move = particle_position_page_3 + particle_width_page_3;
+                part.negative_amount_to_move = particle_position_page_3 - particle_width_page_3;
+                particle_position_page_3 = particle_position_page_3 + particle_width_page_3;
             });
         })
 
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
     return(
-        <div style={style.canvas_2d}>
-            <canvas ref={canvas_2d} style={style.canvas_2d}></canvas>
+        <div className="particles-2d-canvas">
+            <canvas ref={canvas_2d_page_3}></canvas>
         </div>
     );
 }
 
-export default CanvasBlue;
+export default ParticlesWhite;

@@ -1,24 +1,28 @@
 import { useEffect, useState } from 'react';
 import React from 'react';
 import './App.css';
-import ThreeJsScene from './components/three'
+import Home from './views/Home'
 import { MediaContext } from './context/MediaContext'
 
 function App() {
 
-  const [query, setQuery] = useState(0)
+	const [mediaQuery, setQuery] = useState(0)
 
-  useEffect(() => {
-    window.matchMedia("(max-width: 1100px)").addEventListener('change', setQuery(() => window.innerWidth < 1100 ? "small" : "big"));
-  }, [])
+	useEffect(() => {
+		window.addEventListener('resize', () => {
+			setQuery(() => {
+				return window.innerWidth < 1100 ? "small" : "big"
+			})
+		})
+	}, [])
 
-  return (
-    <div className="App">
-      <MediaContext.Provider value={query}>
-        <ThreeJsScene />
-      </MediaContext.Provider>
-    </div>
-  );
+	return (
+		<div className="App">
+			<MediaContext.Provider value={mediaQuery}>
+				<Home />
+			</MediaContext.Provider>
+		</div>
+	);
 }
 
 export default App;

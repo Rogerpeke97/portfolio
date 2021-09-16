@@ -1,31 +1,16 @@
 import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React, { useRef } from "react";
+import React from "react";
 
-const styles = {
-	letter_container: {
-		display: "flex",
-		justifyContent: "center",
-		alignItems: "center"
-	},
-	letter_container_small: {
-		display: "flex",
-		justifyContent: "center",
-		fontSize: "34%",
-		alignItems: "center"
-	},
-}
 
-const NavBar = ({ title_letter }) => {
-
-	const nav_bar = useRef(0);
+const NavBar = ({ titleLetter }) => {
 
 	return (
-		<nav ref={nav_bar} className="nav-container">
+		<nav className="nav-container">
 			<div className="flex-child justify-left align-center">
-				<div style={styles.letter_container}>{title_letter('IGNACIO.MARTIN.DIAZ', true)}</div>
+				<div className="flex justify-center align-items-center">{titleLetter('IGNACIO.MARTIN.DIAZ', true)}</div>
 			</div>
-			<div style={{ flex: "1", display: "flex", alignContent: "center", marginRight: "2%" }}>
+			<div className="flex-child align-center mr-1">
 				<div className="a-link-holder justify-right align-items-center">
 					<a href="https://github.com/Rogerpeke97" className="icon-custom" rel="noopener noreferrer" target="_blank">
 						<FontAwesomeIcon icon={faGithub}
