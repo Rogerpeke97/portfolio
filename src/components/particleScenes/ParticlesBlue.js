@@ -6,36 +6,43 @@ const ParticlesBlue = ({ portfolioGrid }) => {
 
 	useEffect(() => {
 
+		function main() {
+			createParticles()
+		}
+
 		function createParticles() {
 			for (let i = 0; i < 27; i++) {
 				const particle = new Particle(
 					particlePosition, Math.floor(Math.random() * portfolioGrid.current.clientHeight),
 					particlePosition + particleWidth, particlePosition - particleWidth, 8
-					);
+				);
 				particlePosition = particlePosition + particleWidth;
 				array_particles.push(particle);
 			}
 		}
 
 
-		//canvas
 		class Particle {
-			constructor(x, y, positive_amount, negative_amount, radius_circle) {
+			constructor(x, y, positive_amount, negative_amount, radiusCircle) {
 				this.x = x;
 				this.y = y;
-				this.positive_amount_to_move = positive_amount;
-				this.negative_amount_to_move = negative_amount;
-				this.r = radius_circle;
-				this.arc = function (position_x, position_y, radius, start, end, canvas_ctx, div_number) {
+				this.movementAmountRight = positive_amount;
+				this.movementAmountLeft = negative_amount;
+				this.radius = radiusCircle;
+				this.arc = function (position_x, position_y, radius, start, end, canvas_ctx, color) {
 					canvas_ctx.beginPath();
-					let grd = canvas_ctx.createLinearGradient(position_x - this.r, position_y + this.r, position_x + this.r / 2, position_y - this.r);
-					if (div_number === 0) {
-						grd.addColorStop(0.30, "rgba(69,40,189,1)");
-						grd.addColorStop(0.70, "rgba(43,22,55,1)");
-					}
-					else {
-						grd.addColorStop(0.30, "rgba(255,255,255,1)");
-						grd.addColorStop(0.70, "rgba(32,31,31,1)");
+					let grd = canvas_ctx.createLinearGradient(position_x - this.radius, position_y + this.radius, position_x + this.radius / 2, position_y - this.radius);
+					switch (color) {
+						case "blue":
+							grd.addColorStop(0.30, "rgba(69,40,189,1)");
+							grd.addColorStop(0.70, "rgba(43,22,55,1)");
+							break;
+						case "white":
+							grd.addColorStop(0.30, "rgba(255,255,255,1)");
+							grd.addColorStop(0.70, "rgba(32,31,31,1)");
+							break;
+						default:
+							throw new Error("No color provided")
 					}
 					canvas_ctx.fillStyle = grd;
 					canvas_ctx.arc(position_x, position_y, radius, start, end);
@@ -58,7 +65,7 @@ const ParticlesBlue = ({ portfolioGrid }) => {
 
 
 
-		const move_particles = (canvas_to_mod, canvas_to_mod_ctx, div_ctx, array_with_particles, div_number) => {
+		const move_particles = (canvas_to_mod, canvas_to_mod_ctx, div_ctx, array_with_particles, color) => {
 			canvas_to_mod_ctx.fillStyle = "black";
 			canvas_to_mod_ctx.fillRect(0, 0, canvas_to_mod.width, canvas_to_mod.height);
 			array_with_particles.forEach((part) => {
@@ -66,7 +73,7 @@ const ParticlesBlue = ({ portfolioGrid }) => {
 					part.y = div_ctx.clientHeight;
 				}
 				part.y = part.y - 0.5;
-				part.arc(part.x, part.y, part.r, 0, 2 * Math.PI, canvas_to_mod_ctx, div_number);
+				part.arc(part.x, part.y, part.r, 0, 2 * Math.PI, canvas_to_mod_ctx, color);
 			})
 			//particle.x = particle.x - 0.001;
 			//particle.arc(window.innerWidth / particle.x, window.innerHeight / particle.y, particle.r, 0, 2 * Math.PI);
@@ -74,7 +81,7 @@ const ParticlesBlue = ({ portfolioGrid }) => {
 
 		const update_x_position = (array_with_particles) => {
 			array_with_particles.forEach((part) => {
-				if (part.x + amount_to_move < part.positive_amount_to_move && part.x + amount_to_move > part.negative_amount_to_move) {
+				if (part.x + amount_to_move < part.movementAmountRight && part.x + amount_to_move > part.movementAmountLeft) {
 					part.x = part.x + amount_to_move;
 				}
 			});
@@ -90,7 +97,7 @@ const ParticlesBlue = ({ portfolioGrid }) => {
 			//let y = canvasContainer.current.getBoundingClientRect().height / 2 - mousey ;
 		});
 		const animation_loop = () => {
-			move_particles(canvas.current, canvas_ctx, portfolioGrid.current, array_particles, 0);
+			move_particles(canvas.current, canvas_ctx, portfolioGrid.current, array_particles, "blue");
 			update_x_position(array_particles);
 			requestAnimationFrame(animation_loop);
 		}
@@ -106,15 +113,12 @@ const ParticlesBlue = ({ portfolioGrid }) => {
 
 			array_particles.forEach((part) => {
 				part.x = particlePosition;
-				part.positive_amount_to_move = particlePosition + particleWidth;
-				part.negative_amount_to_move = particlePosition - particleWidth;
+				part.movementAmountRight = particlePosition + particleWidth;
+				part.movementAmountLeft = particlePosition - particleWidth;
 				particlePosition = particlePosition + particleWidth;
 			});
 		})
 
-		function main(){
-			createParticles()
-		}
 
 		main()
 		// eslint-disable-next-line react-hooks/exhaustive-deps
