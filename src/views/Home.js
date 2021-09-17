@@ -9,300 +9,6 @@ import Waves from '../components/threeJsScenes/Waves'
 import NavBar from '../components/general/NavBar.js'
 import Projects from '../components/Projects.js'
 
-const style = {
-	moving_div_1: {
-		flex: "1",
-		height: "0",
-		zIndex: "0",
-		width: "25%",
-		borderBottom: "1620px solid rgba(44,12,175,1)",
-		borderRight: "1620px solid transparent",
-		position: "absolute",
-		left: "-100%",
-		top: "0vh",
-		opacity: "0.5"
-	},
-	moving_div_2: {
-		flex: "1",
-		height: "0",
-		zIndex: "0",
-		width: "100%",
-		borderBottom: "1080px solid whitesmoke",
-		borderRight: "1080px solid transparent",
-		position: "absolute",
-		left: "100%",
-		transform: "scaleX(-1)",
-		opacity: "0.4"
-	},
-	my_work_title: {
-		display: "grid",
-		cursor: "default",
-		justifyContent: "center",
-		alignItems: "center",
-		fontSize: "300%",
-		height: "100%",
-		width: "100%"
-	},
-	websites: {
-		display: "grid",
-		gridTemplateRows: "33.33% 33.33% 33.33%"
-	},
-	grid: {
-		display: "flex",
-		paddingBottom: "1%"
-	},
-	grid_phone_media: {
-		display: "grid",
-		gridTemplateRows: "50% 50%",
-		fontSize: "75%",
-		paddingBottom: "12%"
-	},
-	box: {
-		position: "relative",
-		width: "100%",
-		border: "5px solid white",
-		borderRadius: "6px",
-		flex: "1",
-		transition: "transform 0.5s ease-out",
-		boxShadow: " 0px 0px 50px -4px black",
-	},
-	box_explanation: {
-		margin: "2%",
-		position: "relative",
-		width: "100%",
-		flex: "1",
-		transition: "transform 0.5s ease-out",
-		display: "grid",
-		gridTemplateRows: "20% 60% 20%"
-	},
-	box_explanation_small: {
-		margin: "0%",
-		position: "relative",
-		width: "100%",
-		flex: "1",
-		transition: "transform 0.5s ease-out",
-		display: "grid",
-		gridTemplateRows: "20% 60% 20%"
-	},
-	box_explanation_title: {
-		fontWeight: "bold",
-		fontSize: "300%",
-		textShadow: "2px 2px 2px black",
-		textDecoration: "underline"
-	},
-	box_explanation_description: {
-		fontWeight: "normal",
-		textAlign: "justify"
-	},
-	box_explanation_description_small: {
-		fontWeight: "normal",
-		display: "grid",
-		alignContent: "center",
-		textAlign: "justify"
-	},
-	grid_images: {
-		position: "absolute",
-		maxHeight: "100%",
-		minHeight: "100%",
-		maxWidth: "100%",
-		objectFit: "contain",
-		zIndex: "0"
-	},
-	explanation_website: {
-		position: "absolute",
-		background: "linear-gradient(56deg, rgba(24,14,19,1) 28%, rgba(78,21,35,1) 59%)",
-		display: "grid",
-		textAlign: "center",
-		gridTemplateRows: "10% 70% 20%",
-		width: "100%",
-		height: "100%",
-		z_index: "-1",
-		transition: "all 0.5s ease-out"
-	},
-	website_button: {
-		position: "absolute",
-		width: "50%",
-		height: "20%",
-		top: "80%",
-		left: "25%",
-		background: "rgba(44,12,175,1)",
-		borderRadius: "5px",
-		color: "white",
-		fontWeight: "bold",
-		textShadow: "2px 2px 2px black",
-		cursor: "pointer",
-		textAlign: "center",
-		transition: "all 0.5s ease-out",
-		display: "grid",
-		alignItems: "center",
-		zIndex: "1"
-	},
-	website_button_backwards: {
-		position: "absolute",
-		width: "50%",
-		height: "20%",
-		top: "80%",
-		left: "25%",
-		background: "rgba(44,12,175,1)",
-		borderRadius: "5px",
-		color: "white",
-		fontWeight: "bold",
-		textShadow: "2px 2px 2px black",
-		cursor: "pointer",
-		textAlign: "center",
-		transition: "all 0.5s ease-out",
-		display: "grid",
-		alignItems: "center",
-		zIndex: "1",
-		transform: "rotateY(180deg)"
-	},
-	website_button_links: {
-		position: "relative",
-		width: "50%",
-		height: "60%",
-		top: "15%",
-		left: "25%",
-		background: "rgba(44,12,175,1)",
-		borderRadius: "5px",
-		color: "white",
-		fontWeight: "bold",
-		textShadow: "2px 2px 2px black",
-		cursor: "pointer",
-		textAlign: "center",
-		transition: "all 0.5s ease-out",
-		display: "grid",
-		alignItems: "center",
-		zIndex: "1"
-	},
-	website_links: {
-		display: "flex",
-		alignItems: "center",
-		justifyContent: "center",
-		textAlign: "center"
-	},
-	technologies_holder: {
-		display: "flex",
-		maxWidth: "100%",
-		maxHeight: "100%",
-		height: "50%",
-		width: "100%",
-		alignItems: "center",
-		justifyContent: "center",
-		textAlign: "center",
-	},
-	technologies_holder_small: {
-		display: "flex",
-		maxWidth: "100%",
-		maxHeight: "100%",
-		height: "100%",
-		width: "100%",
-		alignItems: "center",
-		justifyContent: "center",
-		textAlign: "center",
-	},
-	technologies_images: {
-		flex: "25%",
-		maxHeight: "100%",
-		width: "25%",
-		objectFit: "contain",
-		zIndex: "0",
-		transform: "rotateY(180deg)"
-	},
-	technologies_images_normal: {
-		flex: "20%",
-		height: "50%",
-		margin: "3%",
-		width: "20%",
-		zIndex: "0",
-		position: "relative",
-		background: "gray",
-		borderRadius: "10px"
-	},
-	website_image_container: {
-		height: "100%",
-		width: "100%",
-		position: "relative",
-		transition: "all 0.5s ease-out",
-		display: "grid",
-		justifyItems: "center",
-		background: "black"
-	},
-	footer: {
-		backgroundColor: "rgba(24,8,100,1)",
-		color: 'white',
-		zIndex: "2",
-		display: 'flex',
-		fontSize: "80%",
-		justifyContent: "center",
-		height: '10rem',
-		position: "relative",
-		width: "100%",
-	},
-	selling_description: {
-		display: "grid",
-		justifyContent: "center",
-		alignItems: "center",
-		textAlign: "justify",
-		zIndex: "1",
-		position: "relative",
-		left: "15%",
-		width: "70%",
-		paddingTop: "5%",
-		fontSize: "150%"
-	},
-	selling_description_small: {
-		display: "grid",
-		justifyContent: "center",
-		alignItems: "center",
-		textAlign: "justify",
-		zIndex: "1",
-		position: "relative",
-		left: "15%",
-		width: "70%",
-		paddingTop: "5%",
-		fontSize: "100%"
-	},
-	page_3: {
-		height: "1080px",
-		width: "100%",
-		background: "linear-gradient(17deg, rgba(0,0,0,1) 32%, rgba(10,10,10,10) 56%, rgba(20,20,20,20) 70%)",
-		backgroundSize: "400% 400%",
-		animation: "transition 45s infinite",
-		display: "grid",
-		gridTemplateRows: "30% 30%"
-	},
-	clipboard: {
-		display: "grid",
-		pointerEvents: "none",
-		position: "absolute",
-		textAlign: "center",
-		alignItems: "center",
-		left: "50%",
-		top: "50%",
-		width: "250px",
-		height: "15%",
-		marginLeft: "-125px",
-		marginTop: "-1%",
-		transition: "0.5s ease-out",
-		opacity: "0",
-		background: "black",
-		borderRadius: "5px"
-	},
-	letter_container: {
-		display: "flex",
-		justifyContent: "center",
-		alignItems: "center"
-	},
-	letter_container_small: {
-		display: "flex",
-		justifyContent: "center",
-		fontSize: "34%",
-		alignItems: "center"
-	},
-}
-
-
-
 function ThreeJsScene() {
 	const page_3 = useRef(0);
 	const copiedToClipboard = useRef(0);
@@ -351,45 +57,44 @@ function ThreeJsScene() {
 				<Projects mediaQuery={mediaQuery} portfolioGrid={portfolioGrid} />
 			</div>
 			<div className="grid sections-home" ref={page_3}>
-				<div style={mediaQuery ? style.selling_description_small : style.selling_description}>
+				<div className="grid justify-center align-center z-index-1">
 					I will create the website you desire, make it interactive, applying specific 3d models for it in case you want it or 2d animations
 					that will make your website look modern and scalable with the help of these technologies:
-					<div style={mediaQuery ? style.technologies_holder_small : style.technologies_holder}>
-						<img src="/testimages/Reactjslogo.svg" alt="reactlogo" style={style.technologies_images_normal}></img>
-						<img src="/testimages/nodejslogo.svg" alt="nodejs" style={style.technologies_images_normal}></img>
-						<img src="/testimages/postgresqllogo.svg" alt="postgresql" style={style.technologies_images_normal}></img>
-						<img src="/testimages/spring_boot.svg" alt="spring boot" style={style.technologies_images_normal}></img>
-						<img src="/testimages/threejslogo.svg" alt="threejs" style={style.technologies_images_normal}></img>
+					<div className="flex justify-center align-center">
+						<img src="/testimages/Reactjslogo.svg" alt="reactlogo" className="flex-child white technologies"></img>
+						<img src="/testimages/nodejslogo.svg" alt="nodejs" className="flex-child white technologies"></img>
+						<img src="/testimages/postgresqllogo.svg" alt="postgresql" className="flex-child white technologies"></img>
+						<img src="/testimages/spring_boot.svg" alt="spring boot" className="flex-child white technologies"></img>
+						<img src="/testimages/threejslogo.svg" alt="threejs" className="flex-child white technologies"></img>
 					</div>
 				</div>
 				<Particles div={page_3} colorParticles={"white"}/>
 			</div>
-			<div style={style.footer}>
-				<div style={{ flex: "1", display: "grid", alignItems: "center", margin: "2%" }}>
+			<footer>
+				<div className="flex-child-no-flex align-items-center grid pa-1">
 					<h2 className="title">IGNACIO.MARTIN.DIAZ</h2>
-					<div style={{ display: "flex", marginBottom: "1%" }}>
-						<FontAwesomeIcon icon={faMapMarked} style={{ marginRight: "1%" }} />
+					<div className="flex">
+						<FontAwesomeIcon className="pr-1" icon={faMapMarked} />
 						<div>Buenos Aires, Argentina</div>
 					</div>
 					<div>&copy; Copyright 2021, Ignacio Martin Diaz. All rights reserved.</div>
 				</div>
-				<div style={{ flex: "1", display: "grid", alignItems: "center", paddingLeft: "1%", borderLeft: "2px solid white" }}>
+				<div className="flex-child-no-flex align-items-center grid pa-1 footer-right">
 					<div>
 						<h4>Contact me at: </h4>
-						<h4 style={{ fontStyle: "italic", textDecoration: "underline" }}>
-							<FontAwesomeIcon icon={faGoogle} style={{ marginRight: "1%" }} />
+						<FontAwesomeIcon className="icon pa-1" icon={faGoogle} />
+						<i><h4 class="underline cursor-pointer" onClick={() => copiedToClipboardFn()}>
 							rogerpeke97@gmail.com
-							<FontAwesomeIcon icon={faCopy}
-								style={{ cursor: "pointer", fontSize: "100%", marginLeft: "2%", transition: "all 0.5s ease-out" }}
+						</h4></i>
+						<FontAwesomeIcon className="icon pa-1" icon={faCopy}
 								onMouseEnter={(e) => e.currentTarget.style.color = "rgba(44,12,175,1)"}
 								onMouseLeave={(e) => e.currentTarget.style.color = "white"}
 								onClick={() => copiedToClipboardFn()}
 							/>
-						</h4>
 					</div>
 				</div>
-				<div ref={copiedToClipboard} style={style.clipboard}>Copied to clipboard</div>
-			</div>
+				<div className="clipboard-message" ref={copiedToClipboard}>Copied to clipboard</div>
+			</footer>
 		</div>
 	)
 }
