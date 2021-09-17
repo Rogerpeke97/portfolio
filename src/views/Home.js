@@ -4,8 +4,7 @@ import { MediaContext } from '../context/MediaContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGoogle } from '@fortawesome/free-brands-svg-icons'
 import { faMapMarked, faCopy } from '@fortawesome/free-solid-svg-icons'
-import ParticlesBlue from '../components/particleScenes/ParticlesBlue'
-import ParticlesWhite from '../components/particleScenes/ParticlesWhite'
+import Particles from '../components/particleScenes/Particles'
 import Waves from '../components/threeJsScenes/Waves'
 import NavBar from '../components/general/NavBar.js'
 import Projects from '../components/Projects.js'
@@ -348,7 +347,7 @@ function ThreeJsScene() {
 			<NavBar titleLetter={titleLetter} />
 			<Waves titleLetter={titleLetter} />
 			<div className="grid sections-home">
-				<ParticlesBlue portfolioGrid={portfolioGrid} />
+				<Particles div={portfolioGrid} colorParticles={"blue"} />
 				<Projects mediaQuery={mediaQuery} portfolioGrid={portfolioGrid} />
 			</div>
 			<div className="grid sections-home" ref={page_3}>
@@ -363,7 +362,7 @@ function ThreeJsScene() {
 						<img src="/testimages/threejslogo.svg" alt="threejs" style={style.technologies_images_normal}></img>
 					</div>
 				</div>
-				<ParticlesWhite page_3={page_3} />
+				<Particles div={page_3} colorParticles={"white"}/>
 			</div>
 			<div style={style.footer}>
 				<div style={{ flex: "1", display: "grid", alignItems: "center", margin: "2%" }}>
