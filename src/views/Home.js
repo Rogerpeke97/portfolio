@@ -3,16 +3,17 @@ import { useRef, useContext } from "react";
 import { MediaContext } from '../context/MediaContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGoogle } from '@fortawesome/free-brands-svg-icons'
-import { faMapMarked, faCopy } from '@fortawesome/free-solid-svg-icons'
+import { faMapMarked } from '@fortawesome/free-solid-svg-icons'
 import Particles from '../components/particleScenes/Particles'
 import Waves from '../components/threeJsScenes/Waves'
 import NavBar from '../components/general/NavBar.js'
 import Projects from '../components/Projects.js'
+import Footer from '../components/general/Footer';
 
-function ThreeJsScene() {
-	const page_3 = useRef(0);
+function Home() {
+	const commercialSection = useRef(0);
 	const copiedToClipboard = useRef(0);
-	const portfolioGrid = useRef(0);
+	const projectsSection = useRef(0);
 
 	const mediaQuery = useContext(MediaContext)
 
@@ -37,15 +38,11 @@ function ThreeJsScene() {
 		)
 	}
 
-	const copiedToClipboardFn = () => {
-		const textToCopy = document.createElement('textarea');
-		textToCopy.value = 'rogerpeke97@gmail.com';
-		document.body.appendChild(textToCopy);
-		textToCopy.select();
-		document.execCommand('copy');
-		document.body.removeChild(textToCopy);
-		copiedToClipboard.current.style.opacity = "1";
-		setTimeout(() => copiedToClipboard.current.style.opacity = "0", 500)
+	const copiedToClipboardFn = (textToCopy) => {
+		navigator.clipboard.writeText(textToCopy).then(() => {
+			copiedToClipboard.current.style.opacity = "1";
+			setTimeout(() => copiedToClipboard.current.style.opacity = "0", 500)
+		})
 	}
 
 	return (
@@ -53,10 +50,10 @@ function ThreeJsScene() {
 			<NavBar titleLetter={titleLetter} />
 			<Waves titleLetter={titleLetter} />
 			<div className="grid sections-home">
-				<Particles div={portfolioGrid} colorParticles={"blue"} />
-				<Projects mediaQuery={mediaQuery} portfolioGrid={portfolioGrid} />
+				<Particles div={projectsSection} colorParticles={"blue"} />
+				<Projects mediaQuery={mediaQuery} projectsSection={projectsSection} />
 			</div>
-			<div className="grid sections-home" ref={page_3}>
+			<div className="grid sections-home" ref={commercialSection}>
 				<div className="grid justify-center align-center z-index-1">
 					I will create the website you desire, make it interactive, applying specific 3d models for it in case you want it or 2d animations
 					that will make your website look modern and scalable with the help of these technologies:
@@ -68,34 +65,10 @@ function ThreeJsScene() {
 						<img src="/testimages/threejslogo.svg" alt="threejs" className="flex-child white technologies"></img>
 					</div>
 				</div>
-				<Particles div={page_3} colorParticles={"white"}/>
+				<Particles div={commercialSection} colorParticles={"white"} />
 			</div>
-			<footer>
-				<div className="flex-child-no-flex align-items-center grid pa-1">
-					<h2 className="title">IGNACIO.MARTIN.DIAZ</h2>
-					<div className="flex">
-						<FontAwesomeIcon className="pr-1" icon={faMapMarked} />
-						<div>Buenos Aires, Argentina</div>
-					</div>
-					<div>&copy; Copyright 2021, Ignacio Martin Diaz. All rights reserved.</div>
-				</div>
-				<div className="flex-child-no-flex align-items-center grid pa-1 footer-right">
-					<div>
-						<h4>Contact me at: </h4>
-						<FontAwesomeIcon className="icon pa-1" icon={faGoogle} />
-						<i><h4 class="underline cursor-pointer" onClick={() => copiedToClipboardFn()}>
-							rogerpeke97@gmail.com
-						</h4></i>
-						<FontAwesomeIcon className="icon pa-1" icon={faCopy}
-								onMouseEnter={(e) => e.currentTarget.style.color = "rgba(44,12,175,1)"}
-								onMouseLeave={(e) => e.currentTarget.style.color = "white"}
-								onClick={() => copiedToClipboardFn()}
-							/>
-					</div>
-				</div>
-				<div className="clipboard-message" ref={copiedToClipboard}>Copied to clipboard</div>
-			</footer>
+			<Footer mediaQuery={mediaQuery} />
 		</div>
 	)
 }
-export default ThreeJsScene;
+export default Home;

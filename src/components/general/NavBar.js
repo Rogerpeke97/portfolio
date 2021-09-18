@@ -6,7 +6,7 @@ import React from "react";
 const NavBar = ({ titleLetter }) => {
 
 	return (
-		<nav className="nav-container">
+		<nav className="nav-container px-1">
 			<div className="flex-child justify-left align-center">
 				<div className="flex justify-center align-items-center">{titleLetter('IGNACIO.MARTIN.DIAZ', true)}</div>
 			</div>

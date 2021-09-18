@@ -1,7 +1,17 @@
+@font-face {
+	font-family: 'Roboto';
+	src: local('Roboto'), url(./fonts/Roboto-Light.ttf) format('opentype');
+}
+
+@font-face {
+	font-family: 'Teko';
+	src: local('Teko'), url(./fonts/Teko-Light.ttf) format('opentype');
+}
+
 html, body, button{
-	font-family: 'Roboto', sans-serif;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
+	font-family: 'Roboto';
+	-webkit-font-smoothing: antialiased !important;
+	-moz-osx-font-smoothing: grayscale !important;
 	font-size: 1rem;
 	margin: 0;
 	overflow-x: hidden;
@@ -28,13 +38,63 @@ body::-webkit-scrollbar-thumb
 {
 	background-color: #000000;  
 }
+textarea::-webkit-scrollbar-track
+{
+	border: 1px solid black;
+	background-color: #F5F5F5;
+}
+
+textarea::-webkit-scrollbar
+{
+	width: 10px;
+	background-color: #F5F5F5;
+}
+
+textarea::-webkit-scrollbar-thumb
+{
+	background-color: #000000;  
+}
+
 
 .sections-home{
 	display: grid;
-	width: 100%; 
+	max-width: 100%; 
 	height: 1620px; 
 	position: relative;
 	z-index: 2;
+}
+
+.underline-effect{
+	padding: 5px;
+	border: 0;
+	cursor: pointer;
+	background: transparent;
+	display: inline-block;
+	border-radius: 8px;
+	box-shadow: 2.5px 2.5px 5px 2.5px rgba(24,8,100,1);
+	position: relative;
+	color: white;
+	transition: all 0.3s ease-out;
+}
+.underline-effect:after {
+	content: '';
+	position: absolute;
+	width: 100%;
+	transform: scaleX(0);
+	height: 2px;
+	bottom: 0;
+	left: 0;
+	background-color: white;
+	transform-origin: bottom right;
+	transition: transform 0.3s ease-out;
+}
+.underline-effect:hover:after {
+	transform: scaleX(1);
+	transform-origin: bottom left;
+}
+
+.projects-container{
+	grid-template-rows: 10% 90%;
 }
 
 .particles-2d-canvas{
@@ -44,13 +104,63 @@ body::-webkit-scrollbar-thumb
 	background: black;
 }
 
+input{
+	outline: none;
+	background: transparent;
+	font-family: inherit;
+	color: white;
+	height: 50px;
+	box-shadow: 2.5px 2.5px 5px 2.5px black;
+	width: 300px;
+	border: 0;
+	border-radius:10px;
+	transition: all 0.5s ease-out;
+}
+
+input[type=submit]:hover{
+	cursor: pointer;
+	background: rgba(24,8,100,1);
+}
+
+textarea{
+	outline: none;
+	resize: none;
+	background: transparent;
+	font-family: inherit;
+	color: white;
+	height: 100px;
+	box-shadow: 2.5px 2.5px 5px 2.5px black;
+	width: 300px;
+	border: 0;
+	border-radius:10px;
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+	color: white;
+	opacity: 1; /* Firefox */
+}
+
+.disabled-icon{
+	color: darkslategray;
+}
+
 h1{
 	margin: 0;
 	text-align: justify;
+	font-weight: inherit;
+	max-height: 100%;
 }
 h3{
 	margin: 0;
 	text-align: justify;
+	font-weight: inherit;
+	max-height: 100%;
+}
+
+h4{
+	margin: 0;
+	font-weight: inherit;
+	max-height: 100%;
 }
 
 .z-index-1{
@@ -65,12 +175,10 @@ h3{
 	height: 5vw;
 	min-height: 40px;
 }
-.footer-right{
-	border-left: 2px solid white;
-}
+
 .nav-container{
 	display: flex;
-	width: 100%;
+	max-width: 100%;
 	height: 5rem;
 	background: black;
 	position: sticky;
@@ -78,12 +186,16 @@ h3{
 	top: 0;
 	z-index: 3;
 }
+.teko{
+	font-family: 'Teko';
+	font-size: 500%;
+}
 .title{
 	transition: all 0.5s ease-out;
 	cursor: default;
 	margin: 0;
 	color: white;
-	font-family: Teko, sans-serif;
+	font-family: 'Teko';
 }
 .a-link-holder{
 	display: grid;
@@ -96,14 +208,15 @@ h3{
 }
 
 footer{
-	background-color: rgba(24,8,100,1);
+	background-color: rgb(32, 31, 31);
 	color: white;
+	border-top: 5px solid white;
 	z-index: 2;
 	display: flex;
 	justify-content: center;
-	height: 10rem;
+	font-size: 90%;
 	position: relative;
-	width: 100%;
+	max-width: 100%;
 }
 
 .clipboard-message{
@@ -127,6 +240,9 @@ footer{
 .grid{
 	display: grid;
 }
+.grid-template-rows-3{
+	grid-template-rows: 33.33% 33.33% 33.33%;
+}
 .flex{
 	display: flex;
 }
@@ -136,6 +252,9 @@ footer{
 }
 .flex-child-no-flex{
 	flex: 1;
+}
+.align-self-center{
+	align-self: center;
 }
 .align-left{
 	align-content: flex-start;
@@ -195,10 +314,18 @@ footer{
 	padding: 16px;
 }
 .py-1{
+	padding-top: 8px;
+	padding-bottom: 8px;
+}
+.py-2{
+	padding-top: 16px;
+	padding-bottom: 16px;
+}
+.px-1{
 	padding-left: 8px;
 	padding-right: 8px;
 }
-.py-2{
+.px-2{
 	padding-left: 16px;
 	padding-right: 16px;
 }
@@ -213,6 +340,20 @@ footer{
 }
 .ma-2{
 	margin: 16px;
+}
+.mx-1{
+	margin-left: 8px;
+	margin-right: 8px;
+}
+.mx-2{
+	margin-left: 8px;
+	margin-right: 8px;
+}
+.word-break-all{
+	word-break: break-all;
+}
+.word-break-word{
+	word-break: break-word;
 }
 .underline{
 	text-decoration: underline;
