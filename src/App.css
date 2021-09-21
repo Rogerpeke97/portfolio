@@ -15,6 +15,7 @@ html, body, button{
 	font-size: 1rem;
 	margin: 0;
 	overflow-x: hidden;
+	background-color: black;
 	color: white;
 }
 
@@ -92,6 +93,33 @@ textarea::-webkit-scrollbar-thumb
 	transform: scaleX(1);
 	transform-origin: bottom left;
 }
+.underline-effect-no-box{
+	padding: 5px;
+	border: 0;
+	cursor: pointer;
+	background: transparent;
+	display: inline-block;
+	position: relative;
+	color: inherit;
+	transition: all 0.3s ease-out;
+}
+.underline-effect-no-box:after {
+	content: '';
+	position: absolute;
+	width: 100%;
+	transform: scaleX(0);
+	height: 2px;
+	bottom: 0;
+	left: 0;
+	background-color: black;
+	transform-origin: bottom right;
+	transition: transform 0.3s ease-out;
+}
+.underline-effect-no-box:hover:after {
+	transform: scaleX(1);
+	transform-origin: bottom left;
+}
+
 
 .projects-container{
 	grid-template-rows: 10% 90%;
@@ -111,7 +139,7 @@ input{
 	color: white;
 	height: 50px;
 	box-shadow: 2.5px 2.5px 5px 2.5px black;
-	width: 300px;
+	width: 250px;
 	border: 0;
 	border-radius:10px;
 	transition: all 0.5s ease-out;
@@ -130,7 +158,7 @@ textarea{
 	color: white;
 	height: 100px;
 	box-shadow: 2.5px 2.5px 5px 2.5px black;
-	width: 300px;
+	width: 250px;
 	border: 0;
 	border-radius:10px;
 }
@@ -179,9 +207,13 @@ h4{
 .nav-container{
 	display: flex;
 	max-width: 100%;
-	height: 5rem;
-	background: black;
-	position: sticky;
+	height: 80px;
+	width: calc(100% - 16px);
+	right: 0;
+	left: 0;
+	border-radius: 4px;
+	background: rgb(32, 31, 31);
+	position: fixed;
 	color: white;
 	top: 0;
 	z-index: 3;
@@ -193,6 +225,7 @@ h4{
 .title{
 	transition: all 0.5s ease-out;
 	cursor: default;
+	max-width: 100%;
 	margin: 0;
 	color: white;
 	font-family: 'Teko';
@@ -235,6 +268,11 @@ footer{
 	opacity: 0;
 	background: black;
 	border-radius: 5px;
+}
+
+.footer-title{
+	height: 100px;
+	max-width: 320px;
 }
 
 .grid{
@@ -296,13 +334,25 @@ footer{
 }
 .window-size-container{
 	position: relative;
-	min-height: 100vh;
-	max-height: 100vh; 
+	height: 100vh;
+	padding-top: 80px; 
 	top: 0;
 	right: 0;
 	bottom: 0;
 	left: 0;
 	margin-bottom: 0; 
+}
+.home-menu{
+	padding-top: 80px !important;
+	height: calc(100% - 96px);
+}
+.options-menu-home{
+	background: yellow;
+	color: black;
+	width: 250px;
+	border-radius: 12px;
+	-webkit-box-shadow: 5px 5px 0px 3px rgba(255,255,0, 0.59); 
+	box-shadow: 5px 5px 0px 3px rgba(255,255,0, 0.59);
 }
 .absolute{
 	position: absolute;
@@ -349,11 +399,17 @@ footer{
 	margin-left: 8px;
 	margin-right: 8px;
 }
+.mr-2{
+	margin-right: 16px;
+}
 .word-break-all{
 	word-break: break-all;
 }
 .word-break-word{
 	word-break: break-word;
+}
+.text-align-center{
+	text-align: center;
 }
 .underline{
 	text-decoration: underline;
@@ -363,6 +419,9 @@ footer{
 }
 .display-none{
 	display: none;
+}
+.h-100{
+	min-height: 100%;
 }
 
 /* ANIMATION BEFORE LOADING */

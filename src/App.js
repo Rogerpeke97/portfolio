@@ -7,13 +7,18 @@ import { MediaContext } from './context/MediaContext'
 function App() {
 
 	const [mediaQuery, setQuery] = useState(0)
-
-	useEffect(() => {
+	
+	function main(){
+		setQuery(window.innerWidth < 1100 ? "small" : "big")
 		window.addEventListener('resize', () => {
 			setQuery(() => {
 				return window.innerWidth < 1100 ? "small" : "big"
 			})
 		})
+	}
+
+	useEffect(() => {
+		main()
 	}, [])
 
 	return (

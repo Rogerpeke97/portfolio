@@ -1,9 +1,9 @@
 import * as THREE from "three";
 import React, { useEffect, useRef, useState, useContext } from 'react';
 import { Reflector } from 'three/examples/jsm/objects/Reflector.js';
-import { MediaContext } from "../../context/MediaContext.js";
+import Welcome from '../general/Welcome.js'
 
-const Waves = ({titleLetter}) => {
+const Waves = ({titleLetter, mediaQuery}) => {
   const camera = useRef(0);
   const canvasContainer = useRef(0);
   const progressBar = useRef(0);
@@ -11,7 +11,7 @@ const Waves = ({titleLetter}) => {
   const loading = useRef(0);
   const transparentOverlay = useRef(0);
   const percentage = useRef(0);
-  const query = useContext(MediaContext)
+  const overlayMessage = 'LOADING...'.split("")
 
 
 
@@ -166,30 +166,15 @@ const Waves = ({titleLetter}) => {
     }
   }
   return (
-    <div className="window-size-container" ref={canvasContainer} onMouseMove={(e) => mouseMove(e)}>
-      <div className="window-size-container absolute grid justify-center pa-2" ref={transparentOverlay} onMouseMove={(e) => mouseMove(e)}>
-        <div className="flex justify-center align-items-center">{titleLetter('IGNACIO.MARTIN.DIAZ', false)}</div>
-        <h3 className="pa-1" onClick={()=>console.log(query)}>
-          My name is Ignacio Diaz, I mainly focus on the creation of 3d websites
-          and I am currently offering my services as a freelancer to design and
-          create the website you desire utilizing technologies that will guarantee
-          its scalability and functionality across all platforms.
-        </h3>
-      </div>
+    <div className="window-size-container grid" ref={canvasContainer} onMouseMove={(e) => mouseMove(e)}>
+      <Welcome mouseMove={(e) => mouseMove(e)} mediaQuery={mediaQuery} titleLetter={titleLetter} transparentOverlay={transparentOverlay} />
       <div className={ componentLoaded ? "display-none" : "loading-container" }
         ref={loading}>
         <div>
           <div className="LOADINGCONTAINER">
-            <span>L</span>
-            <span>O</span>
-            <span>A</span>
-            <span>D</span>
-            <span>I</span>
-            <span>N</span>
-            <span>G</span>
-            <span>.</span>
-            <span>.</span>
-            <span>.</span>
+            {overlayMessage.map((letter, index)=>{
+              return <span key={index}>{letter}</span>
+            })}
           </div>
         </div>
         <div className="loading-bar">

@@ -48,7 +48,7 @@ function Home() {
 	return (
 		<div>
 			<NavBar titleLetter={titleLetter} />
-			<Waves titleLetter={titleLetter} />
+			<Waves titleLetter={titleLetter} mediaQuery={mediaQuery}/>
 			<div className="grid sections-home">
 				<Particles div={projectsSection} colorParticles={"blue"} />
 				<Projects mediaQuery={mediaQuery} projectsSection={projectsSection} />
