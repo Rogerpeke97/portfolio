@@ -85,7 +85,7 @@ const Waves = ({titleLetter, mediaQuery}) => {
     let particles = new THREE.BufferGeometry();
     const texture = new THREE.TextureLoader(manager).load('flare.png');
 
-    let particleMaterial = new THREE.PointsMaterial({
+    const particleMaterial = new THREE.PointsMaterial({
       color: 0x2d0caf, size: 0.1, map: texture, alphaTest: 0.1, // removes black squares
       blending: THREE.CustomBlending,
       transparent: false
@@ -112,7 +112,50 @@ const Waves = ({titleLetter, mediaQuery}) => {
     let time = 0;
     let particleMaxPositionWave;
     let star = particleSys.geometry.attributes.position.array;
+    console.log(particleSys)
+    let particleColor = particleSys.material.color;
+    let switchColorOperator = true
+    const rgbProperties = {
+      r: {
+        max: 1,
+        min: 0.17
+      },
+      g: {
+        max: 1,
+        min: 0.04
+      },
+      b: {
+        max: 1,
+        min: 0.68
+      }
+    }
+
     const render = () => {
+      Object.keys(particleColor).forEach(key => {
+
+          particleColor[key] = particleColor[key] > rgbProperties[key].min && particleColor[key] < rgbProperties[key].max 
+          ? parseFloat((switchColorOperator ? particleColor[key] += 0.01 : particleColor[key] -= 0.01).toFixed(2)) : particleColor[key]
+          
+          console.log(particleColor[key])
+
+          
+          const substract = Object.values(particleColor).every((val, index) => [rgbProperties.r.max, rgbProperties.g.max, rgbProperties.b.max].filter((value, indexFilter)=>{
+            return value === val && index === indexFilter
+          })) 
+          const add = Object.values(particleColor).every((val, index) => [rgbProperties.r.min, rgbProperties.g.min, rgbProperties.b.min].filter((value, indexFilter)=>{
+            return value === val && index === indexFilter
+          }))
+
+          if(substract === Object.values(particleColor).length && switchColorOperator){
+            console.log("IM MINUS", Object.values(particleColor), [rgbProperties.r.max, rgbProperties.g.max, rgbProperties.b.max].every(val => Object.values(particleColor).includes(val)))
+            switchColorOperator = false
+          }  
+          if(add === Object.values(particleColor).length && !switchColorOperator){
+            console.log("IM PLUS", Object.values(particleColor))
+            switchColorOperator = true
+          }  
+      });
+    
       for (let i = 1; i < particleCount * 3; i += 3) {
         particleMaxPositionWave = 0.5 * Math.sin(((2 * Math.PI) / 2.5) * star[i + 1] - ((2 * Math.PI) / period * time));
 

@@ -111,7 +111,7 @@ textarea::-webkit-scrollbar-thumb
 	height: 2px;
 	bottom: 0;
 	left: 0;
-	background-color: black;
+	background-color: white;
 	transform-origin: bottom right;
 	transition: transform 0.3s ease-out;
 }
@@ -347,12 +347,19 @@ footer{
 	height: calc(100% - 96px);
 }
 .options-menu-home{
-	background: yellow;
-	color: black;
+	background: rgb(32, 31, 31);
 	width: 250px;
 	border-radius: 12px;
-	-webkit-box-shadow: 5px 5px 0px 3px rgba(255,255,0, 0.59); 
-	box-shadow: 5px 5px 0px 3px rgba(255,255,0, 0.59);
+	-webkit-box-shadow: 5px 5px 0px 3px rgba(58, 56, 56, 1); 
+	box-shadow: 5px 5px 0px 3px rgba(58, 56, 56, 1);
+}
+
+.title-font{
+	margin: 0;
+	font-size: 5rem;
+	font-weight: bold;
+	text-shadow: 4px 0px 0px rgb(100, 99, 99, 1);
+	-webkit-text-shadow:  4px 0px 0px rgb(100, 99, 99, 1); 
 }
 .absolute{
 	position: absolute;

@@ -38,13 +38,6 @@ function Home() {
 		)
 	}
 
-	const copiedToClipboardFn = (textToCopy) => {
-		navigator.clipboard.writeText(textToCopy).then(() => {
-			copiedToClipboard.current.style.opacity = "1";
-			setTimeout(() => copiedToClipboard.current.style.opacity = "0", 500)
-		})
-	}
-
 	return (
 		<div>
 			<NavBar titleLetter={titleLetter} />

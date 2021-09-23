@@ -6,6 +6,14 @@ import Form from './Form';
 
 function Footer({mediaQuery}) {
 
+const copiedToClipboardFn = (textToCopy) => {
+  navigator.clipboard.writeText(textToCopy)
+  // .then(() => {
+  //   // copiedToClipboard.current.style.opacity = "1";
+  //   // setTimeout(() => copiedToClipboard.current.style.opacity = "0", 500)
+  // })
+}
+
  return (
   <footer className={`${mediaQuery === "small" ? "grid" : "flex"} justify-center`}>
    <div className="flex-child-no-flex grid pa-2 ma-2 justify-left">
@@ -17,8 +25,8 @@ function Footer({mediaQuery}) {
     <h2 >
      <FontAwesomeIcon className="pr-1" icon={faMapMarked} /> Buenos Aires, Argentina
     </h2>
-    <h2 className="underline">
-     <FontAwesomeIcon className="pr-1" icon={faGoogle} /> rogerpeke97@gmail.com
+    <h2 className="underline cursor-pointer" onClick={copiedToClipboardFn("rogerpeke97@gmail")}>
+     <FontAwesomeIcon className="pr-1" icon={faGoogle} />rogerpeke97@gmail.com
     </h2>
     <h2 className="word-break-word">
      &copy; Copyright 2021, Ignacio Martin Diaz. All rights reserved.
