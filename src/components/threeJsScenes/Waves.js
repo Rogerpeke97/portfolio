@@ -112,13 +112,12 @@ const Waves = ({titleLetter, mediaQuery}) => {
     let time = 0;
     let particleMaxPositionWave;
     let star = particleSys.geometry.attributes.position.array;
-    console.log(particleSys)
     let particleColor = particleSys.material.color;
     let switchColorOperator = true
     const rgbProperties = {
       r: {
         max: 1,
-        min: 0.17
+        min: 0.18
       },
       g: {
         max: 1,
@@ -126,34 +125,31 @@ const Waves = ({titleLetter, mediaQuery}) => {
       },
       b: {
         max: 1,
-        min: 0.68
+        min: 0.69
       }
     }
 
     const render = () => {
       Object.keys(particleColor).forEach(key => {
 
-          particleColor[key] = particleColor[key] > rgbProperties[key].min && particleColor[key] < rgbProperties[key].max 
-          ? parseFloat((switchColorOperator ? particleColor[key] += 0.01 : particleColor[key] -= 0.01).toFixed(2)) : particleColor[key]
-          
-          console.log(particleColor[key])
-
-          
           const substract = Object.values(particleColor).every((val, index) => [rgbProperties.r.max, rgbProperties.g.max, rgbProperties.b.max].filter((value, indexFilter)=>{
             return value === val && index === indexFilter
-          })) 
+          }).length) 
           const add = Object.values(particleColor).every((val, index) => [rgbProperties.r.min, rgbProperties.g.min, rgbProperties.b.min].filter((value, indexFilter)=>{
             return value === val && index === indexFilter
-          }))
+          }).length)
 
-          if(substract === Object.values(particleColor).length && switchColorOperator){
-            console.log("IM MINUS", Object.values(particleColor), [rgbProperties.r.max, rgbProperties.g.max, rgbProperties.b.max].every(val => Object.values(particleColor).includes(val)))
+          if(substract && switchColorOperator){
             switchColorOperator = false
           }  
-          if(add === Object.values(particleColor).length && !switchColorOperator){
-            console.log("IM PLUS", Object.values(particleColor))
+          if(add && !switchColorOperator){
             switchColorOperator = true
           }  
+
+          particleColor[key] = parseFloat((switchColorOperator
+             ? particleColor[key] + 0.01 <= rgbProperties[key].max ? particleColor[key] += 0.01 : particleColor[key]
+             : particleColor[key] - 0.01 >= rgbProperties[key].min ? particleColor[key] -= 0.01 : particleColor[key]).toFixed(2))
+          
       });
     
       for (let i = 1; i < particleCount * 3; i += 3) {
