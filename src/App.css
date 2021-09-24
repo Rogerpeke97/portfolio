@@ -212,7 +212,7 @@ h4{
 	right: 0;
 	left: 0;
 	border-radius: 4px;
-	background: rgb(32, 31, 31);
+	background: #161b22;
 	position: fixed;
 	color: white;
 	top: 0;
@@ -228,6 +228,8 @@ h4{
 	max-width: 100%;
 	margin: 0;
 	color: white;
+	font-size: 200%;
+	font-weight: bold;
 	font-family: 'Teko';
 }
 .a-link-holder{
@@ -241,7 +243,7 @@ h4{
 }
 
 footer{
-	background-color: rgb(32, 31, 31);
+	background-color: #161b22;
 	color: white;
 	border-top: 5px solid white;
 	z-index: 2;
@@ -272,6 +274,7 @@ footer{
 
 .footer-title{
 	height: 100px;
+	font-size: 500%;
 	max-width: 320px;
 }
 
@@ -290,6 +293,9 @@ footer{
 }
 .flex-child-no-flex{
 	flex: 1;
+}
+.align-self-baseline{
+	align-self: baseline;
 }
 .align-self-center{
 	align-self: center;
@@ -358,9 +364,45 @@ footer{
 	margin: 0;
 	font-size: 5rem;
 	font-weight: bold;
-	text-shadow: 4px 0px 0px rgb(100, 99, 99, 1);
-	-webkit-text-shadow:  4px 0px 0px rgb(100, 99, 99, 1); 
+	text-shadow: 1px 1px 1px darkslategrey,
+	1px 2px 1px darkslategrey,
+	1px 3px 1px darkslategrey,
+	1px 4px 1px darkslategrey,
+	1px 5px 1px darkslategrey,
+	1px 6px 1px darkslategrey,
+	1px 7px 1px darkslategrey,
+	1px 8px 1px darkslategrey,
+	1px 9px 1px darkslategrey,
+	1px 10px 1px darkslategrey,
+1px 18px 6px rgba(16,16,16,0.4),
+1px 22px 10px rgba(16,16,16,0.2),
+1px 25px 35px rgba(16,16,16,0.2),
+1px 30px 60px rgba(16,16,16,0.4);
+	-webkit-text-shadow: 1px 1px 1px darkslategrey,
+	1px 2px 1px darkslategrey,
+	1px 3px 1px darkslategrey,
+	1px 4px 1px darkslategrey,
+	1px 5px 1px darkslategrey,
+	1px 6px 1px darkslategrey,
+	1px 7px 1px darkslategrey,
+	1px 8px 1px darkslategrey,
+	1px 9px 1px darkslategrey,
+	1px 10px 1px darkslategrey,
+1px 18px 6px rgba(16,16,16,0.4),
+1px 22px 10px rgba(16,16,16,0.2),
+1px 25px 35px rgba(16,16,16,0.2),
+1px 30px 60px rgba(16,16,16,0.4);
 }
+
+.letter-welcome{
+	transition: all 0.2s ease-out;
+	font-size: 5rem;
+}
+.letter-welcome:hover{
+	color: rgba(24,8,100,1);
+	transform: scale(1.1);
+}
+
 .absolute{
 	position: absolute;
 }

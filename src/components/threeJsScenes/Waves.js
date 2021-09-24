@@ -135,6 +135,7 @@ const Waves = ({titleLetter, mediaQuery}) => {
           const substract = Object.values(particleColor).every((val, index) => [rgbProperties.r.max, rgbProperties.g.max, rgbProperties.b.max].filter((value, indexFilter)=>{
             return value === val && index === indexFilter
           }).length) 
+          
           const add = Object.values(particleColor).every((val, index) => [rgbProperties.r.min, rgbProperties.g.min, rgbProperties.b.min].filter((value, indexFilter)=>{
             return value === val && index === indexFilter
           }).length)
@@ -147,9 +148,8 @@ const Waves = ({titleLetter, mediaQuery}) => {
           }  
 
           particleColor[key] = parseFloat((switchColorOperator
-             ? particleColor[key] + 0.01 <= rgbProperties[key].max ? particleColor[key] += 0.01 : particleColor[key]
-             : particleColor[key] - 0.01 >= rgbProperties[key].min ? particleColor[key] -= 0.01 : particleColor[key]).toFixed(2))
-          
+             ? particleColor[key] + 0.001 <= rgbProperties[key].max ? particleColor[key] += 0.001 : particleColor[key]
+             : particleColor[key] - 0.001 >= rgbProperties[key].min ? particleColor[key] -= 0.001 : particleColor[key]).toFixed(3))
       });
     
       for (let i = 1; i < particleCount * 3; i += 3) {
