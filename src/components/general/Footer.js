@@ -8,10 +8,6 @@ function Footer({ mediaQuery }) {
 
   const copiedToClipboardFn = (textToCopy) => {
     navigator.clipboard.writeText(textToCopy)
-    // .then(() => {
-    //   // copiedToClipboard.current.style.opacity = "1";
-    //   // setTimeout(() => copiedToClipboard.current.style.opacity = "0", 500)
-    // })
   }
 
   return (
@@ -23,8 +19,9 @@ function Footer({ mediaQuery }) {
         <h2 >
           <FontAwesomeIcon className="pr-1" icon={faMapMarked} /> Buenos Aires, Argentina
         </h2>
-        <h2 className="underline cursor-pointer" onClick={copiedToClipboardFn("rogerpeke97@gmail")}>
-          <FontAwesomeIcon className="pr-1" icon={faGoogle} />rogerpeke97@gmail.com
+        <h2>
+          <FontAwesomeIcon className="pr-1" icon={faGoogle} /> 
+          <i><span className="underline cursor-pointer" onClick={copiedToClipboardFn("rogerpeke97@gmail.com")}>rogerpeke97@gmail.com</span></i>
         </h2>
         <h2 className="word-break-word">
           &copy; Copyright 2021, Ignacio Martin Diaz. All rights reserved.

@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState, useContext } from 'react';
 import { Reflector } from 'three/examples/jsm/objects/Reflector.js';
 import Welcome from '../general/Welcome.js'
 
-const Waves = ({titleLetter, mediaQuery}) => {
+const Waves = ({mediaQuery}) => {
   const camera = useRef(0);
   const canvasContainer = useRef(0);
   const progressBar = useRef(0);
@@ -12,8 +12,6 @@ const Waves = ({titleLetter, mediaQuery}) => {
   const transparentOverlay = useRef(0);
   const percentage = useRef(0);
   const overlayMessage = 'LOADING...'.split("")
-
-
 
   useEffect(() => {
 
@@ -206,7 +204,7 @@ const Waves = ({titleLetter, mediaQuery}) => {
   }
   return (
     <div className="window-size-container grid" ref={canvasContainer} onMouseMove={(e) => mouseMove(e)}>
-      <Welcome mouseMove={(e) => mouseMove(e)} mediaQuery={mediaQuery} titleLetter={titleLetter} transparentOverlay={transparentOverlay} />
+      <Welcome mouseMove={(e) => mouseMove(e)} mediaQuery={mediaQuery} transparentOverlay={transparentOverlay} />
       <div className={ componentLoaded ? "display-none" : "loading-container" }
         ref={loading}>
         <div>

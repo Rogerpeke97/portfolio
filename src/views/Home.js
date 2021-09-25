@@ -1,9 +1,6 @@
 import React from 'react';
 import { useRef, useContext } from "react";
 import { MediaContext } from '../context/MediaContext';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faGoogle } from '@fortawesome/free-brands-svg-icons'
-import { faMapMarked } from '@fortawesome/free-solid-svg-icons'
 import Particles from '../components/particleScenes/Particles'
 import Waves from '../components/threeJsScenes/Waves'
 import NavBar from '../components/general/NavBar.js'
@@ -17,31 +14,11 @@ function Home() {
 
 	const mediaQuery = useContext(MediaContext)
 
-	const titleLetter = (letter, small) => {
-		let spanReturn = [];
-		for (let i = 0; i < letter.length; i++) {
-			spanReturn.push(small
-				?
-				<h1 key={i} className="title"
-					onMouseEnter={(e) => e.currentTarget.style.color = 'rgba(44,12,175,1)'}
-					onMouseLeave={(e) => e.currentTarget.style.color = 'white'}
-				>{letter[i]}</h1>
-				:
-				<h1 key={i} className="title"
-					onMouseEnter={(e) => e.currentTarget.style.color = 'rgba(44,12,175,1)'}
-					onMouseLeave={(e) => e.currentTarget.style.color = 'white'}
-				>{letter[i]}</h1>
-			)
-		}
-		return (
-			spanReturn
-		)
-	}
 
 	return (
 		<div>
-			<NavBar titleLetter={titleLetter} />
-			<Waves titleLetter={titleLetter} mediaQuery={mediaQuery}/>
+			<NavBar />
+			<Waves mediaQuery={mediaQuery}/>
 			<div className="grid sections-home">
 				<Particles div={projectsSection} colorParticles={"blue"} />
 				<Projects mediaQuery={mediaQuery} projectsSection={projectsSection} />

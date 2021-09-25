@@ -1,10 +1,9 @@
 import React from 'react';
 
-const Welcome = ({ titleLetter, mediaQuery, transparentOverlay, mouseMove }) => {
+const Welcome = ({ mediaQuery, transparentOverlay, mouseMove }) => {
  const messageWelcome = "Hello, my name is Ignacio Diaz".split("")
  return (
   <div className={`${mediaQuery === "small" ? "grid" : "flex"} absolute grid justify-center pa-2 home-menu`} ref={transparentOverlay} onMouseMove={(e) => mouseMove(e)}>
-   {/* <div className="flex justify-center align-items-center">{titleLetter('IGNACIO.MARTIN.DIAZ', false)}</div> */}
    <div className="grid align-items-center">
     <div className="flex pa-1 title-font align-self-baseline">
      {messageWelcome.map((letter, index) => {

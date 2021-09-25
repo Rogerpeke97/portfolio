@@ -12,6 +12,7 @@ const Particles = ({ div, colorParticles }) => {
 
 			window.addEventListener('resize', () => {
 				canvas.current.width = window.innerWidth;
+				canvas.current.width = div.current.clientHeight;
 				halfMovementAvailable = window.innerWidth / 25;
 				particlePosition = -halfMovementAvailable;
 				arrayOfParticles.forEach((part) => {

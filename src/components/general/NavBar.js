@@ -1,29 +1,27 @@
 import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from "react";
+import IconButton from "../buttons/IconButton.js";
 
 
 const NavBar = ({ titleLetter }) => {
 
+ const logo = "IGNACIO.MARTIN.DIAZ".split("")
+
 	return (
 		<nav className="nav-container px-1">
 			<div className="flex-child justify-left align-center">
-				<div className="flex justify-center align-items-center">{titleLetter('IGNACIO.MARTIN.DIAZ', true)}</div>
+				<div className="flex justify-center align-items-center">
+				{logo.map((letter, index) => {
+      return <h3 className="title" key={index}>{letter}</h3>
+     })}
+				</div>
 			</div>
 			<div className="flex-child align-center mr-1">
-				<div className="a-link-holder justify-right align-items-center">
-					<a href="https://github.com/Rogerpeke97" className="icon-custom" rel="noopener noreferrer" target="_blank">
-						<FontAwesomeIcon icon={faGithub}
-							onMouseEnter={(e) => e.currentTarget.style.color = "rgba(44,12,175,1)"}
-							onMouseLeave={(e) => e.currentTarget.style.color = "white"} />
-					</a>
+				<div className="flex-child justify-right align-items-center">
+					<IconButton IconName={faGithub} Link={"https://github.com/Rogerpeke97"} />
 				</div>
 				<div className="flex-child justify-right align-items-center">
-					<a href="https://www.linkedin.com/in/ignacio-martin-diaz-2a30251b7/" className="icon-custom" rel="noopener noreferrer" target="_blank">
-						<FontAwesomeIcon icon={faLinkedin}
-							onMouseEnter={(e) => e.currentTarget.style.color = "rgba(44,12,175,1)"}
-							onMouseLeave={(e) => e.currentTarget.style.color = "white"} />
-					</a>
+					<IconButton IconName={faLinkedin} Link={"https://www.linkedin.com/in/ignacio-martin-diaz-2a30251b7/"} />
 				</div>
 			</div>
 		</nav>
