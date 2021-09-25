@@ -333,6 +333,7 @@ a{
 	transition: all 0.5s ease-out;
 	transform: rotateY(0deg);
 	min-height: 300px;
+	background: black;
 }
 
 .project-image-box>a{
