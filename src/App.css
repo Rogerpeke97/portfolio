@@ -17,6 +17,7 @@ html, body, button{
 	overflow-x: hidden;
 	background-color: black;
 	color: white;
+	scrollbar-color: rgb(24 8 100) transparent;
 }
 
 /* .App {
@@ -26,34 +27,34 @@ html, body, button{
 body::-webkit-scrollbar-track
 {
 	border: 1px solid black;
-	background-color: #F5F5F5;
+	background-color: inherit;
 }
 
 body::-webkit-scrollbar
 {
 	width: 10px;
-	background-color: #F5F5F5;
+	background-color: inherit;
 }
 
 body::-webkit-scrollbar-thumb
 {
-	background-color: #000000;  
+	background-color: rgb(24 8 100);  
 }
 textarea::-webkit-scrollbar-track
 {
 	border: 1px solid black;
-	background-color: #F5F5F5;
+	background-color: inherit;
 }
 
 textarea::-webkit-scrollbar
 {
 	width: 10px;
-	background-color: #F5F5F5;
+	background-color: inherit;
 }
 
 textarea::-webkit-scrollbar-thumb
 {
-	background-color: #000000;  
+	background-color: rgb(24 8 100);  
 }
 
 
@@ -61,7 +62,7 @@ input{
 	outline: none;
 	background: transparent;
 	font-family: inherit;
-	color: white;
+	color: inherit;
 	height: 50px;
 	box-shadow: 2.5px 2.5px 5px 2.5px black;
 	width: 250px;
@@ -80,7 +81,6 @@ textarea{
 	resize: none;
 	background: transparent;
 	font-family: inherit;
-	color: white;
 	height: 100px;
 	box-shadow: 2.5px 2.5px 5px 2.5px black;
 	width: 250px;
@@ -100,20 +100,12 @@ h3{
 	max-height: 100%;
 }
 
-h4{
-	margin: 0;
-	font-weight: inherit;
-	max-height: 100%;
-}
-
 footer{
 	background-color: #161b22;
-	color: white;
 	border-top: 5px solid white;
 	z-index: 2;
 	display: flex;
 	justify-content: center;
-	font-size: 90%;
 	position: relative;
 	max-width: 100%;
 }
@@ -151,7 +143,6 @@ a{
 	border-radius: 8px;
 	box-shadow: 2.5px 2.5px 5px 2.5px rgba(24,8,100,1);
 	position: relative;
-	color: white;
 	transition: all 0.3s ease-out;
 }
 .underline-effect:after {
@@ -231,30 +222,9 @@ a{
 	border-radius: 4px;
 	background: #161b22;
 	position: fixed;
-	color: white;
 	top: 0;
 	z-index: 3;
 }
-.teko{
-	font-family: 'Teko';
-	font-size: 500%;
-}
-
-.title{
-	cursor: default;
-	max-width: 100%;
-	margin: 0;
-	color: white;
-	font-size: 200%;
-	font-weight: bold;
-	font-family: 'Teko';
-	transition: all 0.4s ease-out;
-}
-.title:hover{
-	color: rgba(24,8,100,1);
-}
-
-
 
 .clipboard-message{
 	display: grid;
@@ -272,12 +242,6 @@ a{
 	opacity: 0;
 	background: black;
 	border-radius: 5px;
-}
-
-.footer-title{
-	height: 100px;
-	font-size: 500%;
-	max-width: 320px;
 }
 
 
@@ -309,13 +273,11 @@ a{
 .icon-button svg{
 	cursor: pointer;
 	transition: all 0.5s ease-out;
-	color: white;
 	font-size: 200%;
 }
 .icon-button-text svg{
 	cursor: pointer;
 	transition: all 0.5s ease-out;
-	color: white;
 	font-size: 200%;
 }
 
@@ -379,40 +341,6 @@ a{
 .home-menu{
 	padding-top: 80px !important;
 	height: calc(100% - 96px);
-}
-
-.title-font{
-	margin: 0;
-	font-size: 5rem;
-	font-weight: bold;
-	text-shadow: 1px 1px 1px darkslategrey,
-	1px 2px 1px darkslategrey,
-	1px 3px 1px darkslategrey,
-	1px 4px 1px darkslategrey,
-	1px 5px 1px darkslategrey,
-	1px 6px 1px darkslategrey,
-	1px 7px 1px darkslategrey,
-	1px 8px 1px darkslategrey,
-	1px 9px 1px darkslategrey,
-	1px 10px 1px darkslategrey,
-1px 18px 6px rgba(16,16,16,0.4),
-1px 22px 10px rgba(16,16,16,0.2),
-1px 25px 35px rgba(16,16,16,0.2),
-1px 30px 60px rgba(16,16,16,0.4);
-	-webkit-text-shadow: 1px 1px 1px darkslategrey,
-	1px 2px 1px darkslategrey,
-	1px 3px 1px darkslategrey,
-	1px 4px 1px darkslategrey,
-	1px 5px 1px darkslategrey,
-	1px 6px 1px darkslategrey,
-	1px 7px 1px darkslategrey,
-	1px 8px 1px darkslategrey,
-	1px 9px 1px darkslategrey,
-	1px 10px 1px darkslategrey,
-1px 18px 6px rgba(16,16,16,0.4),
-1px 22px 10px rgba(16,16,16,0.2),
-1px 25px 35px rgba(16,16,16,0.2),
-1px 30px 60px rgba(16,16,16,0.4);
 }
 
 /*Generic CSS */

@@ -37,7 +37,7 @@ const ProjectDisplay = ({ ProjectInfo }) => {
 			<div className="flex-child-no-flex grid pa-3">
 				<div>
 					<h1 className="underline bold">{ProjectInfo.title}</h1>
-					<h3 className="py-2">{ProjectInfo.description}</h3>
+					<p className="py-2 bold">{ProjectInfo.description}</p>
 				</div>
 				<div className={`${mediaQuery === "small" ? "grid" : "flex-child"} align-items-center justify-center`}>
 					<div className={`${mediaQuery === "small" ? "grid" : "flex-child"} align-items-center justify-center`}>

@@ -12,7 +12,7 @@ const NavBar = ({ titleLetter }) => {
 			<div className="flex-child justify-left align-center">
 				<div className="flex justify-center align-items-center">
 				{logo.map((letter, index) => {
-      return <h3 className="title" key={index}>{letter}</h3>
+      return <h3 key={index}>{letter}</h3>
      })}
 				</div>
 			</div>

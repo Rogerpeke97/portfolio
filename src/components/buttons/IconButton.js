@@ -9,7 +9,7 @@ const IconButton = ({ onClick, ButtonText, IconName, Link }) => {
    <button className={`flex-child justify-center align-items-center ${ButtonText ? "icon-button-text" : "icon-button"} px-1`} onClick={onClick}>
     <FontAwesomeIcon icon={IconName}
      onMouseEnter={(e) => e.currentTarget.style.color = "rgba(44,12,175,1)"}
-     onMouseLeave={(e) => e.currentTarget.style.color = "white"} />
+     onMouseLeave={(e) => e.currentTarget.style.color = ""} />
     <span className="text-overflow-ellipsis white-space-nowrap mx-1 bold">{ButtonText}</span>
    </button>
   </a>
