@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useRef } from "react";
 import { faGithub } from '@fortawesome/free-brands-svg-icons'
 import { faImage, faInfoCircle, faLink } from '@fortawesome/free-solid-svg-icons'
@@ -10,13 +10,14 @@ import IconButton from '../buttons/IconButton.js';
 const ProjectDisplay = ({ ProjectInfo }) => {
 	const projectDescription = useRef(0)
 	const projectImageBox = useRef(0)
-	const mediaQuery = useContext(MediaContext)
+	const {mediaQuery} = useContext(MediaContext)
 	function swapHtmlElements() {
 		projectDescription.current.style.transform = ["rotateY(180deg)", ""].includes(projectDescription.current.style.transform) || "" ? "rotateY(0deg)" : "rotateY(180deg)"
 		projectImageBox.current.style.transform = ["rotateY(0deg)", ""].includes(projectImageBox.current.style.transform) ? "rotateY(180deg)" : "rotateY(0deg)"
 		projectDescription.current.style.zIndex = ["0", ""].includes(projectDescription.current.style.zIndex) ? "1" : "0"
 		projectImageBox.current.style.zIndex = ["1", ""].includes(projectDescription.current.style.zIndex) ? "0" : "1"
 	}
+
 	return (
 		<div className={`${mediaQuery === "small" ? "grid" : "flex"} pa-2`} style={{ minHeight: "600px" }}>
 			<div className="flex-child position-relative" style={{ border: "5px solid white", borderRadius: "6px" }}>

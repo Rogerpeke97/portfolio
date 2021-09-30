@@ -6,7 +6,9 @@ import { MediaContext } from './context/MediaContext'
 
 function App() {
 
-	const [mediaQuery, setQuery] = useState(0)
+	const [mediaQuery, setQuery] = useState("")
+
+	const [darkMode, setDarkMode] = useState(false)
 	
 	function main(){
 		setQuery(window.innerWidth < 1100 ? "small" : "big")
@@ -23,7 +25,7 @@ function App() {
 
 	return (
 		<div className="App">
-			<MediaContext.Provider value={mediaQuery}>
+			<MediaContext.Provider value={{mediaQuery: mediaQuery, darkMode: [darkMode, setDarkMode]}}>
 				<Home />
 			</MediaContext.Provider>
 		</div>

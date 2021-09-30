@@ -37,20 +37,7 @@ const Waves = ({mediaQuery}) => {
       scene.add(light);
     }
 
-    const geometry = new THREE.PlaneGeometry(40, 10, 32);
-
-    let groundMirror = new Reflector(geometry, {
-      clipBias: 0.003,
-      textureWidth: width,
-      textureHeight: height,
-      color: 0x000000,
-      opacity: 0.1
-    });
-    groundMirror.position.y = -0.35;
-    groundMirror.position.z = 0;
-    groundMirror.rotateX(- Math.PI / 2);
-    scene.add(groundMirror);
-
+    scene.background = new THREE.Color( 0x020c1b );
 
 
 
@@ -68,7 +55,7 @@ const Waves = ({mediaQuery}) => {
       height = e.currentTarget.innerHeight
       width = e.currentTarget.innerWidth;
       renderer.setSize(width, height);
-      groundMirror.getRenderTarget().setSize(width, height);
+      // groundMirror.getRenderTarget().setSize(width, height);
       camera.current.aspect = width / height;
       camera.current.updateProjectionMatrix();
     });
@@ -84,7 +71,7 @@ const Waves = ({mediaQuery}) => {
     const texture = new THREE.TextureLoader(manager).load('flare.png');
 
     const particleMaterial = new THREE.PointsMaterial({
-      color: 0x2d0caf, size: 0.1, map: texture, alphaTest: 0.1, // removes black squares
+      color: 0x79f4db, size: 0.1, map: texture, alphaTest: 0.1, // removes black squares
       blending: THREE.CustomBlending,
       transparent: false
     });
@@ -112,18 +99,19 @@ const Waves = ({mediaQuery}) => {
     let star = particleSys.geometry.attributes.position.array;
     let particleColor = particleSys.material.color;
     let switchColorOperator = true
+    // rgb(30, 62, 109)rgb(121, 244, 219)
     const rgbProperties = {
       r: {
         max: 1,
-        min: 0.18
+        min: 0.47
       },
       g: {
         max: 1,
-        min: 0.04
+        min: 0.95
       },
       b: {
         max: 1,
-        min: 0.69
+        min: 0.85
       }
     }
 

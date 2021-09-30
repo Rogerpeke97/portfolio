@@ -1,14 +1,24 @@
 import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons'
-import React from "react";
+import React, { useEffect, useState } from "react";
 import IconButton from "../buttons/IconButton.js";
 
 
-const NavBar = ({ titleLetter }) => {
+const NavBar = ({ themeHandler }) => {
 
  const logo = "IGNACIO.MARTIN.DIAZ".split("")
 
+	const [navIntersect, setNavIntersect] = useState("")
+	
+	useEffect(()=>{
+		
+		window.addEventListener('scroll', (e)=>{
+			const scrollY = e.currentTarget.scrollY
+			setNavIntersect(scrollY > document.documentElement.clientHeight ? "nav-container-scroll" : "nav-container")
+		})
+	}, [])
+
 	return (
-		<nav className="nav-container px-1">
+		<nav className={`${navIntersect} px-1`} onClick={()=>themeHandler()}>
 			<div className="flex-child justify-left align-center">
 				<div className="flex justify-center align-items-center">
 				{logo.map((letter, index) => {

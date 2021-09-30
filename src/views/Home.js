@@ -12,12 +12,15 @@ function Home() {
 	const copiedToClipboard = useRef(0);
 	const projectsSection = useRef(0);
 
-	const mediaQuery = useContext(MediaContext)
+	const {mediaQuery, darkMode} = useContext(MediaContext)
 
+	function themeHandler(){
+		console.log(darkMode, mediaQuery)
+	}
 
 	return (
 		<div>
-			<NavBar />
+			<NavBar themeHandler={()=>themeHandler()} />
 			<Waves mediaQuery={mediaQuery}/>
 			<div className="grid sections-home">
 				<Particles div={projectsSection} colorParticles={"blue"} />

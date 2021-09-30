@@ -1,8 +1,11 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useContext } from 'react';
+import { MediaContext } from '../../context/MediaContext';
 
 const Particles = ({ div, colorParticles }) => {
 
 	const canvas = useRef(0);
+
+	const {darkMode} = useContext(MediaContext)
 
 	useEffect(() => {
 
@@ -46,7 +49,7 @@ const Particles = ({ div, colorParticles }) => {
 		}
 
 		const moveParticlesY = (canvas_to_mod, canvas_to_mod_ctx, div_ctx, array_with_particles, color) => {
-			canvas_to_mod_ctx.fillStyle = "black";
+			canvas_to_mod_ctx.fillStyle = darkMode ? "#020c1b" : "white";
 			canvas_to_mod_ctx.fillRect(0, 0, canvas_to_mod.width, canvas_to_mod.height);
 			array_with_particles.forEach((part) => {
 				if (part.y < 0) {
