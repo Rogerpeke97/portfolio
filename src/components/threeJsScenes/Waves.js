@@ -66,34 +66,35 @@ const Waves = ({mediaQuery}) => {
 
 
     //PARTICLES
-    const particleCount = 2600; // There is one more due to the float being slightly above 0 
     let particles = new THREE.BufferGeometry();
     const texture = new THREE.TextureLoader(manager).load('flare.png');
 
     const particleMaterial = new THREE.PointsMaterial({
-      color: 0x79f4db, size: 0.1, map: texture, alphaTest: 0.1, // removes black squares
+      color: 0x4528BD, size: 0.04, map: texture, alphaTest: 0.1, // removes black squares
       blending: THREE.CustomBlending,
       transparent: false
     });
 
     let positions = [];
-    for (let i = 5; i > 1; i -= 0.2) {
+    for (let i = 5; i > 1; i -= 0.1) {
       let count = -5;
-      for (let j = 0; j < 10; j += 0.2) {
+      for (let j = 0; j < 10; j += 0.1) {
         const posX = count;
         const posY = 0;
         const posZ = i;
         positions.push(posX, posY, posZ);
-        count += 0.2;
+        count += 0.1;
       }
     }
+    const particleCount = positions.length / 3
+
     particles.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
     // create the particle system
     let particleSys = new THREE.Points(particles, particleMaterial);
     particleSys.receiveShadow = true;
     particleSys.castShadow = true;
     particleSys.name = 'particleSys';
-    const period = 200;
+    const period = 400;
     let time = 0;
     let particleMaxPositionWave;
     let star = particleSys.geometry.attributes.position.array;
@@ -103,15 +104,15 @@ const Waves = ({mediaQuery}) => {
     const rgbProperties = {
       r: {
         max: 1,
-        min: 0.47
+        min: 0.27
       },
       g: {
         max: 1,
-        min: 0.95
+        min: 0.15
       },
       b: {
         max: 1,
-        min: 0.85
+        min: 0.74
       }
     }
 
@@ -185,7 +186,6 @@ const Waves = ({mediaQuery}) => {
       const mousey = (e.clientY - (canvasContainer.current.getBoundingClientRect().top / 2));
       const x = mousex - canvasContainer.current.getBoundingClientRect().width / 2;
       const y = canvasContainer.current.getBoundingClientRect().height / 2 - mousey;
-      transparentOverlay.current.style.transform = `perspective(700px) rotateY(${x / 100}deg) rotateX(${y / 100}deg)`;
       camera.current.rotation.y = (x / 100) * (Math.PI / 180);
       camera.current.rotation.x = -(y / 100) * (Math.PI / 180) - 0.8;
     }
