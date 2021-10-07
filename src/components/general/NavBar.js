@@ -5,25 +5,22 @@ import IconButton from "../buttons/IconButton.js";
 
 const NavBar = ({ themeHandler }) => {
 
- const logo = "IGNACIO.MARTIN.DIAZ".split("")
+	// const logo = "IGNACIO.MARTIN.DIAZ".split("")
 
 	const [navIntersect, setNavIntersect] = useState("")
-	
-	useEffect(()=>{
-		
-		window.addEventListener('scroll', (e)=>{
+
+	useEffect(() => {
+
+		window.addEventListener('scroll', (e) => {
 			const scrollY = e.currentTarget.scrollY
 			setNavIntersect(scrollY > document.documentElement.clientHeight ? "nav-container-scroll" : "nav-container")
 		})
 	}, [])
 
 	return (
-		<nav className={`${navIntersect} px-1`} onClick={()=>themeHandler()}>
+		<nav className={`${navIntersect} px-1`} onClick={() => themeHandler()}>
 			<div className="flex-child justify-left align-center">
 				<div className="flex justify-center align-items-center">
-				{logo.map((letter, index) => {
-      return <h3 key={index}>{letter}</h3>
-     })}
 				</div>
 			</div>
 			<div className="flex-child align-center mr-1">

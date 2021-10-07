@@ -1,6 +1,5 @@
 import * as THREE from "three";
-import React, { useEffect, useRef, useState, useContext } from 'react';
-import { Reflector } from 'three/examples/jsm/objects/Reflector.js';
+import React, { useEffect, useRef, useState } from 'react';
 import Welcome from '../general/Welcome.js'
 
 const Waves = ({mediaQuery}) => {
@@ -94,7 +93,7 @@ const Waves = ({mediaQuery}) => {
     particleSys.receiveShadow = true;
     particleSys.castShadow = true;
     particleSys.name = 'particleSys';
-    const period = 400;
+    const period = 1000;
     let time = 0;
     let particleMaxPositionWave;
     let star = particleSys.geometry.attributes.position.array;

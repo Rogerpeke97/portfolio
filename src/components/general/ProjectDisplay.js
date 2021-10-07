@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useRef } from "react";
 import { faGithub } from '@fortawesome/free-brands-svg-icons'
 import { faImage, faInfoCircle, faLink } from '@fortawesome/free-solid-svg-icons'
@@ -19,7 +19,7 @@ const ProjectDisplay = ({ ProjectInfo }) => {
 	}
 
 	return (
-		<div className={`${mediaQuery === "small" ? "grid" : "flex"} pa-2`} style={{ minHeight: "600px" }}>
+		<div className={`${mediaQuery === "small" ? "grid" : "flex pa-6"}`} style={{ minHeight: "600px" }}>
 			<div className="flex-child position-relative" style={{ border: "5px solid white", borderRadius: "6px" }}>
 				<div className="flex-child-no-flex grid project-image-box align-items-center justify-center pa-2" ref={projectImageBox}>
 					<img src={ProjectInfo.previewGif.name} alt={ProjectInfo.previewGif.alt}></img>
@@ -35,21 +35,21 @@ const ProjectDisplay = ({ ProjectInfo }) => {
 					<IconButton IconName={faImage} ButtonText={"Go back"} onClick={swapHtmlElements} />
 				</div>
 			</div>
-			<div className="flex-child-no-flex grid pa-3">
+			<div className={`${mediaQuery === "small" ? "pa-1" : "pa-6"} py-3 bold flex-child-no-flex grid`}>
 				<div>
-					<h1 className="underline bold">{ProjectInfo.title}</h1>
-					<p className="py-2 bold">{ProjectInfo.description}</p>
+					<h1 className="letter-welcome-subtitle Teko underline bold text-align-center">{ProjectInfo.title}</h1>
+					<p className="py-2 bold" style={{lineHeight: "1.6"}}>{ProjectInfo.description}</p>
 				</div>
 				<div className={`${mediaQuery === "small" ? "grid" : "flex-child"} align-items-center justify-center`}>
 					<div className={`${mediaQuery === "small" ? "grid" : "flex-child"} align-items-center justify-center`}>
 						{ProjectInfo.github.map((github, index) => {
 							return <div className="flex-child align-items-center justify-center pa-2" key={index}>
-								<IconButton IconName={faGithub} ButtonText={github.description} Link={github.link} />
+								<IconButton IconName={faGithub} ButtonText={github.description} Link={github.link} shadow />
 							</div>
 						})}
 					</div>
 					<div className="flex-child align-items-center justify-center px-2">
-						<IconButton IconName={faLink} ButtonText={"Visit Site"} Link={ProjectInfo.site} />
+						<IconButton IconName={faLink} ButtonText={"Visit Site"} Link={ProjectInfo.site} shadow />
 					</div>
 				</div>
 			</div>
