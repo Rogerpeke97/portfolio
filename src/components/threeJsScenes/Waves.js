@@ -99,7 +99,6 @@ const Waves = ({mediaQuery}) => {
     let star = particleSys.geometry.attributes.position.array;
     let particleColor = particleSys.material.color;
     let switchColorOperator = true
-    // rgb(30, 62, 109)rgb(121, 244, 219)
     const rgbProperties = {
       r: {
         max: 1,
@@ -116,14 +115,16 @@ const Waves = ({mediaQuery}) => {
     }
 
     const render = () => {
-      Object.keys(particleColor).forEach(key => {
+      Object.keys(particleColor).forEach(rgbColor => {
 
-          const substract = Object.values(particleColor).every((val, index) => [rgbProperties.r.max, rgbProperties.g.max, rgbProperties.b.max].filter((value, indexFilter)=>{
-            return value === val && index === indexFilter
+          const substract = Object.values(particleColor).every((currentRgb, index) => 
+          [rgbProperties.r.max, rgbProperties.g.max, rgbProperties.b.max].filter((rgbMax, indexFilter)=>{
+            return rgbMax === currentRgb && index === indexFilter
           }).length) 
           
-          const add = Object.values(particleColor).every((val, index) => [rgbProperties.r.min, rgbProperties.g.min, rgbProperties.b.min].filter((value, indexFilter)=>{
-            return value === val && index === indexFilter
+          const add = Object.values(particleColor).every((currentRgb, index) => 
+          [rgbProperties.r.min, rgbProperties.g.min, rgbProperties.b.min].filter((rgbMin, indexFilter)=>{
+            return rgbMin === currentRgb && index === indexFilter
           }).length)
 
           if(substract && switchColorOperator){
@@ -133,9 +134,13 @@ const Waves = ({mediaQuery}) => {
             switchColorOperator = true
           }  
 
-          particleColor[key] = parseFloat((switchColorOperator
-             ? particleColor[key] + 0.001 <= rgbProperties[key].max ? particleColor[key] += 0.001 : particleColor[key]
-             : particleColor[key] - 0.001 >= rgbProperties[key].min ? particleColor[key] -= 0.001 : particleColor[key]).toFixed(3))
+          particleColor[rgbColor] = parseFloat((switchColorOperator
+             ? 
+              particleColor[rgbColor] + 0.001 <= rgbProperties[rgbColor].max 
+              ? particleColor[rgbColor] += 0.001 : particleColor[rgbColor]
+             : 
+              particleColor[rgbColor] - 0.001 >= rgbProperties[rgbColor].min 
+              ? particleColor[rgbColor] -= 0.001 : particleColor[rgbColor]).toFixed(3))
       });
     
       for (let i = 1; i < particleCount * 3; i += 3) {

@@ -48,7 +48,7 @@ const ProjectDisplay = ({ ProjectInfo }) => {
 							</div>
 						})}
 					</div>
-					<div className="flex-child align-items-center justify-center px-2">
+					<div className="flex-child align-items-center justify-center pa-2">
 						<IconButton IconName={faLink} ButtonText={"Visit Site"} Link={ProjectInfo.site} shadow />
 					</div>
 				</div>
