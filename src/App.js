@@ -3,6 +3,8 @@ import React from 'react';
 import './App.css';
 import Home from './views/Home'
 import { MediaContext } from './context/MediaContext'
+import { Routes, Route } from "react-router-dom";
+import NotFound from './views/NotFound';
 
 function App() {
 
@@ -25,9 +27,14 @@ function App() {
 
 	return (
 		<div className="App">
-			<MediaContext.Provider value={{mediaQuery: mediaQuery, darkMode: [darkMode, setDarkMode]}}>
-				<Home />
-			</MediaContext.Provider>
+			<Routes>
+				<Route path="/" element={
+						<MediaContext.Provider value={{mediaQuery: mediaQuery, darkMode: [darkMode, setDarkMode]}}>
+							<Home />
+						</MediaContext.Provider>
+					} />
+				<Route path="/*" element={<NotFound />} />
+			</Routes>
 		</div>
 	);
 }

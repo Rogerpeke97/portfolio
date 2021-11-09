@@ -466,6 +466,9 @@ a{
 .absolute{
 	position: absolute;
 }
+.pa-0{
+	padding: 0px !important;
+}
 .pa-1{
 	padding: 8px;
 }
