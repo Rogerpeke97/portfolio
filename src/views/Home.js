@@ -14,9 +14,9 @@ function Home() {
 
 	const {mediaQuery, darkMode} = useContext(MediaContext)
 
-	// function themeHandler(){
-	// 	console.log(darkMode, mediaQuery)
-	// }
+	function themeHandler(){
+		// console.log(darkMode, mediaQuery)
+	}
 
 	return (
 		<div>

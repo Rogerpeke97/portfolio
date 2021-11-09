@@ -403,6 +403,10 @@ a{
 	white-space: nowrap;
 }
 
+.min-width-0{
+	min-width: 0;
+}
+
 .bold{
 	font-weight: bold;
 }
@@ -660,6 +664,28 @@ a{
 	color: green;
 }
 
+/* snackbar */
+
+.snackbar{
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	background-color: rgba(43,22,55,1);
+	margin-top: -100px;
+	margin-left: -300px;
+	border-radius: 12px;
+	height: 200px;
+	width: 600px;
+}
+
+.snackbar-mobile{
+	height: 200px;
+	width: 320px;
+	margin-left: -160px;
+}
+
+
+
 @keyframes loading{
 	from {
 			transform: scale(1, 1);
@@ -731,6 +757,20 @@ a{
 	}
 	to {
 		opacity: 1;
+	}
+}
+
+.fade-out{
+	animation: fadeOut 0.25s normal forwards ease-in-out;
+	-webkit-animation: fadeOut 0.25s normal forwards ease-in-out;
+}
+
+@keyframes fadeOut{
+	from {
+		opacity: 1;
+	}
+	to {
+		opacity: 0;
 	}
 }
 
