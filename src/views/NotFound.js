@@ -10,9 +10,12 @@ function NotFound() {
        className="grid align-items-center justify-center">
         <div className="flex justify-center align-items-center">
           <FontAwesomeIcon icon={faSadTear} size="4x" />
-          <h1 className="ml-3 bold">404</h1>
+          <h1 className="ml-2 bold">404!</h1>
         </div>
-        <h2 className="text-align-center bold">Page not found!</h2>
+        <div className="flex align-items-center">
+          <h2 className="text-align-center bold">Page not found</h2>
+          <a href="/" className="ml-1 underline"><h2>Go home</h2></a>
+        </div>
       </div>
     </div>
   );
