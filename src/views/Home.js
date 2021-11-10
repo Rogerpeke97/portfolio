@@ -9,10 +9,9 @@ import Footer from '../components/general/Footer';
 
 function Home() {
 	const commercialSection = useRef(0);
-	const copiedToClipboard = useRef(0);
 	const projectsSection = useRef(0);
 
-	const {mediaQuery, darkMode} = useContext(MediaContext)
+	const {mediaQuery} = useContext(MediaContext)
 
 	function themeHandler(){
 		// console.log(darkMode, mediaQuery)
