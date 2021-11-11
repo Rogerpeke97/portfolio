@@ -21,7 +21,7 @@ function Footer({ mediaQuery }) {
         </h4>
         <h4>
           <FontAwesomeIcon className="pr-1" icon={faGoogle} /> 
-          <i><span className="underline cursor-pointer" onClick={copiedToClipboardFn("rogerpeke97@gmail.com")}>rogerpeke97@gmail.com</span></i>
+          <i><span className="underline cursor-pointer" onClick={()=>copiedToClipboardFn("rogerpeke97@gmail.com")}>rogerpeke97@gmail.com</span></i>
         </h4>
         <h4 className="word-break-word">
           &copy; Copyright 2021, Ignacio Martin Diaz. All rights reserved.
