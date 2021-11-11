@@ -1,6 +1,6 @@
 export default class Api {
  constructor() {
-  this.url = 'https://powerful-wildwood-85998.herokuapp.com';
+  this.url = 'http://powerful-wildwood-85998.herokuapp.com';
   this.get = this.get.bind(this);
   this.post = this.post.bind(this);
   this.put = this.put.bind(this);

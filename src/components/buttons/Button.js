@@ -1,12 +1,14 @@
 import React from "react";
+import Spinner from "../spinners/Spinner";
 
 
-const Button = ({ onClick, ButtonText, shadow }) => {
+const Button = ({ onClick, ButtonText, shadow, isLoading }) => {
 
  return (
-  <button className={`flex-child justify-center align-items-center 
-  ${ButtonText ? "icon-button-text" : "icon-button"} px-1 ${shadow ? 'button-shadow' : ''}`} onClick={onClick}>
-   <span className="text-overflow-ellipsis white-space-nowrap mx-1 bold">{ButtonText}</span>
+  <button disabled={isLoading}
+   className={`flex-child justify-center align-items-center ${ButtonText ? "icon-button-text" : "icon-button"} px-1 ${shadow ? 'button-shadow' : ''}`}
+   onClick={onClick}>
+    {isLoading ? <Spinner /> : <span className="text-overflow-ellipsis white-space-nowrap mx-1 bold fade-in">{ButtonText}</span>}
   </button>
  )
 }
