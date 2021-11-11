@@ -164,21 +164,7 @@ const Waves = ({mediaQuery}) => {
     };
     animate();
 
-    percentage.current.innerText = "0 %";
-    manager.onProgress = () => {
-      if (parseInt(percentage.current.innerText.slice(0, -2)) < 100) {
-        percentage.current.innerText = parseInt(percentage.current.innerText.slice(0, -2)) + 1 + " %";
-        progressBar.current.style.width = (percentage.current.innerText).replace(' ', '');
-      }
-      else {
-        percentage.current.innerText = "100%";
-        progressBar.current.style.width = percentage.current.innerText;
-      }
-    }
-
     manager.onLoad = () => {
-      percentage.current.innerText = "100%";
-      progressBar.current.style.width = percentage.current.innerText;
       loading.current.style.animation = 'loadingDone 2s normal ease-out';
       setTimeout(() => { setComponentLoaded(true) }, 2000);
     }
@@ -200,15 +186,14 @@ const Waves = ({mediaQuery}) => {
       <div className={ componentLoaded ? "display-none" : "loading-container" }
         ref={loading}>
         <div>
-          <div className="LOADINGCONTAINER">
+          <div className="letters-container grid">
             {overlayMessage.map((letter, index)=>{
-              return <span key={index}>{letter}</span>
+              return <div key={index}
+              className="flex align-items-center justify-center text-align-center mx-2 bold">
+                <h1>{letter}</h1>
+                </div>
             })}
           </div>
-        </div>
-        <div className="loading-bar">
-          <div className="percentage" ref={percentage}></div>
-          <div className="progress-bar grid" ref={progressBar}></div>
         </div>
       </div>
     </div>
