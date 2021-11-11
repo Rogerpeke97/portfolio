@@ -5,11 +5,9 @@ import Welcome from '../general/Welcome.js'
 const Waves = ({mediaQuery}) => {
   const camera = useRef(0);
   const canvasContainer = useRef(0);
-  const progressBar = useRef(0);
   const [componentLoaded, setComponentLoaded] = useState(false);
   const loading = useRef(0);
   const transparentOverlay = useRef(0);
-  const percentage = useRef(0);
   const overlayMessage = 'LOADING...'.split("")
 
   useEffect(() => {
