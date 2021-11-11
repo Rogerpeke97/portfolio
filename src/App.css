@@ -820,3 +820,18 @@ a {
         opacity: 0;
     }
 }
+
+.animate-text{
+    display: inline-block;
+    animation: jump 1s infinite;
+    animation-delay: calc(.1s * var(--i));
+}
+
+@keyframes jump {
+    0%,40%,100% {
+        transform: translateY(0)
+    }
+    20% {
+        transform: translateY(-20px)
+    }
+}
