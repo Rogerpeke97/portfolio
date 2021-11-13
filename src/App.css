@@ -676,8 +676,6 @@ a {
 
 .letters-container> div > h1 {
     cursor: default;
-    animation: loading 1s normal forwards 7 ease-in-out;
-    -webkit-animation: loading 1s normal forwards 7 ease-in-out;
     margin: 0;
     transition: all 1s ease-out;
     -webkit-transition: all 1s ease-out;

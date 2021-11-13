@@ -188,7 +188,7 @@ const Waves = ({mediaQuery}) => {
             {overlayMessage.map((letter, index)=>{
               return <div key={index}
               className="flex align-items-center justify-center text-align-center mx-2 bold">
-                <h1>{letter}</h1>
+                  <h1 style={{ '--i': index, fontSize: "50px" }} className="animate-text pl-1 Teko">{letter}</h1>
                 </div>
             })}
           </div>

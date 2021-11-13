@@ -9,16 +9,16 @@ const NavBar = ({ themeHandler }) => {
 
 	const [navIntersect, setNavIntersect] = useState("")
 
-	useEffect(() => {
 
+	useEffect(() => {
 		window.addEventListener('scroll', (e) => {
 			const scrollY = e.currentTarget.scrollY
-			setNavIntersect(scrollY > document.documentElement.clientHeight ? "nav-container-scroll" : "nav-container")
+			setNavIntersect(scrollY > document.documentElement.clientHeight)
 		})
 	}, [])
 
 	return (
-		<nav className={`${navIntersect} px-1`} onClick={() => themeHandler()}>
+		<nav className={`${navIntersect ? "nav-container-scroll" : "nav-container"} px-1`}>
 			<div className="flex-child justify-left align-center">
 				<div className="flex justify-center align-items-center">
 				</div>
