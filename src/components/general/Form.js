@@ -129,7 +129,7 @@ function Form() {
             <div className="flex-child justify-left align-items-center">
               <Button className="pa-1 ma-1 mr-2 icon-custom" 
               type="submit" ButtonText={"Submit"} shadow 
-              isLoading={isLoading} disabled={form.isValidName && form.isValidEmail && form.isValidReason}/>
+              isLoading={isLoading} disabled={!form.isValidName && !form.isValidEmail && !form.isValidReason}/>
             </div>
           </div>
         </fieldset>
