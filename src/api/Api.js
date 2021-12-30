@@ -1,6 +1,6 @@
 export default class Api {
  constructor() {
-  this.url = process.env.API_URL;
+  this.url = process.env.REACT_APP_API_URL;
   this.get = this.get.bind(this);
   this.post = this.post.bind(this);
   this.put = this.put.bind(this);
