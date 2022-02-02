@@ -14,9 +14,7 @@ const Particles = ({ div, colorParticles }) => {
 			createParticles()
 
 			window.addEventListener('resize', () => {
-				canvas.current.width = window.innerWidth;
-				canvas.current.width = div.current.clientHeight;
-				halfMovementAvailable = window.innerWidth / 25;
+				halfMovementAvailable = canvas.current.width / 25;
 				particlePosition = -halfMovementAvailable;
 				arrayOfParticles.forEach((part) => {
 					part.x = particlePosition;
@@ -40,7 +38,7 @@ const Particles = ({ div, colorParticles }) => {
 		function createParticles() {
 			for (let i = 0; i < 27; i++) {
 				const particle = new Particle(
-					particlePosition, Math.floor(Math.random() * div.current.clientHeight),
+					particlePosition, Math.floor(Math.random() * canvas.current.clientHeight),
 					particlePosition + halfMovementAvailable, particlePosition - halfMovementAvailable, 8
 				);
 				particlePosition = particlePosition + halfMovementAvailable;
@@ -117,11 +115,16 @@ const Particles = ({ div, colorParticles }) => {
 
 		main()
 
+    return () => {
+      window.removeEventListener('resize', () => {})
+      document.removeEventListener('mousemove', (e) => {})
+    }
+
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 	return (
 		<div className="particles-2d-canvas">
-			<canvas ref={canvas}></canvas>
+			<canvas style={{height: '100%'}} ref={canvas}></canvas>
 		</div>
 	);
 }
