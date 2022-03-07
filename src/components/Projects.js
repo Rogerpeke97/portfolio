@@ -8,7 +8,7 @@ const Projects = ({ mediaQuery, projectsSection }) => {
 		stackImages: [
 			{name: "nodejslogo.png", alt: "NodeJS"},
 			{name: "Reactjslogo.png", alt: "React"},
-			{name: "/testimages/threejslogo.svg", alt: "ThreeJS"},
+			{name: "threejslogo.svg", alt: "ThreeJS"},
 			{name: "postgresqllogo.png", alt: "PostgreSQL"}
 		],
 		title: "Xenta",
