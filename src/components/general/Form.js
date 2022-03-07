@@ -13,13 +13,18 @@ function Form() {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  function formValidation() {
+  function validateForm() {
+    const validEmail = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(form.email)
+    const validName = form.name.length > 5 ? /^[a-zA-Z0-9.\s]*$/.test(form.name) : false
+    const validReason = form.reason.length > 10 ? /^[a-zA-Z0-9.\s]*$/.test(form.reason) : false
+    const allFieldsValid = validEmail && validName && validReason
     setForm({
       ...form,
-      isValidEmail: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(form.email),
-      isValidName: form.name.length > 5 ? /^[a-zA-Z0-9.\s]*$/.test(form.name) : false,
-      isValidReason: form.reason.length > 10 ? /^[a-zA-Z0-9.\s]*$/.test(form.reason) : false
+      isValidEmail: validEmail,
+      isValidName: validName,
+      isValidReason: validReason
     })
+    return allFieldsValid
   }
 
   function validateEmail(email) {
@@ -63,9 +68,9 @@ function Form() {
 
   function handleSubmit(event) {
     event.preventDefault()
-    formValidation()
+    const canSubmit = validateForm()
     const { email, name, reason } = form
-    if (form.isValidName && form.isValidEmail && form.isValidReason) {
+    if (canSubmit) {
       setIsLoading(true)
       api.post('/contact_form', { email, name, reason })
         .then(res => {
@@ -81,14 +86,14 @@ function Form() {
             isSubmitted: false,
             popUpMessage: err.message
           })
-        }).finally(() => {setIsLoading(false)})
+        }).finally(() => { setIsLoading(false) })
     }
   }
 
   return (
     <div>
       <form className="grid ma-1" onSubmit={handleSubmit}>
-        <fieldset disabled={isLoading} style={{border: 'none'}}>
+        <fieldset disabled={isLoading} style={{ border: 'none' }}>
           <div className="flex align-items-center">
             <div className="flex-child justify-left align-items-center">
               <FontAwesomeIcon className="pr-1" icon={faAngleRight} />
@@ -127,14 +132,14 @@ function Form() {
           }
           <div className="flex align-items-center mt-2 ml-3">
             <div className="flex-child justify-left align-items-center">
-              <Button className="pa-1 ma-1 mr-2 icon-custom" 
-              type="submit" ButtonText={"Submit"} shadow 
-              isLoading={isLoading} disabled={!form.isValidName && !form.isValidEmail && !form.isValidReason}/>
+              <Button className="pa-1 ma-1 mr-2 icon-custom"
+                type="submit" ButtonText={"Submit"} shadow
+                isLoading={isLoading} disabled={!form.isValidName && !form.isValidEmail && !form.isValidReason} />
             </div>
           </div>
         </fieldset>
       </form>
-      <PopUpSnackBar onClick={(newVal)=>setShowMessage(newVal)}
+      <PopUpSnackBar onClick={(newVal) => setShowMessage(newVal)}
         Message={form.popUpMessage} IconName={faExclamationCircle} Display={showMessage} />
     </div>
   )
