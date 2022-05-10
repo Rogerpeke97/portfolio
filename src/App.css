@@ -1,3 +1,5 @@
+@tailwind base;
+@tailwind components;
 @font-face {
     font-family: 'Roboto';
     src: local('Roboto'), url(./fonts/Roboto-Light.ttf) format('opentype');
@@ -22,11 +24,14 @@ button {
     scrollbar-color: rgb(24 8 100) transparent;
 }
 
+@tailwind utilities;
 
 
-/* .App {
-	display: grid;
-} */
+
+html, body {
+	height: var(--vh);
+  width: var(--vw);
+}
 
 body::-webkit-scrollbar-track {
     border: 1px solid black;

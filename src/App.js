@@ -1,36 +1,49 @@
 import { useEffect, useState } from 'react';
 import React from 'react';
 import './App.css';
-import Home from './views/Home'
+import Index from './views/index'
 import { MediaContext } from './context/MediaContext'
 import { Routes, Route } from "react-router-dom";
 import NotFound from './views/NotFound';
 
 function App() {
 
-	const [mediaQuery, setQuery] = useState("")
+	const [windowSize, setWindowSize] = useState({
+    width: '',
+    height: ''
+  })
 
-	const [darkMode, setDarkMode] = useState(false)
-	
-	function main(){
-		setQuery(window.innerWidth < 1100 ? "small" : "big")
+	function setWindowAndResizeEvent(){
+		setWindowSize({
+      width: window.innerWidth,
+      height: window.innerHeight
+    })
 		window.addEventListener('resize', () => {
-			setQuery(() => {
-				return window.innerWidth < 1100 ? "small" : "big"
-			})
+      setWindowSize({
+        width: window.innerWidth,
+        height: window.innerHeight
+      })
 		})
 	}
 
+  const setViewHeightCssVar = () => {
+    const viewHeight = window.innerHeight
+    const viewWidth = window.innerWidth
+    document.documentElement.style.setProperty('--vh', `${viewHeight}px`)
+    document.documentElement.style.setProperty('--vw', `${viewWidth}px`)
+  }
+
 	useEffect(() => {
-		main()
+		setWindowAndResizeEvent()
+    setViewHeightCssVar()
 	}, [])
 
 	return (
 		<div className="App">
 			<Routes>
 				<Route path="/" element={
-						<MediaContext.Provider value={{mediaQuery: mediaQuery, darkMode: [darkMode, setDarkMode]}}>
-							<Home />
+						<MediaContext.Provider value={{windowSize: windowSize}}>
+							<Index />
 						</MediaContext.Provider>
 					} />
 				<Route path="/*" element={<NotFound />} />

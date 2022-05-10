@@ -7,25 +7,21 @@ import NavBar from '../components/general/NavBar.js'
 import Projects from '../components/Projects.js'
 import Footer from '../components/general/Footer';
 
-function Home() {
+function Index() {
 	const commercialSection = useRef(0);
 	const projectsSection = useRef(0);
 
-	const { mediaQuery } = useContext(MediaContext)
-
-	function themeHandler() {
-		// console.log(darkMode, mediaQuery)
-	}
+	const { windowSize } = useContext(MediaContext)
 
 	const welcomeMessage = 'Get in touch!'.split("")
 
 	return (
-		<div>
-			<NavBar themeHandler={() => themeHandler()} />
-			<Waves mediaQuery={mediaQuery} />
+		<>
+			<NavBar />
+			<Waves mediaQuery={windowSize.width} />
 			<div className="grid sections-home">
 				<Particles div={projectsSection} colorParticles={"blue"} />
-				<Projects mediaQuery={mediaQuery} projectsSection={projectsSection} />
+				<Projects mediaQuery={windowSize.width} projectsSection={projectsSection} />
 			</div>
 			<div className="grid sections-home" ref={commercialSection}>
 				<div style={{height: "200px"}} className="py-3 z-index-1 grid justify-center align-items-center bold">
@@ -38,8 +34,8 @@ function Home() {
 				</div>
 				<Particles div={commercialSection} colorParticles={"white"} />
 			</div>
-			<Footer mediaQuery={mediaQuery} />
-		</div>
+			<Footer mediaQuery={windowSize.width} />
+		</>
 	)
 }
-export default Home;
+export default Index;

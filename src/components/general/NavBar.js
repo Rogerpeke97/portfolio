@@ -3,12 +3,9 @@ import React, { useEffect, useState } from "react";
 import IconButton from "../buttons/IconButton.js";
 
 
-const NavBar = ({ themeHandler }) => {
-
-	// const logo = "IGNACIO.MARTIN.DIAZ".split("")
+const NavBar = () => {
 
 	const [navIntersect, setNavIntersect] = useState("")
-
 
 	useEffect(() => {
 		window.addEventListener('scroll', (e) => {
@@ -18,16 +15,12 @@ const NavBar = ({ themeHandler }) => {
 	}, [])
 
 	return (
-		<nav className={`${navIntersect ? "nav-container-scroll" : "nav-container"} px-1`}>
-			<div className="flex-child justify-left align-center">
-				<div className="flex justify-center align-items-center">
-				</div>
-			</div>
-			<div className="flex-child align-center mr-1">
-				<div className="flex-child justify-right align-items-center">
+		<nav className={`flex h-24 z-10 justify-end rounded-md fixed inset-0 transition ease-out duration-300 ${navIntersect ? "bg-primary" : "bg-transparent"} px-1`}>
+			<div className="flex w-1/4 items-center mr-1">
+				<div className="flex w-full justify-end items-center">
 					<IconButton IconName={faGithub} Link={"https://github.com/Rogerpeke97"} />
 				</div>
-				<div className="flex-child justify-right align-items-center">
+				<div className="flex w-full justify-end items-center">
 					<IconButton IconName={faLinkedin} Link={"https://www.linkedin.com/in/ignacio-martin-diaz-2a30251b7/"} />
 				</div>
 			</div>
