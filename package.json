@@ -15,7 +15,7 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^6.0.2",
-    "react-scripts": "^4.0.3",
+    "react-scripts": "^5.0.1",
     "three": "^0.126.1"
   },
   "scripts": {
@@ -43,5 +43,8 @@
       "not dead",
       "not op_mini all"
     ]
+  },
+  "devDependencies": {
+    "sass": "^1.51.0"
   }
 }

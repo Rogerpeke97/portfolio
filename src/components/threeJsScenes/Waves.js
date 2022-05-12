@@ -2,7 +2,7 @@ import * as THREE from "three";
 import React, { useEffect, useRef, useState } from 'react';
 import Welcome from '../general/Welcome.js'
 
-const Waves = ({mediaQuery}) => {
+const Waves = ({ mediaQuery }) => {
   const camera = useRef(0);
   const canvasContainer = useRef(0);
   const [componentLoaded, setComponentLoaded] = useState(false);
@@ -11,11 +11,12 @@ const Waves = ({mediaQuery}) => {
   const overlayMessage = 'LOADING...'.split("")
 
   useEffect(() => {
-
+    const wavesCanvas = document.getElementById('wavesCanvas')
+    if(!canvasContainer.current || !wavesCanvas) return
     let scene = new THREE.Scene();
     const manager = new THREE.LoadingManager();
     camera.current = new THREE.PerspectiveCamera(75, canvasContainer.current.clientWidth / canvasContainer.current.clientHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    const renderer = new THREE.WebGLRenderer({ antialias: true, canvas: wavesCanvas });
     let height = window.innerHeight;
     let width = window.innerWidth;
 
@@ -24,8 +25,11 @@ const Waves = ({mediaQuery}) => {
     camera.current.rotation.x = -0.8;
     camera.current.rotation.z = 0;
 
+    camera.current.aspect = width / height;
+    camera.current.updateProjectionMatrix();
 
-    for(let i = -15; i < 15; i += 5) {
+
+    for (let i = -15; i < 15; i += 5) {
       const light = new THREE.PointLight(0xffffff, 0.8, 500);
       light.position.set(i, 8, -20);
       light.castShadow = true;
@@ -34,7 +38,7 @@ const Waves = ({mediaQuery}) => {
       scene.add(light);
     }
 
-    scene.background = new THREE.Color( 0x020c1b );
+    scene.background = new THREE.Color(0x020c1b);
 
 
 
@@ -48,17 +52,15 @@ const Waves = ({mediaQuery}) => {
       mouse.x = (event.clientX / 8 - windowHalf.x);
       mouse.y = (event.clientY / 4 - windowHalf.y);
     }
-    window.addEventListener('resize', (e) => {
-      height = e.currentTarget.innerHeight
-      width = e.currentTarget.innerWidth;
+    window.addEventListener('resize', () => {
+      height = window.innerHeight
+      width = window.innerWidth;
       renderer.setSize(width, height);
-      // groundMirror.getRenderTarget().setSize(width, height);
       camera.current.aspect = width / height;
       camera.current.updateProjectionMatrix();
     });
 
     renderer.setSize(width, height);
-    canvasContainer.current.appendChild(renderer.domElement);
 
 
 
@@ -114,40 +116,36 @@ const Waves = ({mediaQuery}) => {
 
     const render = () => {
       Object.keys(particleColor).forEach(rgbColor => {
-
-          const substract = Object.values(particleColor).every((currentRgb, index) => 
-          [rgbProperties.r.max, rgbProperties.g.max, rgbProperties.b.max].filter((rgbMax, indexFilter)=>{
+        const substract = Object.values(particleColor).every((currentRgb, index) =>
+          [rgbProperties.r.max, rgbProperties.g.max, rgbProperties.b.max].filter((rgbMax, indexFilter) => {
             return rgbMax === currentRgb && index === indexFilter
-          }).length) 
-          
-          const add = Object.values(particleColor).every((currentRgb, index) => 
-          [rgbProperties.r.min, rgbProperties.g.min, rgbProperties.b.min].filter((rgbMin, indexFilter)=>{
+          }).length)
+
+        const add = Object.values(particleColor).every((currentRgb, index) =>
+          [rgbProperties.r.min, rgbProperties.g.min, rgbProperties.b.min].filter((rgbMin, indexFilter) => {
             return rgbMin === currentRgb && index === indexFilter
           }).length)
 
-          if(substract && switchColorOperator){
-            switchColorOperator = false
-          }  
-          if(add && !switchColorOperator){
-            switchColorOperator = true
-          }  
+        if (substract && switchColorOperator) {
+          switchColorOperator = false
+        }
+        if (add && !switchColorOperator) {
+          switchColorOperator = true
+        }
 
-          particleColor[rgbColor] = parseFloat((switchColorOperator
-             ? 
-              particleColor[rgbColor] + 0.001 <= rgbProperties[rgbColor].max 
-              ? particleColor[rgbColor] += 0.001 : particleColor[rgbColor]
-             : 
-              particleColor[rgbColor] - 0.001 >= rgbProperties[rgbColor].min 
-              ? particleColor[rgbColor] -= 0.001 : particleColor[rgbColor]).toFixed(3))
+        particleColor[rgbColor] = parseFloat((switchColorOperator
+          ?
+          particleColor[rgbColor] + 0.001 <= rgbProperties[rgbColor].max
+            ? particleColor[rgbColor] += 0.001 : particleColor[rgbColor]
+          :
+          particleColor[rgbColor] - 0.001 >= rgbProperties[rgbColor].min
+            ? particleColor[rgbColor] -= 0.001 : particleColor[rgbColor]).toFixed(3))
       });
-    
+
       for (let i = 1; i < particleCount * 3; i += 3) {
         particleMaxPositionWave = 0.5 * Math.sin(((2 * Math.PI) / 2.5) * star[i + 1] - ((2 * Math.PI) / period * time));
-
         star[i] += (particleMaxPositionWave / 100);
-
         particleSys.geometry.attributes.position.needsUpdate = true;
-
         time += 0.001;
       }
       renderer.render(scene, camera.current);
@@ -179,19 +177,17 @@ const Waves = ({mediaQuery}) => {
     }
   }
   return (
-    <div className="window-size-container grid" ref={canvasContainer} onMouseMove={(e) => mouseMove(e)}>
-      <Welcome mouseMove={(e) => mouseMove(e)} mediaQuery={mediaQuery} transparentOverlay={transparentOverlay} />
-      <div className={ componentLoaded ? "display-none" : "loading-container" }
-        ref={loading}>
-        <div>
-          <div className="letters-container grid">
-            {overlayMessage.map((letter, index)=>{
-              return <div key={index}
+    <div className="flex h-full w-full" ref={canvasContainer} onMouseMove={(e) => mouseMove(e)}>
+      <canvas id="wavesCanvas" className="max-w-full h-full"></canvas>
+      <Welcome className="inset-0" mouseMove={(e) => mouseMove(e)} mediaQuery={mediaQuery} transparentOverlay={transparentOverlay} />
+      <div className={componentLoaded ? "hidden" : "loading-container"} ref={loading}>
+        <div className="letters-container grid">
+          {overlayMessage.map((letter, index) => {
+            return <div key={index}
               className="flex align-items-center justify-center text-align-center mx-2 bold">
-                  <h1 style={{ '--i': index, fontSize: "50px" }} className="animate-text pl-1 Teko">{letter}</h1>
-                </div>
-            })}
-          </div>
+              <h1 style={{ '--i': index, fontSize: "50px" }} className="animate-text pl-1 Teko">{letter}</h1>
+            </div>
+          })}
         </div>
       </div>
     </div>

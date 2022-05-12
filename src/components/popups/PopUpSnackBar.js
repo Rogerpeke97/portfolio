@@ -21,7 +21,7 @@ const IconButton = ({ onClick, Message, IconName, Display }) => {
     setFadeOut(false)
    }
   }}
-  className={`${Display ? "" : "display-none"} ${fadeOut ? "fade-out" : "fade-in"} grid bold justify-center button-shadow snackbar ${mediaQuery === 'small' ? "snackbar-mobile" : ""}`}>
+  className={`${Display ? "" : "display-none"} ${fadeOut ? "fade-out" : "fade-in"} grid font-bold justify-center button-shadow snackbar ${mediaQuery === 'small' ? "snackbar-mobile" : ""}`}>
    <div className="flex align-items-center 
    justify-center min-width-0 px-2">
     <FontAwesomeIcon className="warning" icon={IconName} />

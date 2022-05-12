@@ -2,17 +2,23 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from "react";
 
 
-const IconButton = ({ onClick, ButtonText, IconName, Link, shadow }) => {
+const IconButton = ({ onClick, ButtonText, IconName, Link }) => {
 
+  const executeParentActionOrOpenLink = () => {
+    if(Link){
+      window.open(Link, '_blank')
+    }
+    if(onClick){
+      onClick()
+    }
+  }
+  
  return (
-  <a href={Link} className={`flex w-full ${ButtonText ? "icon-button-text" : "icon-button"} ${shadow ? 'button-shadow' : ''}`}  rel="noopener noreferrer" target="_blank">
-   <button className={`flex w-full justify-center items-center ${ButtonText ? "icon-button-text" : "icon-button"} px-1`} onClick={onClick}>
-    <FontAwesomeIcon icon={IconName}
-     onMouseEnter={(e) => ButtonText ? null : e.currentTarget.style.color = "rgba(44,12,175,1)"}
-     onMouseLeave={(e) => ButtonText ? null : e.currentTarget.style.color = ""} />
-    <span className="truncate mx-1 font-bold">{ButtonText}</span>
+   <button className={`flex overflow-hidden justify-center items-center bg-button cursor-pointer h-12 rounded-lg transition ease duration-300 p-3 
+    ${ButtonText ? "inset-button-shadow max-w-[200px]" : "bg-transparent max-w-[50px] p-0 h-8"}`} onClick={executeParentActionOrOpenLink}>
+    <FontAwesomeIcon className={`text-2xl transition ease duration-300 ${!ButtonText && 'button-shadow-icon text-3xl'}`} icon={IconName} />
+    {ButtonText && <span className="truncate mx-1 font-bold">{ButtonText}</span>}
    </button>
-  </a>
  )
 }
 

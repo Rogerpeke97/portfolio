@@ -139,8 +139,8 @@ function Form() {
           </div>
         </fieldset>
       </form>
-      <PopUpSnackBar onClick={(newVal) => setShowMessage(newVal)}
-        Message={form.popUpMessage} IconName={faExclamationCircle} Display={showMessage} />
+      {/* <PopUpSnackBar onClick={(newVal) => setShowMessage(newVal)}
+        Message={form.popUpMessage} IconName={faExclamationCircle} Display={showMessage} /> */}
     </div>
   )
 }
