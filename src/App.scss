@@ -305,40 +305,6 @@ a {
   }
 }
 
-
-.letter-welcome-title {
-    transition: all 0.2s ease-out;
-    font-size: 6rem;
-}
-
-.letter-welcome-title:hover {
-    color: rgba(24, 8, 100, 1);
-    transform: scale(1.1);
-}
-
-.letter-welcome-subtitle {
-    transition: all 0.2s ease-out;
-    font-size: 3rem;
-}
-
-@media screen and (max-width: 600px) {
-    .letter-welcome-title {
-        font-size: 2.5rem;
-    }
-    .letter-welcome-subtitle {
-        font-size: 1.8rem;
-    }
-}
-
-.technology-box {
-    color: white;
-    background: rgb(69, 40, 189);
-    height: 50px;
-    width: 100%;
-    max-width: 80px;
-    min-width: 50px;
-}
-
 .project-image-box {
     z-index: 1;
     transition: all 0.5s ease-out;

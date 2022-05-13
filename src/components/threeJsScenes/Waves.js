@@ -1,6 +1,6 @@
 import * as THREE from "three";
 import React, { useEffect, useRef, useState } from 'react';
-import Welcome from '../general/Welcome.js'
+import Welcome from '../index/Welcome.js'
 
 const Waves = ({ mediaQuery }) => {
   const camera = useRef(0);

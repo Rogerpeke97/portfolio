@@ -1,5 +1,5 @@
 import React from "react";
-import ProjectDisplay from './general/ProjectDisplay'
+import ProjectDisplay from './ProjectDisplay'
 
 const Projects = ({ mediaQuery, projectsSection }) => {
 

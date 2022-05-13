@@ -3,9 +3,9 @@ import { useRef, useContext } from "react";
 import { MediaContext } from '../context/MediaContext';
 import Particles from '../components/particleScenes/Particles'
 import Waves from '../components/threeJsScenes/Waves'
-import NavBar from '../components/general/NavBar.js'
-import Projects from '../components/Projects.js'
-import Footer from '../components/general/Footer';
+import NavBar from '../components/NavBar.js'
+import Projects from '../components/index/Projects.js'
+import Footer from '../components/Footer';
 
 function Index() {
 	const commercialSection = useRef(0);
