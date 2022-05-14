@@ -6,6 +6,7 @@ import Waves from '../components/threeJsScenes/Waves'
 import NavBar from '../components/NavBar.js'
 import Projects from '../components/index/Projects.js'
 import Footer from '../components/Footer';
+import WavesAndWelcome from '../components/threeJsScenes/Waves';
 
 function Index() {
 	const commercialSection = useRef(0);
@@ -18,8 +19,8 @@ function Index() {
 	return (
 		<>
 			<NavBar />
-			<Waves mediaQuery={windowSize.width} />
-			<div className="grid sections-home">
+			<WavesAndWelcome mediaQuery={windowSize.width} />
+			{/* <div className="grid sections-home">
 				<Particles div={projectsSection} colorParticles={"blue"} />
 				<Projects mediaQuery={windowSize.width} projectsSection={projectsSection} />
 			</div>
@@ -33,8 +34,8 @@ function Index() {
 					<p style={{lineHeight: "1.6"}} className="z-index-1 px-2 bold">Contact me through LinkedIn, my e-mail or use the form down below!</p>
 				</div>
 				<Particles div={commercialSection} colorParticles={"white"} />
-			</div>
-			<Footer mediaQuery={windowSize.width} />
+			</div> */}
+			{/* <Footer mediaQuery={windowSize.width} /> */}
 		</>
 	)
 }
