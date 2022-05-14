@@ -7,6 +7,7 @@ import NavBar from '../components/NavBar.js'
 import Projects from '../components/index/Projects.js'
 import Footer from '../components/Footer';
 import WavesAndWelcome from '../components/threeJsScenes/Waves';
+import BubblesBackgroundContainer from '../components/threeJsScenes/BubblesBackgroundContainer';
 
 function Index() {
 	const commercialSection = useRef(0);
@@ -20,6 +21,9 @@ function Index() {
 		<>
 			<NavBar />
 			<WavesAndWelcome mediaQuery={windowSize.width} />
+      <BubblesBackgroundContainer>
+        <div>HELLOOOO</div>
+      </BubblesBackgroundContainer>
 			{/* <div className="grid sections-home">
 				<Particles div={projectsSection} colorParticles={"blue"} />
 				<Projects mediaQuery={windowSize.width} projectsSection={projectsSection} />

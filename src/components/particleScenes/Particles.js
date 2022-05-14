@@ -2,41 +2,79 @@ import React, { useEffect, useRef, useContext } from 'react';
 import { MediaContext } from '../../context/MediaContext';
 
 const Particles = ({ div, colorParticles }) => {
-
 	const canvas = useRef(0);
-
+  
 	const {darkMode} = useContext(MediaContext)
+  class Particle {
+    constructor(x, y, rightAmount, leftAmount, radiusCircle) {
+      this.x = x;
+      this.y = y;
+      this.movementAmountRight = rightAmount;
+      this.movementAmountLeft = leftAmount;
+      this.radius = radiusCircle;
+      this.arc = function (positionX, positionY, radius, start, end, canvasContext) {
+        canvasContext.beginPath();
+        let grd = canvasContext.createLinearGradient(positionX - this.radius, positionY + this.radius, positionX + this.radius / 2, positionY - this.radius);
+        switch (colorParticles) {
+          case "blue":
+            grd.addColorStop(0.30, "rgba(69,40,189,1)");
+            grd.addColorStop(0.70, "rgba(43,22,55,1)");
+            break;
+          case "white":
+            grd.addColorStop(0.30, "rgba(255,255,255,1)");
+            grd.addColorStop(0.70, "rgba(32,31,31,1)");
+            break;
+          default:
+            throw new Error("No color provided")
+        }
+        canvasContext.fillStyle = grd;
+        canvasContext.arc(positionX, positionY, radius, start, end);
+        canvasContext.closePath();
+        canvasContext.fill();
+      }
+    }
+  }
 
 	useEffect(() => {
+    const arrayOfParticles = [];
+		let halfMovementAvailable = window.innerWidth / 25;
+		let particlePosition = -halfMovementAvailable;
+		let mouseMovementAmount = 0;
+		let mousex, x, amountToMove; 
+    const canvasContext = canvas.current.getContext("2d");
 
-		function main() {
+    const setupCanvas = () => {
+      const height = window.innerHeight
+      const width = window.innerWidth;
+      canvas.current.width = width;
+      canvas.current.height = height;
+    }
 
-			createParticles()
+    const setupListeners = () => {
+      window.addEventListener('resize', () => {
+        const height = window.innerHeight
+        const width = window.innerWidth;
+        canvas.current.width = width;
+        canvas.current.height = height;
+        halfMovementAvailable = width / 25;
+        particlePosition = -halfMovementAvailable;
+        arrayOfParticles.forEach((part) => {
+          part.x = particlePosition;
+          part.movementAmountRight = particlePosition + halfMovementAvailable;
+          part.movementAmountLeft = particlePosition - halfMovementAvailable;
+          particlePosition = particlePosition + halfMovementAvailable;
+        });
+      })
 
-			window.addEventListener('resize', () => {
-        canvas.current.width = document.getElementById('container').clientWidth;
-				halfMovementAvailable = canvas.current.width / 25;
-				particlePosition = -halfMovementAvailable;
-				arrayOfParticles.forEach((part) => {
-					part.x = particlePosition;
-					part.movementAmountRight = particlePosition + halfMovementAvailable;
-					part.movementAmountLeft = particlePosition - halfMovementAvailable;
-					particlePosition = particlePosition + halfMovementAvailable;
-				});
-			})
+      document.addEventListener('mousemove', (e) => {
+        mousex = (e.clientX - (canvas.current.getBoundingClientRect().left / 2));
+        x = mousex - window.innerWidth / 2;
+        amountToMove = (x - mouseMovementAmount) / 100;
+        mouseMovementAmount = x;
+      });
+    }
 
-			document.addEventListener('mousemove', (e) => {
-				mousex = (e.clientX - (canvas.current.getBoundingClientRect().left / 2));
-				x = mousex - canvas.current.getBoundingClientRect().width / 2;
-				amountToMove = (x - mouseMovementAmount) / 100;
-				mouseMovementAmount = x;
-			});
-
-			animationLoop();
-
-		}
-
-		function createParticles() {
+    const createParticles = () => {
 			for (let i = 0; i < 27; i++) {
 				const particle = new Particle(
 					particlePosition, Math.floor(Math.random() * canvas.current.clientHeight),
@@ -45,7 +83,7 @@ const Particles = ({ div, colorParticles }) => {
 				particlePosition = particlePosition + halfMovementAvailable;
 				arrayOfParticles.push(particle);
 			}
-		}
+    }
 
 		const moveParticlesY = (canvas_to_mod, canvas_to_mod_ctx, div_ctx, array_with_particles, color) => {
 			canvas_to_mod_ctx.fillStyle = darkMode ? "#020c1b" : "white";
@@ -67,54 +105,16 @@ const Particles = ({ div, colorParticles }) => {
 			});
 		}
 
-
 		const animationLoop = () => {
 			moveParticlesY(canvas.current, canvasContext, div.current, arrayOfParticles);
 			updateXPosition(arrayOfParticles);
 			requestAnimationFrame(animationLoop);
 		}
 
-
-		class Particle {
-			constructor(x, y, rightAmount, leftAmount, radiusCircle) {
-				this.x = x;
-				this.y = y;
-				this.movementAmountRight = rightAmount;
-				this.movementAmountLeft = leftAmount;
-				this.radius = radiusCircle;
-				this.arc = function (positionX, positionY, radius, start, end, canvasContext) {
-					canvasContext.beginPath();
-					let grd = canvasContext.createLinearGradient(positionX - this.radius, positionY + this.radius, positionX + this.radius / 2, positionY - this.radius);
-					switch (colorParticles) {
-						case "blue":
-							grd.addColorStop(0.30, "rgba(69,40,189,1)");
-							grd.addColorStop(0.70, "rgba(43,22,55,1)");
-							break;
-						case "white":
-							grd.addColorStop(0.30, "rgba(255,255,255,1)");
-							grd.addColorStop(0.70, "rgba(32,31,31,1)");
-							break;
-						default:
-							throw new Error("No color provided")
-					}
-					canvasContext.fillStyle = grd;
-					canvasContext.arc(positionX, positionY, radius, start, end);
-					canvasContext.closePath();
-					canvasContext.fill();
-				}
-			}
-		}
-
-		const canvasContext = canvas.current.getContext("2d");
-    canvas.current.width = document.getElementById('container').clientWidth
-		canvas.current.height = div.current.clientHeight;
-		let arrayOfParticles = [];
-		let halfMovementAvailable = window.innerWidth / 25;
-		let particlePosition = -halfMovementAvailable;
-		let mouseMovementAmount = 0;
-		let mousex, x, amountToMove;
-
-		main()
+    setupCanvas()
+    setupListeners()
+    createParticles()
+    animationLoop();
 
     return () => {
       window.removeEventListener('resize', () => {})
@@ -124,8 +124,8 @@ const Particles = ({ div, colorParticles }) => {
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 	return (
-		<div id="container" className="particles-2d-canvas" style={{width: '100%'}}>
-			<canvas style={{height: '100%'}} ref={canvas}></canvas>
+		<div id="container" className="absolute w-full h-full">
+			<canvas className="w-full h-full" ref={canvas}></canvas>
 		</div>
 	);
 }

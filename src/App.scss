@@ -25,7 +25,7 @@
 
 html, body{
     height: var(--vh);
-    width: var(--vw);
+    width: calc(var(--vw) - 10px);
     font-family: 'Roboto';
     -webkit-font-smoothing: antialiased !important;
     -moz-osx-font-smoothing: grayscale !important;
@@ -35,11 +35,6 @@ html, body{
     color: white;
     scrollbar-color: rgb(24 8 100) transparent;
     background-color: var(--background-color);
-}
-
-.App{
-  height: var(--vh);
-  width: var(--vw);
 }
 
 @tailwind utilities;
