@@ -1,33 +1,27 @@
-import React, { useEffect, useRef, useContext } from 'react';
-import { MediaContext } from '../../context/MediaContext';
+import React, { useEffect, useRef } from 'react';
 
 const Particles = ({ div, colorParticles }) => {
 	const canvas = useRef(0);
-  
-	const {darkMode} = useContext(MediaContext)
   class Particle {
-    constructor(x, y, rightAmount, leftAmount, radiusCircle) {
+    constructor(x, y, rightAmount, leftAmount, radiusCircle, color) {
       this.x = x;
       this.y = y;
       this.movementAmountRight = rightAmount;
       this.movementAmountLeft = leftAmount;
       this.radius = radiusCircle;
+      this.color = color
       this.arc = function (positionX, positionY, radius, start, end, canvasContext) {
         canvasContext.beginPath();
-        let grd = canvasContext.createLinearGradient(positionX - this.radius, positionY + this.radius, positionX + this.radius / 2, positionY - this.radius);
-        switch (colorParticles) {
-          case "blue":
-            grd.addColorStop(0.30, "rgba(69,40,189,1)");
-            grd.addColorStop(0.70, "rgba(43,22,55,1)");
-            break;
-          case "white":
-            grd.addColorStop(0.30, "rgba(255,255,255,1)");
-            grd.addColorStop(0.70, "rgba(32,31,31,1)");
-            break;
-          default:
-            throw new Error("No color provided")
+        const particleGradient = canvasContext.createLinearGradient(positionX - this.radius, positionY + this.radius, positionX + this.radius / 2, positionY - this.radius)
+        if(this.color === 'blue'){
+          particleGradient.addColorStop(0.30, this.color)
+          particleGradient.addColorStop(0.70, "rgba(43,22,55,1)")
         }
-        canvasContext.fillStyle = grd;
+        if(this.color === 'white'){
+          particleGradient.addColorStop(0.30, this.color)
+          particleGradient.addColorStop(0.70, "rgba(32,31,31,1)")
+        }
+        canvasContext.fillStyle = particleGradient;
         canvasContext.arc(positionX, positionY, radius, start, end);
         canvasContext.closePath();
         canvasContext.fill();
@@ -40,8 +34,7 @@ const Particles = ({ div, colorParticles }) => {
 		let halfMovementAvailable = window.innerWidth / 25;
 		let particlePosition = -halfMovementAvailable;
 		let mouseMovementAmount = 0;
-		let mousex, x, amountToMove; 
-    const canvasContext = canvas.current.getContext("2d");
+		let amountToMove; 
 
     const setupCanvas = () => {
       const height = window.innerHeight
@@ -65,35 +58,40 @@ const Particles = ({ div, colorParticles }) => {
           particlePosition = particlePosition + halfMovementAvailable;
         });
       })
-
       document.addEventListener('mousemove', (e) => {
-        mousex = (e.clientX - (canvas.current.getBoundingClientRect().left / 2));
-        x = mousex - window.innerWidth / 2;
+        const mousex = (e.clientX - (canvas.current.getBoundingClientRect().left / 2));
+        const x = mousex - window.innerWidth / 2;
         amountToMove = (x - mouseMovementAmount) / 100;
         mouseMovementAmount = x;
       });
     }
 
     const createParticles = () => {
-			for (let i = 0; i < 27; i++) {
-				const particle = new Particle(
-					particlePosition, Math.floor(Math.random() * canvas.current.clientHeight),
-					particlePosition + halfMovementAvailable, particlePosition - halfMovementAvailable, 8
-				);
-				particlePosition = particlePosition + halfMovementAvailable;
+      const PARTICLES_AMOUNT = 27
+      const PARTICLE_RADIUS = 8
+      const separationBetweenParticles = canvas.current.width / PARTICLES_AMOUNT
+      const canvasHeight = canvas.current.height
+      let currentParticlePositionX = 0
+			for (let i = 0; i < PARTICLES_AMOUNT; i++) {
+        const particlePositionY = Math.floor(Math.random() * canvasHeight)
+        const particleAmountToMoveLeft = currentParticlePositionX - separationBetweenParticles
+        const particleAmountToMoveRight = currentParticlePositionX + separationBetweenParticles
+				const particle = new Particle(currentParticlePositionX, particlePositionY, particleAmountToMoveRight, particleAmountToMoveLeft, PARTICLE_RADIUS, colorParticles)
+				currentParticlePositionX += separationBetweenParticles
 				arrayOfParticles.push(particle);
 			}
     }
 
-		const moveParticlesY = (canvas_to_mod, canvas_to_mod_ctx, div_ctx, array_with_particles, color) => {
-			canvas_to_mod_ctx.fillStyle = darkMode ? "#020c1b" : "white";
-			canvas_to_mod_ctx.fillRect(0, 0, canvas_to_mod.width, canvas_to_mod.height);
+		const moveParticlesY = (canvas, array_with_particles) => {
+      const canvasContext = canvas.getContext("2d")
+			canvasContext.fillStyle = "#020c1b";
+			canvasContext.fillRect(0, 0, canvas.width, canvas.height);
 			array_with_particles.forEach((part) => {
 				if (part.y < 0) {
-					part.y = div_ctx.clientHeight;
+					part.y = canvas.clientHeight;
 				}
 				part.y = part.y - 0.5;
-				part.arc(part.x, part.y, part.radius, 0, 2 * Math.PI, canvas_to_mod_ctx, color);
+				part.arc(part.x, part.y, part.radius, 0, 2 * Math.PI, canvasContext);
 			})
 		}
 
@@ -106,7 +104,7 @@ const Particles = ({ div, colorParticles }) => {
 		}
 
 		const animationLoop = () => {
-			moveParticlesY(canvas.current, canvasContext, div.current, arrayOfParticles);
+			moveParticlesY(canvas.current, arrayOfParticles);
 			updateXPosition(arrayOfParticles);
 			requestAnimationFrame(animationLoop);
 		}

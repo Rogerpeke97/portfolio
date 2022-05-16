@@ -1,11 +1,11 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef } from 'react'
 import Particles from '../particleScenes/Particles'
 
 const BubblesBackgroundContainer = ({ children }) => {
   const bubblesWrapper = useRef('')
 
   return(
-    <div className="h-100 max-w-[500px]" ref={bubblesWrapper}>
+    <div className="h-full w-full" ref={bubblesWrapper}>
       <Particles div={bubblesWrapper} colorParticles={'blue'} />
       {children}
     </div>
