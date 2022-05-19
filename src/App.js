@@ -40,7 +40,7 @@ function App() {
 	}, [])
 
 	return (
-		<div className="w-full h-full">
+		<div className="w-full">
 			<Routes>
 				<Route path="/" element={
 						<MediaContext.Provider value={{windowSize: windowSize}}>

@@ -11,6 +11,10 @@ module.exports = {
         "primary": "rgba(43, 22, 55, 1)",
         "terciary": "rgb(69, 40, 189)",
         "background": "#020c1b",
+        "button": {
+          "dark": "#020A33",
+          "light": "#E9ECEF"
+        }
 
       },
       screens: {

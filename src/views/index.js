@@ -2,11 +2,11 @@ import React from 'react';
 import { useRef, useContext } from "react";
 import { MediaContext } from '../context/MediaContext';
 import Particles from '../components/particleScenes/Particles'
-import Waves from '../components/threeJsScenes/Waves'
+import Waves from '../components/threeJsScenes/WavesAndWelcome'
 import NavBar from '../components/NavBar.js'
 import Projects from '../components/index/Projects.js'
 import Footer from '../components/Footer';
-import WavesAndWelcome from '../components/threeJsScenes/Waves';
+import WavesAndWelcome from '../components/threeJsScenes/WavesAndWelcome';
 import BubblesBackgroundContainer from '../components/threeJsScenes/BubblesBackgroundContainer';
 
 function Index() {
@@ -22,8 +22,18 @@ function Index() {
 			<NavBar />
 			<WavesAndWelcome mediaQuery={windowSize.width} />
       <BubblesBackgroundContainer>
-        <div>HELLOOOO</div>
+        {/* <div>
+          <div>
+            asdasd
+          </div>
+          <div>asdasda</div>
+        </div> */}
+        <Projects />
       </BubblesBackgroundContainer>
+      {/* <div className="h-100 w-full">
+        <p>asdasdjasjdajsdjajsdjashdajshdajhsdjhasjhdajhsdjhasjhdjhashdjasd</p>
+        <div className="flex">daadada</div>
+      </div> */}
 			{/* <div className="grid sections-home">
 				<Particles div={projectsSection} colorParticles={"blue"} />
 				<Projects mediaQuery={windowSize.width} projectsSection={projectsSection} />

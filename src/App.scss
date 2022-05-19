@@ -39,6 +39,14 @@ html, body{
 
 @tailwind utilities;
 
+.h-100{
+  height: var(--vh);
+}
+
+.w-100{
+  width: var(--vw);
+}
+
 body::-webkit-scrollbar-track {
     border: 1px solid black;
     background-color: inherit;
@@ -109,13 +117,6 @@ footer {
     justify-content: center;
     position: relative;
     max-width: 100%;
-}
-
-img {
-    height: 100%;
-    width: 100%;
-    object-fit: contain;
-    border-radius: 5px;
 }
 
 a {
@@ -298,46 +299,6 @@ a {
   &:hover{
     color: rgba(24, 8, 100, 1);
   }
-}
-
-.project-image-box {
-    z-index: 1;
-    transition: all 0.5s ease-out;
-    transform: rotateY(0deg);
-    min-height: 300px;
-    background: black;
-}
-
-.project-image-box>a {
-    position: absolute;
-    width: 200px;
-    bottom: 16px;
-    left: calc(50% - 100px);
-    background-color: rgb(44, 12, 175);
-}
-
-.project-description {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(56deg, rgba(24, 14, 19, 1) 28%, rgba(78, 21, 35, 1) 59%);
-    z-index: 0;
-    transition: all 0.5s ease-out;
-    grid-template-rows: 33.33% 33.33% 33.33%;
-    transform: rotateY(180deg);
-}
-
-.project-description>a {
-    position: absolute;
-    width: 200px;
-    bottom: 16px;
-    left: calc(50% - 100px);
-    background-color: rgb(44, 12, 175);
-}
-
-.project-description>div>img {
-    min-width: 6px;
-    max-width: 200px;
 }
 
 .window-size-container {

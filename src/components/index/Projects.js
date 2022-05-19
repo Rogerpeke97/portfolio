@@ -1,7 +1,7 @@
 import React from "react";
 import ProjectDisplay from './ProjectDisplay'
 
-const Projects = ({ mediaQuery, projectsSection }) => {
+const Projects = ({ projectsSection }) => {
 
 	const xentaInfo = {
 		previewGif: {name: "xenta_gif.gif", alt: "xenta game"},
@@ -42,11 +42,9 @@ const Projects = ({ mediaQuery, projectsSection }) => {
 	}
 
 	return (
-		<div className="sections-home grid px-2" ref={projectsSection}>
-			<div className="grid">
-				<ProjectDisplay ProjectInfo={xentaInfo} />
-				<ProjectDisplay ProjectInfo={csvConverter} />
-			</div>
+		<div className="px-2" ref={projectsSection}>
+      <ProjectDisplay ProjectInfo={xentaInfo} />
+      <ProjectDisplay ProjectInfo={csvConverter} />
 		</div>
 	)
 }

@@ -167,7 +167,7 @@ const WavesAndWelcome = ({ mediaQuery }) => {
   }, []);
 
   return (
-    <div className="flex h-full w-full" ref={canvasContainer} onMouseMove={(e) => mouseMove(e)}>
+    <div className="h-100 w-full" ref={canvasContainer} onMouseMove={(e) => mouseMove(e)}>
       <canvas id="wavesCanvas" className="max-w-full h-full"></canvas>
       <Welcome className="inset-0" mouseMove={(e) => mouseMove(e)} mediaQuery={mediaQuery} transparentOverlay={transparentOverlay} />
       <div className={wavesSceneLoaded ? "hidden" : "loading-container"} ref={loading}>
