@@ -1,15 +1,15 @@
 import React from "react";
 import ProjectDisplay from './ProjectDisplay'
 
-const Projects = ({ projectsSection }) => {
+const Projects = () => {
 
 	const xentaInfo = {
 		previewGif: {name: "xenta_gif.gif", alt: "xenta game"},
 		stackImages: [
-			{name: "nodejslogo.png", alt: "NodeJS"},
-			{name: "Reactjslogo.png", alt: "React"},
-			{name: "threejslogo.svg", alt: "ThreeJS"},
-			{name: "postgresqllogo.png", alt: "PostgreSQL"}
+			{src: "nodejslogo.png", alt: "NodeJS"},
+			{src: "Reactjslogo.png", alt: "React"},
+			{src: "threejslogo.png", alt: "ThreeJS"},
+			{src: "postgresqllogo.png", alt: "PostgreSQL"}
 		],
 		title: "Xenta",
 		description: `This website is basically an "infinite" (If you don't die that is) game where you are given the sensation
@@ -26,8 +26,8 @@ const Projects = ({ projectsSection }) => {
 	const csvConverter = {
 		previewGif: {name: "project1.gif", alt: "Csv Converter"},
 		stackImages: [
-			{name: "nodejslogo.png", alt: "NodeJS"},
-			{name: "postgresqllogo.png", alt: "PostgreSQL"}
+			{src: "nodejslogo.png", alt: "NodeJS"},
+			{src: "postgresqllogo.png", alt: "PostgreSQL"}
 		],
 		title: "Csv-Converter",
 		description: `This is my first project, it converts csv files and displays them in a canvas using chartjs.
@@ -42,7 +42,7 @@ const Projects = ({ projectsSection }) => {
 	}
 
 	return (
-		<div className="px-2" ref={projectsSection}>
+		<div className="px-2">
       <ProjectDisplay ProjectInfo={xentaInfo} />
       <ProjectDisplay ProjectInfo={csvConverter} />
 		</div>

@@ -21,14 +21,13 @@ function Index() {
 		<>
 			<NavBar />
 			<WavesAndWelcome mediaQuery={windowSize.width} />
-      <BubblesBackgroundContainer>
+      <BubblesBackgroundContainer children={<Projects />}>
         {/* <div>
           <div>
             asdasd
           </div>
           <div>asdasda</div>
         </div> */}
-        <Projects />
       </BubblesBackgroundContainer>
       {/* <div className="h-100 w-full">
         <p>asdasdjasjdajsdjajsdjashdajshdajhsdjhasjhdajhsdjhasjhdjhashdjasd</p>
