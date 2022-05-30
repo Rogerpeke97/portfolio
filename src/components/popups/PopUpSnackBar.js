@@ -1,7 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from "react";
 import { useContext, useState } from "react";
-import Button from '../buttons/Button';
 import { MediaContext } from '../../context/MediaContext.js';
 
 const IconButton = ({ onClick, Message, IconName, Display }) => {
@@ -28,8 +27,8 @@ const IconButton = ({ onClick, Message, IconName, Display }) => {
      <p className="text-overflow-ellipsis px-1" style={{whiteSpace: 'pre-wrap'}}>{Message}</p>
    </div>
    <div className="flex align-items-center justify-center">
-    <Button className="pa-1 ma-1 mr-2 icon-custom"
-    ButtonText={"Ok"} shadow onClick={handleFadeOut} />
+    {/* <Button className="pa-1 ma-1 mr-2 icon-custom"
+    ButtonText={"Ok"} shadow onClick={handleFadeOut} /> */}
    </div>
   </div>
  )

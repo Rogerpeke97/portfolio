@@ -1,14 +1,12 @@
-import React, { useRef } from 'react'
+import React from 'react'
 import Particles from '../particleScenes/Particles'
 
-const BubblesBackgroundContainer = ({ children }) => {
-  const bubblesWrapper = useRef('')
-
+const BubblesBackgroundContainer = ({ children, className="", particlesColor="blue" }) => {
   return(
-    <div className="h-100 w-full" ref={bubblesWrapper}>
-      <Particles div={bubblesWrapper} colorParticles={'blue'} />
+    <div className={`${className}`}>
+      <Particles colorParticles={particlesColor} />
       { React.Children.map(children, (child) =>
-          React.cloneElement(child, { className: child.props.className + ' absolute' })
+          React.cloneElement(child, { className: `${(child.props.className || '')} relative` })
         )
       }
     </div>

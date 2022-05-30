@@ -23,7 +23,7 @@
   --success: #00d084;
 }
 
-html, body{
+html, body, #root{
     height: var(--vh);
     width: calc(var(--vw) - 10px);
     font-family: 'Roboto';
@@ -41,6 +41,10 @@ html, body{
 
 .h-100{
   height: var(--vh);
+}
+
+.min-h-100vh{
+  min-height: var(--vh);
 }
 
 .w-100{
@@ -110,148 +114,6 @@ textarea {
     border-radius: 10px;
 }
 
-footer {
-    border-top: 5px solid white;
-    z-index: 2;
-    display: flex;
-    justify-content: center;
-    position: relative;
-    max-width: 100%;
-}
-
-a {
-    text-decoration: none;
-    padding: 0;
-    margin: 0;
-}
-
-
-/*Custom classes */
-
-.Teko {
-    font-family: 'Teko';
-}
-
-.sections-home {
-    display: grid;
-    max-width: 100%;
-    min-height: 1300px;
-    position: relative;
-    z-index: 2;
-}
-
-.underline-effect {
-    padding: 5px;
-    border: 0;
-    cursor: pointer;
-    background: transparent;
-    display: inline-block;
-    border-radius: 8px;
-    box-shadow: 2.5px 2.5px 5px 2.5px rgba(24, 8, 100, 1);
-    position: relative;
-    transition: all 0.3s ease-out;
-}
-
-.underline-effect:after {
-    content: '';
-    position: absolute;
-    width: 100%;
-    transform: scaleX(0);
-    height: 2px;
-    bottom: 0;
-    left: 0;
-    background-color: white;
-    transform-origin: bottom right;
-    transition: transform 0.3s ease-out;
-}
-
-.underline-effect:hover:after {
-    transform: scaleX(1);
-    transform-origin: bottom left;
-}
-
-.underline-effect-no-box {
-    padding: 5px;
-    border: 0;
-    cursor: pointer;
-    background: transparent;
-    display: inline-block;
-    position: relative;
-    color: inherit;
-    transition: all 0.3s ease-out;
-}
-
-.underline-effect-no-box:after {
-    content: '';
-    position: absolute;
-    width: 100%;
-    transform: scaleX(0);
-    height: 2px;
-    bottom: 0;
-    left: 0;
-    background-color: white;
-    transform-origin: bottom right;
-    transition: transform 0.3s ease-out;
-}
-
-.underline-effect-no-box:hover:after {
-    transform: scaleX(1);
-    transform-origin: bottom left;
-}
-
-.particles-2d-canvas {
-    position: absolute;
-    height: 100%;
-    width: 100%;
-}
-
-.disabled-icon {
-    color: darkslategray;
-}
-
-.z-index-1 {
-    z-index: 1;
-}
-
-.technologies {
-    flex: 20%;
-    background-color: gray;
-    border-radius: 5px;
-    margin: 5px;
-    height: 5vw;
-    min-height: 40px;
-}
-
-.nav-container {
-    display: flex;
-    max-width: 100%;
-    height: 80px;
-    width: calc(100% - 16px);
-    right: 0;
-    left: 0;
-    border-radius: 4px;
-    background: transparent;
-    position: fixed;
-    top: 0;
-    z-index: 3;
-    transition: all 0.5s ease-out;
-}
-
-.nav-container-scroll {
-    display: flex;
-    max-width: 100%;
-    height: 80px;
-    width: calc(100% - 16px);
-    right: 0;
-    left: 0;
-    border-radius: 4px;
-    background: rgba(43, 22, 55, 1);
-    position: fixed;
-    top: 0;
-    z-index: 3;
-    transition: all 0.5s ease-out;
-}
-
 .clipboard-message {
     display: grid;
     pointer-events: none;
@@ -297,118 +159,15 @@ a {
 .button-shadow-icon{
   color: white;
   &:hover{
-    color: rgba(24, 8, 100, 1);
+    color: rgb(44, 12, 175);
   }
 }
 
-.window-size-container {
-    position: relative;
-    height: 100%;
-    padding-top: 80px;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    margin-bottom: 0;
-}
-
-.home-menu {
-    padding-top: 80px !important;
-    height: calc(100% - 96px);
-    width: 100%;
-}
-
-/* ANIMATION BEFORE LOADING */
-
-.loading-container {
-    display: grid;
-    width: 100%;
-    height: 100%;
-    position: fixed;
-    background-color: #020c1b;
-    top: 0%;
-    transition: all 0.5s ease-out;
-    justify-content: center;
-    align-content: center;
-    left: 0%;
-    z-index: 3;
-}
-
-.letters-container {
-    min-width: 180px;
-    max-width: 350px;
-    grid-template-columns: 10% 10% 10% 10% 10% 10% 10% 10% 10% 10%;
-}
-
-.letters-container> div > h1 {
-    cursor: default;
-    margin: 0;
-    transition: all 1s ease-out;
-    -webkit-transition: all 1s ease-out;
-}
-
-@keyframes loading {
-    from {
-        transform: scale(1, 1);
-        -webkit-transform: scale(1, 1);
-    }
-    50% {
-        transform: scale(1.1, 1.1);
-        -webkit-transform: scale(1.1, 1.1);
-    }
-    to {
-        transform: scale(1, 1);
-        -webkit-transform: scale(1, 1);
-    }
-}
-
-@keyframes loadingDone {
-    from {
-        opacity: 1;
-        transform: scale(1, 1);
-    }
-    to {
-        opacity: 0;
-        transform: scale(1, 1);
-    }
-}
-
-@keyframes moveDiv {
-    to {
-        left: 0%;
-    }
-}
-
-@keyframes moveDivBackwards {
-    /*Move to the opposite way*/
-    to {
-        left: -100%;
-    }
-}
-
-@keyframes transition {
-    /*Transition for the background of my bio*/
-    0% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-    100% {
-        background-position: 0% 50%;
-    }
-}
 .warning {
     color: green;
 }
 
 /*Spinner*/
-
-.spinner-container {
-    position: relative;
-    width: 28px;
-    z-index: 10;
-}
 
 .spinner {
     width: 20px;
@@ -446,8 +205,8 @@ a {
 }
 
 .fade-out {
-    animation: fadeOut 0.25s normal forwards ease-in-out;
-    -webkit-animation: fadeOut 0.25s normal forwards ease-in-out;
+    animation: fadeOut 0.75s normal forwards ease-in-out;
+    -webkit-animation: fadeOut 0.75s normal forwards ease-in-out;
 }
 
 @keyframes fadeOut {
@@ -456,16 +215,17 @@ a {
     }
     to {
         opacity: 0;
+        visibility: hidden;
     }
 }
 
 .animate-text{
     display: inline-block;
-    animation: jump 1s infinite;
+    animation: textBounceJump 1s infinite;
     animation-delay: calc(.1s * var(--i));
 }
 
-@keyframes jump {
+@keyframes textBounceJump {
     0%,40%,100% {
         transform: translateY(0)
     }

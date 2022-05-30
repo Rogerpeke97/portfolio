@@ -6,7 +6,6 @@ const WavesAndWelcome = ({ mediaQuery }) => {
   const camera = useRef(0);
   const canvasContainer = useRef(0);
   const [wavesSceneLoaded, setWavesSceneLoaded] = useState(false);
-  const loading = useRef(0);
   const transparentOverlay = useRef(0);
   const overlayMessage = 'LOADING...'.split("")
   const particleCount = useRef(0)
@@ -160,25 +159,22 @@ const WavesAndWelcome = ({ mediaQuery }) => {
     animate();
 
     manager.onLoad = () => {
-      loading.current.style.animation = 'loadingDone 2s normal ease-out';
       setTimeout(() => { setWavesSceneLoaded(true) }, 2000);
     }
 
   }, []);
 
   return (
-    <div className="h-100 w-full" ref={canvasContainer} onMouseMove={(e) => mouseMove(e)}>
+    <div className="h-100 w-full relative" ref={canvasContainer} onMouseMove={(e) => mouseMove(e)}>
       <canvas id="wavesCanvas" className="max-w-full h-full"></canvas>
       <Welcome className="inset-0" mouseMove={(e) => mouseMove(e)} mediaQuery={mediaQuery} transparentOverlay={transparentOverlay} />
-      <div className={wavesSceneLoaded ? "hidden" : "loading-container"} ref={loading}>
-        <div className="letters-container grid">
-          {overlayMessage.map((letter, index) => {
-            return <div key={index}
-              className="flex align-items-center justify-center text-align-center mx-2 bold">
-              <h1 style={{ '--i': index, fontSize: "50px" }} className="animate-text pl-1 Teko">{letter}</h1>
-            </div>
-          })}
-        </div>
+      <div className={`${wavesSceneLoaded ? 'fade-out' : ''} flex items-center bg-primary justify-center top-0 fixed z-50 h-100 w-full`}>
+        {overlayMessage.map((letter, index) => {
+          return <div key={index}
+            className="flex align-items-center justify-center text-align-center mx-2 bold">
+            <h1 style={{ '--i': index, fontSize: "50px" }} className="animate-text pl-1 font-teko font-bold text-secondary">{letter}</h1>
+          </div>
+        })}
       </div>
     </div>
   )

@@ -22,26 +22,26 @@ const Welcome = ({ className = '', transparentOverlay, mouseMove }) => {
       <div className="grid h-full items-center">
         <div className="flex justify-center h-20">
           {messageWelcome.map((letter, index) => {
-            return <h1 className="text-7xl smAndDown:text-5xl font-teko px-1" key={index}>{letter}</h1>
+            return <h1 className="text-7xl smAndDown:text-5xl font-teko font-bold text-secondary px-1" key={index}>{letter}</h1>
           })}
         </div>
         <div className="flex flex-wrap justify-center">
-          <h1 className="text-5xl smAndDown:text-3xl px-1 bold underline font-teko">
+          <h1 className="text-5xl smAndDown:text-3xl px-1 font-bold text-secondary underline font-teko">
             Languages:
           </h1>
           <div className="flex items-center">
             {languages.map((language, index) => {
-              return <TechnologyBox className="mx-2 pa-1" key={index} imageSource={language.imageSource} alt={language.alt} />
+              return <TechnologyBox className="mx-2 p-1" key={index} imageSource={language.imageSource} alt={language.alt} />
             })}
           </div>
         </div>
         <div className="flex flex-wrap justify-center">
-          <h1 className="text-5xl smAndDown:text-3xl px-1 bold underline font-teko">
+          <h1 className="text-5xl smAndDown:text-3xl px-1 font-bold text-secondary underline font-teko">
             Frameworks / API:
           </h1>
           <div className="flex items-center">
             {frameworksAndApi.map((language, index) => {
-              return <TechnologyBox className="mx-2 pa-1" key={index} imageSource={language.imageSource} alt={language.alt} />
+              return <TechnologyBox className="mx-2 p-1" key={index} imageSource={language.imageSource} alt={language.alt} />
             })}
           </div>
         </div>

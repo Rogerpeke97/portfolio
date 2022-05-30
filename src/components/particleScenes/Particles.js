@@ -1,7 +1,10 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useContext } from 'react';
+import { MediaContext } from '../../context/MediaContext';
 
-const Particles = ({ div, colorParticles }) => {
+const Particles = ({ colorParticles }) => {
 	const canvas = useRef(0);
+  const parentResizeObserver = useRef(0);
+  const { deviceHeightAndWidth } = useContext(MediaContext);
   class Particle {
     constructor(x, y, rightAmount, leftAmount, radiusCircle, color) {
       this.x = x;
@@ -30,6 +33,7 @@ const Particles = ({ div, colorParticles }) => {
   }
 
 	useEffect(() => {
+    if(!deviceHeightAndWidth) return
     const arrayOfParticles = [];
 		let halfMovementAvailable = window.innerWidth / 25;
 		let particlePosition = -halfMovementAvailable;
@@ -37,27 +41,32 @@ const Particles = ({ div, colorParticles }) => {
 		let amountToMove; 
 
     const setupCanvas = () => {
-      const height = window.innerHeight
-      const width = window.innerWidth;
+      const parentContainer = canvas.current.parentElement;
+      const height = parentContainer.clientHeight;
+      const width = parentContainer.clientWidth;
       canvas.current.width = width;
       canvas.current.height = height;
     }
 
+    const resizeCanvasAndSetParticlesPosition = () => {
+      const parentContainer = canvas.current.parentElement;
+      const height = parentContainer.clientHeight
+      const width = parentContainer.clientWidth;
+      canvas.current.width = width;
+      canvas.current.height = height;
+      halfMovementAvailable = width / 25;
+      particlePosition = -halfMovementAvailable;
+      arrayOfParticles.forEach((part) => {
+        part.x = particlePosition;
+        part.movementAmountRight = particlePosition + halfMovementAvailable;
+        part.movementAmountLeft = particlePosition - halfMovementAvailable;
+        particlePosition = particlePosition + halfMovementAvailable;
+      });
+    }
+
     const setupListeners = () => {
-      window.addEventListener('resize', () => {
-        const height = window.innerHeight
-        const width = window.innerWidth;
-        canvas.current.width = width;
-        canvas.current.height = height;
-        halfMovementAvailable = width / 25;
-        particlePosition = -halfMovementAvailable;
-        arrayOfParticles.forEach((part) => {
-          part.x = particlePosition;
-          part.movementAmountRight = particlePosition + halfMovementAvailable;
-          part.movementAmountLeft = particlePosition - halfMovementAvailable;
-          particlePosition = particlePosition + halfMovementAvailable;
-        });
-      })
+      const parentContainer = canvas.current.parentElement
+      parentResizeObserver.current = new ResizeObserver(resizeCanvasAndSetParticlesPosition).observe(parentContainer)
       document.addEventListener('mousemove', (e) => {
         const mousex = (e.clientX - (canvas.current.getBoundingClientRect().left / 2));
         const x = mousex - window.innerWidth / 2;
@@ -69,8 +78,9 @@ const Particles = ({ div, colorParticles }) => {
     const createParticles = () => {
       const PARTICLES_AMOUNT = 27
       const PARTICLE_RADIUS = 8
-      const separationBetweenParticles = canvas.current.width / PARTICLES_AMOUNT
-      const canvasHeight = canvas.current.height
+      const parentContainer = canvas.current.parentElement
+      const separationBetweenParticles = parentContainer.clientWidth / PARTICLES_AMOUNT
+      const canvasHeight = parentContainer.clientHeight
       let currentParticlePositionX = 0
 			for (let i = 0; i < PARTICLES_AMOUNT; i++) {
         const particlePositionY = Math.floor(Math.random() * canvasHeight)
@@ -85,7 +95,7 @@ const Particles = ({ div, colorParticles }) => {
 		const moveParticlesY = (canvas, array_with_particles) => {
       const canvasContext = canvas.getContext("2d")
 			canvasContext.fillStyle = "#020c1b";
-			canvasContext.fillRect(0, 0, canvas.width, canvas.height);
+			canvasContext.fillRect(0, 0, canvas.clientWidth, canvas.clientHeight);
 			array_with_particles.forEach((part) => {
 				if (part.y < 0) {
 					part.y = canvas.clientHeight;
@@ -115,16 +125,16 @@ const Particles = ({ div, colorParticles }) => {
     animationLoop();
 
     return () => {
-      window.removeEventListener('resize', () => {})
+      parentResizeObserver.current.disconnect()
       document.removeEventListener('mousemove', (e) => {})
     }
 
 	// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	}, [deviceHeightAndWidth]);
 	return (
-		<div id="container" className="absolute w-full h-full">
-			<canvas className="w-full h-full" ref={canvas}></canvas>
-		</div>
+		<>
+			<canvas className="absolute" ref={canvas}></canvas>
+		</>
 	);
 }
 

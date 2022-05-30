@@ -42,9 +42,9 @@ const Projects = () => {
 	}
 
 	return (
-		<div className="px-2">
-      <ProjectDisplay ProjectInfo={xentaInfo} />
-      <ProjectDisplay ProjectInfo={csvConverter} />
+		<div className="grid h-full w-full justify-center items-center">
+      <ProjectDisplay project={xentaInfo} />
+      <ProjectDisplay project={csvConverter} />
 		</div>
 	)
 }

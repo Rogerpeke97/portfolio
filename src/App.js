@@ -13,6 +13,8 @@ function App() {
     height: ''
   })
 
+  const [deviceHeightAndWidth, setDeviceHeightAndWidth] = useState(false)
+
 	function setWindowAndResizeEvent(){
 		setWindowSize({
       width: window.innerWidth,
@@ -32,6 +34,7 @@ function App() {
     const viewWidth = window.innerWidth
     document.documentElement.style.setProperty('--vh', `${viewHeight}px`)
     document.documentElement.style.setProperty('--vw', `${viewWidth}px`)
+    setDeviceHeightAndWidth(true)
   }
 
 	useEffect(() => {
@@ -40,10 +43,10 @@ function App() {
 	}, [])
 
 	return (
-		<div className="w-full">
+		<div className="h-full relative w-100 smAndUp:w-full">
 			<Routes>
 				<Route path="/" element={
-						<MediaContext.Provider value={{windowSize: windowSize}}>
+						<MediaContext.Provider value={{windowSize: windowSize, deviceHeightAndWidth: deviceHeightAndWidth}}>
 							<Index />
 						</MediaContext.Provider>
 					} />
