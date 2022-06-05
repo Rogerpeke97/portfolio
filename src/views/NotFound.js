@@ -4,17 +4,15 @@ import { faSadTear } from '@fortawesome/free-solid-svg-icons'
 
 function NotFound() {
   return (
-    <div className="grid align-items-center 
-    justify-center window-size-container pa-0">
-      <div style={{ height: '300px', minWidth: '320px' }}
-       className="grid align-items-center justify-center">
-        <div className="flex justify-center align-items-center">
+    <div className="flex h-full w-full items-center justify-center p-0">
+      <div className="flex flex-col items-center justify-center w-[320px] h-[300px]">
+        <div className="flex justify-center items-center">
           <FontAwesomeIcon icon={faSadTear} size="4x" />
-          <h1 className="ml-2 bold">404!</h1>
+          <h1 className="ml-2 font-bold text-4xl">404!</h1>
         </div>
-        <div className="flex align-items-center">
-          <h2 className="text-align-center bold">Page not found</h2>
-          <a href="/" className="ml-1 underline"><h2>Go home</h2></a>
+        <div className="flex pt-16 flex-col items-center">
+          <h2 className="text-center font-bold text-2xl">Page not found</h2>
+          <a href="/" className="ml-1 text-secondary font-bold underline"><h2>Go home</h2></a>
         </div>
       </div>
     </div>
