@@ -167,7 +167,7 @@ const WavesAndWelcome = () => {
   }, []);
 
   return (
-    <div className="h-100 w-full relative" ref={canvasContainer} onMouseMove={(e) => mouseMove(e)}>
+    <div className="h-full w-full relative" ref={canvasContainer} onMouseMove={(e) => mouseMove(e)}>
       <canvas id="wavesCanvas" className="max-w-full h-full"></canvas>
       <Welcome className="inset-0" mouseMove={(e) => mouseMove(e)} transparentOverlay={transparentOverlay} />
       <div className={`${wavesSceneLoaded ? 'fade-out' : ''} flex items-center bg-primary justify-center top-0 fixed z-50 h-100 w-full`}>
