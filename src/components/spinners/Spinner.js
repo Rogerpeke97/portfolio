@@ -1,11 +1,11 @@
 import React from "react";
 
 
-const Spinner = ({ onClick, ButtonText, shadow, isLoading }) => {
+const Spinner = ({ className }) => {
 
  return (
-  <div className="spinner-container fade-in">
-   <div class="spinner"></div>
+  <div className={`items-center justify-center flex fade-in w-full h-full ${className}`}>
+   <div className="spinner" />
   </div>
  )
 }

@@ -9,7 +9,7 @@ import { faGithub } from "@fortawesome/free-brands-svg-icons";
 const ProjectDisplay = ({ project }) => {
 	const technologiesCard = useRef(0)
 	const previewCard = useRef(0)
-  const [currentCard, setCurrentCard] = useState('')
+  const [currentCard, setCurrentCard] = useState('front')
 
 	return (
 		<>

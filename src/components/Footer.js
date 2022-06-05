@@ -18,7 +18,8 @@ function Footer() {
   }
 
   return (
-    <footer className="flex flex-wrap w-full py-10 px-10 smAndDown:flex-col mdAndDown:pb-10 smAndDown:px-0">
+    <footer style={{ backgroundImage: 'url(backgrounds/curvedshape.jpg)', backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }} 
+    className="flex flex-wrap w-full mt-10 pt-24 pb-10 px-10 smAndDown:flex-col smAndDown:px-0">
       <div className="flex grow m-6 my-10 justify-center mdAndDown:justify-start">
         <div>
           <h1 className="font-teko underline font-bold text-5xl text-secondary">
@@ -35,12 +36,12 @@ function Footer() {
             </h4>
             <h4 className="my-2 font-bold">
               &copy; Copyright 2021, Ignacio Martin Diaz. All rights reserved.
-            </h4>
+          </h4>
           </div>
         </div>
       </div>
       <div className="flex grow m-6 my-10 justify-center mdAndDown:justify-start">
-        <div className="max-w-[500px] w-full">
+        <div className="w-full mdAndUp:w-[500px]">
           <h1 className="font-teko underline font-bold text-5xl text-secondary">
             <FontAwesomeIcon className="pr-1" icon={faAddressBook} />Contact me
           </h1>

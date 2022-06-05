@@ -10,9 +10,11 @@ import IconButton from './buttons/IconButton';
 
 function Form() {
 
-  const api = new Api();
+  const api = new Api()
 
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false)
+
+  const [showServerResponseDialog, setShowServerResponseDialog] = useState(false)
 
   function validateForm() {
     const areAllFieldsValid = validateEmail(form.email) && validateName(form.name) && validateReason(form.reason)
@@ -52,7 +54,6 @@ function Form() {
     if(inputName === 'reason') {
       isInputValid = validateReason(value)
     }
-    console.log(isInputValid, inputName)
     setForm({ ...form, [inputName]: value, isValid: {...form.isValid, [inputName]: isInputValid}});
   }
 
@@ -64,7 +65,6 @@ function Form() {
       setIsLoading(true)
       api.post('/contact_form', { email, name, reason })
         .then(res => {
-          setShowMessage(true)
           setForm({
             ...form,
             isSubmitted: res.success,
@@ -76,7 +76,10 @@ function Form() {
             isSubmitted: false,
             popUpMessage: err.message
           })
-        }).finally(() => { setIsLoading(false) })
+        }).finally(() => { 
+          setIsLoading(false)
+          setShowServerResponseDialog(true) 
+        })
     }
   }
 
@@ -86,32 +89,32 @@ function Form() {
         <fieldset disabled={isLoading} style={{ border: 'none' }}>
           <div className="flex items-center my-4">
             <FontAwesomeIcon className="pr-1" icon={faAngleRight} />
-            <input className="p-1 m-1" placeholder="Name" type="text" value={form.name}
+            <input className="p-3 m-1 font-bold" placeholder="Name" type="text" value={form.name}
               onChange={event => validateChange(event, "name")} onBlur={event => validateChange(event, "name")} />
           </div>
           <FormWarning show={!form.isValid.name} IconWarning={faExclamationCircle}
               Message={"Please enter at least 5 characters as a minumum and no symbols or special characters"} />
           <div className="flex items-center my-4">
             <FontAwesomeIcon className="pr-1" icon={faAngleRight} />
-            <input className="p-1 m-1" placeholder="E-mail" type="text" value={form.email}
+            <input className="p-3 m-1 font-bold" placeholder="E-mail" type="text" value={form.email}
               onChange={event => validateChange(event, "email")} onBlur={event => validateChange(event, "email")} />
           </div>
           <FormWarning show={!form.isValid.email} IconWarning={faExclamationCircle}
               Message={"Please enter a valid email address"} />
           <div className="flex items-center my-4">
             <FontAwesomeIcon className="pr-1" icon={faAngleRight} />
-            <textarea className="p-1 m-1" placeholder="Reason" type="text" value={form.reason}
+            <textarea className="p-3 m-1 font-bold" placeholder="Reason" type="text" value={form.reason}
               onChange={event => validateChange(event, "reason")} onBlur={event => validateChange(event, "reason")} />
           </div>
           <FormWarning show={!form.isValid.reason} IconWarning={faExclamationCircle}
               Message={"Please enter at least 10 characters as a minumum and no symbols or special characters"} />
           <IconButton className="ml-3"
             type="submit" ButtonText={"Submit"} IconName={faPaperPlane}
-            isLoading={isLoading} disabled={!form.isValid.name && !form.isValid.email && !form.isValid.reason} />
+            isLoading={isLoading} disabled={!(form.isValid.name && form.isValid.email && form.isValid.reason)} />
         </fieldset>
       </form>
-      {/* <PopUpSnackBar onClick={(newVal) => setShowMessage(newVal)}
-        Message={form.popUpMessage} IconName={faExclamationCircle} Display={showMessage} /> */}
+      <PopUpSnackBar show={showServerResponseDialog} onCloseDialog={() => setShowServerResponseDialog(false)}
+        message={form.popUpMessage} icon={faExclamationCircle} />
     </>
   )
 }

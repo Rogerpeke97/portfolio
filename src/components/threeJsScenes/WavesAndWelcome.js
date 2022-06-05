@@ -2,7 +2,7 @@ import * as THREE from "three";
 import React, { useEffect, useRef, useState } from 'react';
 import Welcome from '../index/Welcome.js'
 
-const WavesAndWelcome = ({ mediaQuery }) => {
+const WavesAndWelcome = () => {
   const camera = useRef(0);
   const canvasContainer = useRef(0);
   const [wavesSceneLoaded, setWavesSceneLoaded] = useState(false);
@@ -159,7 +159,9 @@ const WavesAndWelcome = ({ mediaQuery }) => {
     animate();
 
     manager.onLoad = () => {
-      setTimeout(() => { setWavesSceneLoaded(true) }, 2000);
+      setTimeout(() => { 
+        setWavesSceneLoaded(true) 
+      }, 2000);
     }
 
   }, []);
@@ -167,7 +169,7 @@ const WavesAndWelcome = ({ mediaQuery }) => {
   return (
     <div className="h-100 w-full relative" ref={canvasContainer} onMouseMove={(e) => mouseMove(e)}>
       <canvas id="wavesCanvas" className="max-w-full h-full"></canvas>
-      <Welcome className="inset-0" mouseMove={(e) => mouseMove(e)} mediaQuery={mediaQuery} transparentOverlay={transparentOverlay} />
+      <Welcome className="inset-0" mouseMove={(e) => mouseMove(e)} transparentOverlay={transparentOverlay} />
       <div className={`${wavesSceneLoaded ? 'fade-out' : ''} flex items-center bg-primary justify-center top-0 fixed z-50 h-100 w-full`}>
         {overlayMessage.map((letter, index) => {
           return <div key={index}

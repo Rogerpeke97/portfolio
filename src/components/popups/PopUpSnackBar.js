@@ -1,38 +1,41 @@
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from "react";
-import { useContext, useState } from "react";
-import { MediaContext } from '../../context/MediaContext.js';
+import { useState, useEffect } from "react";
+import IconButton from '../buttons/IconButton';
 
-const IconButton = ({ onClick, Message, IconName, Display }) => {
+const PopUpSnackBar = ({ show, message, icon, onCloseDialog }) => {
  
-	const {mediaQuery} = useContext(MediaContext)
+ const [hideDialogAfterAnimation, setHideDialogAfterAnimation] = useState(false)
 
- const [fadeOut, setFadeOut] = useState(false);
+ useEffect(() => {
+  if(show) {
+    setHideDialogAfterAnimation(false)
+  }
+ }, [show])
 
- function handleFadeOut (){
-   setFadeOut(true);
+ const hideDialog = () => {
+  if(!show){
+    setHideDialogAfterAnimation(true)
+    return
+  }
+  setHideDialogAfterAnimation(false)
  }
 
  return (
-  <div onAnimationEnd={()=>{
-   if(fadeOut){
-    onClick(!Display)
-    setFadeOut(false)
-   }
-  }}
-  className={`${Display ? "" : "display-none"} ${fadeOut ? "fade-out" : "fade-in"} grid font-bold justify-center button-shadow snackbar ${mediaQuery === 'small' ? "snackbar-mobile" : ""}`}>
-   <div className="flex align-items-center 
-   justify-center min-width-0 px-2">
-    <FontAwesomeIcon className="warning" icon={IconName} />
-     <p className="text-overflow-ellipsis px-1" style={{whiteSpace: 'pre-wrap'}}>{Message}</p>
+  <div onAnimationEnd={hideDialog}
+  className={`${hideDialogAfterAnimation && 'hidden'} ${show ? "fade-in" : "fade-out"} fixed h-[150px] rounded-lg
+    mdAndUp:max-w-[500px] smAndDown:w-full inset-0 bg-secondary items-center m-auto z-50 p-5 flex flex-col font-bold shadow-xl`}>
+   <div className="flex w-full items-center justify-center min-width-0 px-2">
+    <FontAwesomeIcon className="text-black" icon={icon} />
+     <p className="text-ellipsis ml-2 font-bold text-black truncate px-1" style={{whiteSpace: 'pre-wrap'}}>
+       asdalksdjasdjakjsdjkasjkdakjsdkjasjkdkjasdkjakjsdkjasdkjakjsdjkasdjkasjkdakjsdkjasdkjaskjdakjsdkjaskjdaskjdjkasdkjaskjdas
+     </p>
    </div>
-   <div className="flex align-items-center justify-center">
-    {/* <Button className="pa-1 ma-1 mr-2 icon-custom"
-    ButtonText={"Ok"} shadow onClick={handleFadeOut} /> */}
-   </div>
+   <IconButton className="ml-3 w-[150px] mt-auto" type="button" ButtonText={"Ok"} IconName={faCheck} onClick={onCloseDialog} />
   </div>
  )
 }
 
 
-export default IconButton;
+export default PopUpSnackBar;

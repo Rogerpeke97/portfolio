@@ -4,14 +4,18 @@ import IconButton from "./buttons/IconButton.js";
 
 
 const NavBar = () => {
-
 	const [navIntersect, setNavIntersect] = useState("")
 
+  const checkNavBarIntersect = (e) => {
+    const scrollY = e.currentTarget.scrollY
+    setNavIntersect(scrollY > document.documentElement.clientHeight)
+  }
+
 	useEffect(() => {
-		window.addEventListener('scroll', (e) => {
-			const scrollY = e.currentTarget.scrollY
-			setNavIntersect(scrollY > document.documentElement.clientHeight)
-		})
+		window.addEventListener('scroll', checkNavBarIntersect)
+    return () => {
+      window.removeEventListener('scroll', checkNavBarIntersect)
+    }
 	}, [])
 
 	return (
@@ -21,7 +25,7 @@ const NavBar = () => {
 					<IconButton IconName={faGithub} Link={"https://github.com/Rogerpeke97"} />
 				</div>
 				<div className="flex w-full justify-end items-center">
-					<IconButton IconName={faLinkedin} Link={"https://www.linkedin.com/in/ignacio-martin-diaz-2a30251b7/"} />
+					<IconButton IconName={faLinkedin} Link={"https://www.linkedin.com/in/ignacio-martin-sr/"} />
 				</div>
 			</div>
 		</nav>

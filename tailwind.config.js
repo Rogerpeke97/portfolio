@@ -12,6 +12,7 @@ module.exports = {
         "primary": "rgba(43, 22, 55, 1)",
         "secondary": "#84aadb",
         "terciary": "rgb(69, 40, 189)",
+        "quaternary": "",
         "background": "#020c1b",
         "button": {
           "dark": "#020A33",

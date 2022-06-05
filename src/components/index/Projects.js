@@ -4,12 +4,12 @@ import ProjectDisplay from './ProjectDisplay'
 const Projects = () => {
 
 	const xentaInfo = {
-		previewGif: {name: "xenta_gif.gif", alt: "xenta game"},
+		previewGif: {name: "projects/xenta.gif", alt: "xenta game"},
 		stackImages: [
-			{src: "nodejslogo.png", alt: "NodeJS"},
-			{src: "Reactjslogo.png", alt: "React"},
-			{src: "threejslogo.png", alt: "ThreeJS"},
-			{src: "postgresqllogo.png", alt: "PostgreSQL"}
+			{src: "tech-stack/nodejslogo.png", alt: "NodeJS"},
+			{src: "tech-stack/Reactjslogo.png", alt: "React"},
+			{src: "tech-stack/threejslogo.png", alt: "ThreeJS"},
+			{src: "tech-stack/postgresqllogo.png", alt: "PostgreSQL"}
 		],
 		title: "Xenta",
 		description: `This website is basically an "infinite" (If you don't die that is) game where you are given the sensation
@@ -24,10 +24,10 @@ const Projects = () => {
 		site: "https://xenta.netlify.app/"
 	}
 	const csvConverter = {
-		previewGif: {name: "project1.gif", alt: "Csv Converter"},
+		previewGif: {name: "projects/csv-converter.gif", alt: "Csv Converter"},
 		stackImages: [
-			{src: "nodejslogo.png", alt: "NodeJS"},
-			{src: "postgresqllogo.png", alt: "PostgreSQL"}
+			{src: "tech-stack/nodejslogo.png", alt: "NodeJS"},
+			{src: "tech-stack/postgresqllogo.png", alt: "PostgreSQL"}
 		],
 		title: "Csv-Converter",
 		description: `This is my first project, it converts csv files and displays them in a canvas using chartjs.
