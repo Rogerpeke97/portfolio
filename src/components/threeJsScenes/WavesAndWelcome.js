@@ -145,7 +145,7 @@ const WavesAndWelcome = () => {
     setupParticleSystem(scene, manager)
 
     window.addEventListener('resize', () => {
-      const height = window.innerHeight
+      const height = document.getElementById('wavesCanvas').clientHeight;
       const width = window.innerWidth;
       renderer.setSize(width, height);
       camera.current.aspect = width / height;
@@ -159,17 +159,20 @@ const WavesAndWelcome = () => {
     animate();
 
     manager.onLoad = () => {
-      setTimeout(() => { 
-        setWavesSceneLoaded(true) 
+      setTimeout(() => {
+        setWavesSceneLoaded(true)
       }, 2000);
     }
 
   }, []);
 
   return (
-    <div className="h-full w-full relative" ref={canvasContainer} onMouseMove={(e) => mouseMove(e)}>
+    <div className={`h-full w-full relative ${wavesSceneLoaded ? '' : 'bg-background'}`} 
+      ref={canvasContainer} onMouseMove={(e) => mouseMove(e)}>
       <canvas id="wavesCanvas" className="max-w-full h-full"></canvas>
-      <Welcome className="inset-0" mouseMove={(e) => mouseMove(e)} transparentOverlay={transparentOverlay} />
+      {wavesSceneLoaded &&
+        <Welcome className="inset-0" mouseMove={(e) => mouseMove(e)} transparentOverlay={transparentOverlay} />
+      }
       <div className={`${wavesSceneLoaded ? 'fade-out' : ''} flex items-center bg-primary justify-center top-0 fixed z-50 h-100 w-full`}>
         {overlayMessage.map((letter, index) => {
           return <div key={index}

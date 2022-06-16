@@ -21,8 +21,8 @@ function Index() {
         </BubblesBackgroundContainer>
       </TransitionFadeIn>
       <TransitionFadeIn direction="left">
-        <BubblesBackgroundContainer className="mt-20 pt-10 h-100" particlesColor="white">
-          <div className="flex flex-col items-center">
+        <BubblesBackgroundContainer className="h-100" particlesColor="white">
+          <div className="pt-28 flex flex-col items-center">
             <div className="flex justify-center items-center">
               {welcomeMessage.map((letter, index) => {
                 return <h1 key={index} style={{ '--i': index }} className="animate-text text-6xl text-secondary font-bold pl-1 font-teko underline">{letter}</h1>

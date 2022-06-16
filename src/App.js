@@ -29,17 +29,19 @@ function App() {
 		})
 	}
 
-  const setViewHeightCssVar = () => {
+  const setViewHeightCssVar = (firstLoad) => {
     const viewHeight = window.innerHeight
     const viewWidth = window.innerWidth
-    document.documentElement.style.setProperty('--vh', `${viewHeight}px`)
+    if(firstLoad){
+      document.documentElement.style.setProperty('--vh', `${viewHeight}px`)
+    }
     document.documentElement.style.setProperty('--vw', `${viewWidth}px`)
     setDeviceHeightAndWidth(true)
   }
 
 	useEffect(() => {
 		setWindowAndResizeEvent()
-    setViewHeightCssVar()
+    setViewHeightCssVar(true)
 	}, [])
 
 	return (
